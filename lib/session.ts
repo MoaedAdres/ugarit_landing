@@ -1,0 +1,21 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
+
+export async function getCurrentUser() {
+  const session = await getServerSession(authOptions);
+  return session?.user;
+}
+
+export async function requireAuth(role?: string) {
+  const session = await getServerSession(authOptions);
+  
+  if (!session) {
+    throw new Error("Authentication required");
+  }
+  
+  if (role && session.user.role !== role) {
+    throw new Error(`Access denied. ${role} role required.`);
+  }
+  
+  return session;
+}
