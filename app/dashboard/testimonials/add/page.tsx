@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { ArrowLeft, Save, Star, Upload, User } from "lucide-react";
+import { ArrowLeft, Save, Star, Upload, User, MessageSquare, Heart, Quote, Award, BarChart3 } from "lucide-react";
 import Link from "next/link";
 
 export default function AddTestimonialPage() {
@@ -48,99 +48,97 @@ export default function AddTestimonialPage() {
 	};
 
 	return (
-		<div className="space-y-6">
-			<div className="flex items-center gap-4">
-				<Link href="/dashboard/testimonials">
-					<Button variant="ghost" size="sm">
-						<ArrowLeft className="h-4 w-4 mr-2" />
-						Back to Testimonials
-					</Button>
-				</Link>
-				<div>
-					<h1 className="text-2xl font-bold">Add New Testimonial</h1>
-					<p className="text-muted-foreground">Collect and manage customer feedback</p>
+		<div className="space-y-8">
+			{/* Header Section */}
+			<div className="flex items-start justify-between">
+				<div className="flex items-start gap-4">
+					<Link href="/dashboard/testimonials">
+						<Button variant="ghost" size="sm" className="mt-1">
+							<ArrowLeft className="h-4 w-4 mr-2" />
+							Back to Testimonials
+						</Button>
+					</Link>
+					<div className="space-y-2">
+						<div className="flex items-center gap-3">
+							<div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-rose-500/10 to-pink-500/5 rounded-2xl border border-rose-500/20">
+								<MessageSquare className="h-7 w-7 text-rose-600" />
+							</div>
+							<div>
+								<h1 className="text-3xl font-bold tracking-tight">Add New Testimonial</h1>
+								<p className="text-muted-foreground">Collect and manage customer feedback</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				{/* Main Content */}
-				<div className="lg:col-span-2 space-y-6">
-					<Card>
-						<CardHeader>
-							<CardTitle>Client Information</CardTitle>
+				<div className="lg:col-span-2 space-y-8">
+					{/* Client Information Card */}
+					<Card className="border-0 shadow-lg bg-gradient-to-br from-background to-muted/20">
+						<CardHeader className="pb-4">
+							<CardTitle className="text-xl flex items-center gap-2">
+								<div className="w-2 h-2 bg-primary rounded-full"></div>
+								Client Information
+							</CardTitle>
 							<CardDescription>Details about the person providing the testimonial</CardDescription>
 						</CardHeader>
-						<CardContent className="space-y-4">
-							<div className="grid grid-cols-2 gap-4">
-								<div className="space-y-2">
-									<Label htmlFor="name">Full Name</Label>
+						<CardContent className="space-y-6">
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div className="space-y-3">
+									<Label htmlFor="name" className="text-sm font-medium">Full Name</Label>
 									<Input
 										id="name"
 										value={testimonialData.name}
-										onChange={(e) =>
-											setTestimonialData({
-												...testimonialData,
-												name: e.target.value,
-											})
-										}
+										onChange={(e) => setTestimonialData({ ...testimonialData, name: e.target.value })}
 										placeholder="John Smith"
+										className="h-11"
 									/>
 								</div>
-								<div className="space-y-2">
-									<Label htmlFor="email">Email Address</Label>
+								<div className="space-y-3">
+									<Label htmlFor="email" className="text-sm font-medium">Email Address</Label>
 									<Input
 										id="email"
 										type="email"
 										value={testimonialData.email}
-										onChange={(e) =>
-											setTestimonialData({
-												...testimonialData,
-												email: e.target.value,
-											})
-										}
+										onChange={(e) => setTestimonialData({ ...testimonialData, email: e.target.value })}
 										placeholder="john@company.com"
+										className="h-11"
 									/>
 								</div>
 							</div>
 
-							<div className="grid grid-cols-2 gap-4">
-								<div className="space-y-2">
-									<Label htmlFor="role">Job Title</Label>
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div className="space-y-3">
+									<Label htmlFor="role" className="text-sm font-medium">Job Title</Label>
 									<Input
 										id="role"
 										value={testimonialData.role}
-										onChange={(e) =>
-											setTestimonialData({
-												...testimonialData,
-												role: e.target.value,
-											})
-										}
+										onChange={(e) => setTestimonialData({ ...testimonialData, role: e.target.value })}
 										placeholder="CEO"
+										className="h-11"
 									/>
 								</div>
-								<div className="space-y-2">
-									<Label htmlFor="company">Company</Label>
+								<div className="space-y-3">
+									<Label htmlFor="company" className="text-sm font-medium">Company</Label>
 									<Input
 										id="company"
 										value={testimonialData.company}
-										onChange={(e) =>
-											setTestimonialData({
-												...testimonialData,
-												company: e.target.value,
-											})
-										}
+										onChange={(e) => setTestimonialData({ ...testimonialData, company: e.target.value })}
 										placeholder="TechCorp Inc."
+										className="h-11"
 									/>
 								</div>
 							</div>
 
-							<div className="space-y-2">
-								<Label htmlFor="project">Related Project</Label>
+							<div className="space-y-3">
+								<Label htmlFor="project" className="text-sm font-medium">Related Project</Label>
 								<Select
 									value={testimonialData.project}
 									onValueChange={(value) => setTestimonialData({ ...testimonialData, project: value })}
 								>
-									<SelectTrigger>
+									<SelectTrigger className="h-11">
 										<SelectValue placeholder="Select project" />
 									</SelectTrigger>
 									<SelectContent>
@@ -155,31 +153,31 @@ export default function AddTestimonialPage() {
 						</CardContent>
 					</Card>
 
-					<Card>
-						<CardHeader>
-							<CardTitle>Testimonial Content</CardTitle>
+					{/* Testimonial Content Card */}
+					<Card className="border-0 shadow-lg">
+						<CardHeader className="pb-4">
+							<CardTitle className="text-xl flex items-center gap-2">
+								<div className="w-2 h-2 bg-rose-500 rounded-full"></div>
+								Testimonial Content
+							</CardTitle>
 							<CardDescription>The actual testimonial and rating</CardDescription>
 						</CardHeader>
-						<CardContent className="space-y-4">
-							<div className="space-y-2">
-								<Label htmlFor="content">Testimonial Text</Label>
+						<CardContent className="space-y-6">
+							<div className="space-y-3">
+								<Label htmlFor="content" className="text-sm font-medium">Testimonial Text</Label>
 								<Textarea
 									id="content"
 									value={testimonialData.content}
-									onChange={(e) =>
-										setTestimonialData({
-											...testimonialData,
-											content: e.target.value,
-										})
-									}
+									onChange={(e) => setTestimonialData({ ...testimonialData, content: e.target.value })}
 									placeholder="Share your experience working with us..."
 									rows={6}
+									className="resize-none"
 								/>
 								<p className="text-xs text-muted-foreground">{testimonialData.content.length}/500 characters</p>
 							</div>
 
-							<div className="space-y-2">
-								<Label>Rating</Label>
+							<div className="space-y-3">
+								<Label className="text-sm font-medium">Rating</Label>
 								<div className="flex items-center gap-2">
 									<div className="flex">{renderStarRating()}</div>
 									<span className="text-sm text-muted-foreground ml-2">{testimonialData.rating}/5 stars</span>
@@ -188,41 +186,35 @@ export default function AddTestimonialPage() {
 						</CardContent>
 					</Card>
 
-					<Card>
-						<CardHeader>
-							<CardTitle>Privacy & Permissions</CardTitle>
+					{/* Privacy & Permissions Card */}
+					<Card className="border-0 shadow-lg">
+						<CardHeader className="pb-4">
+							<CardTitle className="text-xl flex items-center gap-2">
+								<div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+								Privacy & Permissions
+							</CardTitle>
 							<CardDescription>How this testimonial can be used</CardDescription>
 						</CardHeader>
-						<CardContent className="space-y-4">
-							<div className="flex items-center justify-between">
-								<div className="space-y-0.5">
-									<Label>Allow Public Display</Label>
-									<p className="text-sm text-muted-foreground">Show on website and marketing materials</p>
+						<CardContent className="space-y-6">
+							<div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
+								<div className="space-y-1">
+									<Label className="text-sm font-medium">Allow Public Display</Label>
+									<p className="text-xs text-muted-foreground">Show on website and marketing materials</p>
 								</div>
 								<Switch
 									checked={testimonialData.allowPublicDisplay}
-									onCheckedChange={(checked) =>
-										setTestimonialData({
-											...testimonialData,
-											allowPublicDisplay: checked,
-										})
-									}
+									onCheckedChange={(checked) => setTestimonialData({ ...testimonialData, allowPublicDisplay: checked })}
 								/>
 							</div>
 
-							<div className="flex items-center justify-between">
-								<div className="space-y-0.5">
-									<Label>Contact for Follow-up</Label>
-									<p className="text-sm text-muted-foreground">Client agrees to be contacted for case studies</p>
+							<div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
+								<div className="space-y-1">
+									<Label className="text-sm font-medium">Contact for Follow-up</Label>
+									<p className="text-xs text-muted-foreground">Client agrees to be contacted for case studies</p>
 								</div>
 								<Switch
 									checked={testimonialData.contactForFollowup}
-									onCheckedChange={(checked) =>
-										setTestimonialData({
-											...testimonialData,
-											contactForFollowup: checked,
-										})
-									}
+									onCheckedChange={(checked) => setTestimonialData({ ...testimonialData, contactForFollowup: checked })}
 								/>
 							</div>
 						</CardContent>
@@ -231,39 +223,34 @@ export default function AddTestimonialPage() {
 
 				{/* Sidebar */}
 				<div className="space-y-6">
-					<Card>
+					<Card className="border-0 shadow-lg">
 						<CardHeader>
-							<CardTitle>Settings</CardTitle>
+							<CardTitle className="text-lg">Settings</CardTitle>
 						</CardHeader>
-						<CardContent className="space-y-4">
-							<div className="flex items-center justify-between">
-								<div className="space-y-0.5">
-									<Label>Featured Testimonial</Label>
-									<p className="text-sm text-muted-foreground">Highlight on homepage</p>
+						<CardContent className="space-y-6">
+							<div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
+								<div className="space-y-1">
+									<Label className="text-sm font-medium">Featured Testimonial</Label>
+									<p className="text-xs text-muted-foreground">Highlight on homepage</p>
 								</div>
 								<Switch
 									checked={testimonialData.featured}
-									onCheckedChange={(checked) =>
-										setTestimonialData({
-											...testimonialData,
-											featured: checked,
-										})
-									}
+									onCheckedChange={(checked) => setTestimonialData({ ...testimonialData, featured: checked })}
 								/>
 							</div>
 						</CardContent>
 					</Card>
 
-					<Card>
+					<Card className="border-0 shadow-lg">
 						<CardHeader>
-							<CardTitle>Profile Photo</CardTitle>
+							<CardTitle className="text-lg">Profile Photo</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-4">
 							<div className="flex flex-col items-center gap-4">
 								<div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center">
 									<User className="h-8 w-8 text-muted-foreground" />
 								</div>
-								<Button variant="outline" size="sm">
+								<Button variant="outline" size="lg" className="w-full">
 									<Upload className="h-4 w-4 mr-2" />
 									Upload Photo
 								</Button>
@@ -271,9 +258,9 @@ export default function AddTestimonialPage() {
 						</CardContent>
 					</Card>
 
-					<Card>
+					<Card className="border-0 shadow-lg">
 						<CardHeader>
-							<CardTitle>Preview</CardTitle>
+							<CardTitle className="text-lg">Preview</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<div className="border rounded-lg p-4 space-y-3">
@@ -299,15 +286,15 @@ export default function AddTestimonialPage() {
 					</Card>
 
 					<div className="flex flex-col gap-3">
-						<Button onClick={() => handleSave("published")} className="w-full">
+						<Button onClick={() => handleSave("published")} className="w-full" size="lg">
 							<Save className="h-4 w-4 mr-2" />
 							Publish Testimonial
 						</Button>
-						<Button onClick={() => handleSave("draft")} variant="outline" className="w-full">
+						<Button onClick={() => handleSave("draft")} variant="outline" className="w-full" size="lg">
 							<Save className="h-4 w-4 mr-2" />
 							Save Draft
 						</Button>
-						<Button variant="ghost" asChild className="w-full">
+						<Button variant="ghost" asChild className="w-full" size="lg">
 							<Link href="/dashboard/testimonials">Cancel</Link>
 						</Button>
 					</div>
