@@ -1,0 +1,61 @@
+---
+alwaysApply: false
+path: "app/dashboard/**"
+---
+
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind for the dashboard section.
+
+## Dashboard-Specific Code Style and Structure
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError, isEditing).
+- Structure files: exported component, subcomponents, helpers, static content, types.
+
+## Dashboard Naming Conventions
+- Use lowercase with dashes for directories (e.g., dashboard/content-management).
+- Favor named exports for components.
+- Use descriptive names for dashboard components (e.g., DashboardSidebar, ContentManagementForm).
+
+## TypeScript Usage for Dashboard
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use maps instead.
+- Use functional components with TypeScript interfaces.
+- Define clear interfaces for dashboard data structures.
+
+## Dashboard-Specific Syntax and Formatting
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
+- Keep dashboard components focused and single-purpose.
+
+## Dashboard UI and Styling
+- Use Shadcn UI, Radix, and Tailwind for components and styling.
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.
+- Ensure dashboard components work well on different screen sizes.
+- Use consistent spacing and typography throughout the dashboard.
+
+## Dashboard Performance Optimization
+- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+- Wrap client components in Suspense with fallback.
+- Use dynamic loading for non-critical dashboard components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
+- Implement proper loading states for dashboard data.
+
+## Dashboard-Specific Conventions
+- Use 'nuqs' for URL search parameter state management in dashboard filters.
+- Optimize Web Vitals (LCP, CLS, FID) for dashboard pages.
+- Limit 'use client' in dashboard:
+  - Favor server components and Next.js SSR for data fetching.
+  - Use only for Web API access in small interactive components.
+  - Avoid for data fetching or state management.
+- Implement proper error boundaries for dashboard sections.
+- Use consistent form validation and error handling.
+
+## Dashboard Data Management
+- Implement proper loading states for all dashboard operations.
+- Use optimistic updates where appropriate.
+- Handle errors gracefully with user-friendly messages.
+- Implement proper caching strategies for dashboard data.
+
+Follow Next.js docs for Data Fetching, Rendering, and Routing in dashboard context.

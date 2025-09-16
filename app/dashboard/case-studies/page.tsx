@@ -1,8 +1,27 @@
+"use client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Edit, Trash2, Eye, TrendingUp } from "lucide-react";
+import {
+	Plus,
+	Edit,
+	Trash2,
+	Eye,
+	TrendingUp,
+	Filter,
+	Search,
+	Calendar,
+	Users,
+	Target,
+	Award,
+	BarChart3,
+	Clock,
+	Star,
+	ArrowRight,
+	Zap,
+} from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 // Mock case studies data
 const caseStudies = [
@@ -59,128 +78,192 @@ const caseStudies = [
 const industries = ["Technology", "Healthcare", "Finance", "E-commerce", "Analytics", "Education"];
 
 export default function CaseStudiesPage() {
+	const [selectedFilter, setSelectedFilter] = useState("all");
+	const [searchQuery, setSearchQuery] = useState("");
+
 	return (
-		<div className="space-y-6">
-			<div className="flex justify-between items-center">
-				<div>
-					<h3 className="text-lg font-medium">Case Studies Management</h3>
-					<p className="text-sm text-muted-foreground">
-						{caseStudies.length} case studies • {caseStudies.filter((cs: any) => cs.status === "published").length} published •{" "}
-						{caseStudies.filter((cs: any) => cs.featured).length} featured
-					</p>
+		<div className="space-y-8">
+			{/* Hero Header Section */}
+			<div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-8 text-white">
+				<div className="absolute inset-0 bg-black/20"></div>
+				<div className="relative z-10">
+					<div className="flex items-start justify-between mb-6">
+						<div className="space-y-4">
+							<div className="flex items-center gap-3">
+								<div className="flex items-center justify-center w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl">
+									<Target className="h-6 w-6" />
+								</div>
+								<div>
+									<h1 className="text-3xl font-bold">Case Studies</h1>
+									<p className="text-indigo-100">Showcase your success stories</p>
+								</div>
+							</div>
+							<div className="flex items-center gap-6 text-sm">
+								<div className="flex items-center gap-2">
+									<div className="w-2 h-2 bg-green-400 rounded-full"></div>
+									<span>{caseStudies.filter((cs: any) => cs.status === "published").length} Published</span>
+								</div>
+								<div className="flex items-center gap-2">
+									<div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+									<span>{caseStudies.filter((cs: any) => cs.featured).length} Featured</span>
+								</div>
+								<div className="flex items-center gap-2">
+									<div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+									<span>{caseStudies.length} Total</span>
+								</div>
+							</div>
+						</div>
+						<Button asChild size="lg" className="bg-white text-indigo-600 hover:bg-indigo-50 shadow-lg">
+							<Link href="/dashboard/case-studies/add">
+								<Plus className="h-4 w-4 mr-2" />
+								Create Case Study
+							</Link>
+						</Button>
+					</div>
 				</div>
-				<Button asChild>
-					<Link href="/dashboard/case-studies/add">
-						<Plus className="h-4 w-4 mr-2" />
-						New Case Study
-					</Link>
-				</Button>
+				{/* Decorative elements */}
+				<div className="absolute top-4 right-4 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+				<div className="absolute bottom-4 left-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
 			</div>
 
-			{/* Filter Bar */}
-			<Card>
-				<CardContent className="p-4">
-					<div className="flex flex-wrap gap-2">
-						<Badge variant="outline" className="cursor-pointer">
-							All Studies
-						</Badge>
-						<Badge variant="outline" className="cursor-pointer">
-							Published
-						</Badge>
-						<Badge variant="outline" className="cursor-pointer">
-							Drafts
-						</Badge>
-						<Badge variant="outline" className="cursor-pointer">
-							Featured
-						</Badge>
-						{industries.map((industry: string) => (
-							<Badge key={industry} variant="outline" className="cursor-pointer">
-								{industry}
-							</Badge>
+			{/* Search and Filter Section */}
+			<div className="flex flex-col lg:flex-row gap-4">
+				{/* Search Bar */}
+				<div className="flex-1">
+					<div className="relative">
+						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+						<input
+							type="text"
+							placeholder="Search case studies..."
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
+							className="w-full pl-10 pr-4 py-3 border border-input rounded-xl bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+						/>
+					</div>
+				</div>
+
+				{/* Filter Pills */}
+				<div className="flex items-center gap-2">
+					<Filter className="h-4 w-4 text-muted-foreground" />
+					<div className="flex gap-2">
+						{["all", "published", "drafts", "featured"].map((filter) => (
+							<button
+								key={filter}
+								onClick={() => setSelectedFilter(filter)}
+								className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+									selectedFilter === filter
+										? "bg-primary text-primary-foreground shadow-md"
+										: "bg-muted text-muted-foreground hover:bg-muted/80"
+								}`}
+							>
+								{filter.charAt(0).toUpperCase() + filter.slice(1)}
+							</button>
 						))}
 					</div>
-				</CardContent>
-			</Card>
+				</div>
+			</div>
 
-			{/* Case Studies List */}
-			<div className="grid gap-6">
+			{/* Case Studies Grid */}
+			<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
 				{caseStudies.map((study: any) => (
-					<Card key={study.id}>
-						<CardContent className="p-6">
-							<div className="flex items-start justify-between mb-4">
-								<div className="flex-1">
-									<div className="flex items-center gap-3 mb-2">
-										<h4 className="font-semibold text-xl">{study.title}</h4>
-										<Badge variant={study.status === "published" ? "default" : "secondary"}>{study.status}</Badge>
-										{study.featured && <Badge className="bg-yellow-500">Featured</Badge>}
-										<Badge variant="outline">{study.industry}</Badge>
+					<Card key={study.id} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg overflow-hidden">
+						<CardContent className="p-0">
+							{/* Card Header with Gradient */}
+							<div className="relative p-6 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
+								<div className="flex items-start justify-between mb-4">
+									<div className="flex-1">
+										<div className="flex items-center gap-2 mb-2">
+											<Badge variant={study.status === "published" ? "default" : "secondary"} className="text-xs">
+												{study.status}
+											</Badge>
+											{study.featured && (
+												<Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs">
+													<Star className="h-3 w-3 mr-1" />
+													Featured
+												</Badge>
+											)}
+										</div>
+										<h3 className="font-bold text-lg mb-1 line-clamp-2 group-hover:text-primary transition-colors">{study.title}</h3>
+										<p className="text-sm font-medium text-primary/80">{study.client}</p>
 									</div>
-
-									<p className="text-lg font-medium text-cyan-600 mb-3">{study.client}</p>
+									<div className="flex items-center gap-1">
+										<Button variant="ghost" size="sm" asChild className="h-8 w-8 p-0">
+											<Link href={`/dashboard/case-studies/${study.id}?isEdit=false`}>
+												<Eye className="h-4 w-4" />
+											</Link>
+										</Button>
+										<Button variant="ghost" size="sm" asChild className="h-8 w-8 p-0">
+											<Link href={`/dashboard/case-studies/${study.id}?isEdit=true`}>
+												<Edit className="h-4 w-4" />
+											</Link>
+										</Button>
+									</div>
 								</div>
 
-								<div className="flex items-center gap-2">
-									<Button variant="ghost" size="sm" asChild>
-										<Link href={`/dashboard/case-studies/${study.id}/preview`}>
-											<Eye className="h-4 w-4" />
+								{/* Industry Badge */}
+								<Badge variant="outline" className="text-xs">
+									{study.industry}
+								</Badge>
+							</div>
+
+							{/* Card Body */}
+							<div className="p-6 space-y-4">
+								{/* Key Metrics */}
+								<div className="grid grid-cols-2 gap-4">
+									<div className="flex items-center gap-2">
+										<Clock className="h-4 w-4 text-muted-foreground" />
+										<div>
+											<div className="text-sm font-medium">{study.duration}</div>
+											<div className="text-xs text-muted-foreground">Duration</div>
+										</div>
+									</div>
+									<div className="flex items-center gap-2">
+										<Users className="h-4 w-4 text-muted-foreground" />
+										<div>
+											<div className="text-sm font-medium">{study.teamSize}</div>
+											<div className="text-xs text-muted-foreground">Team</div>
+										</div>
+									</div>
+								</div>
+
+								{/* Results Highlight */}
+								<div className="p-3 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
+									<div className="flex items-center gap-2 mb-1">
+										<Zap className="h-4 w-4 text-green-600" />
+										<span className="text-sm font-medium text-green-800 dark:text-green-200">Key Results</span>
+									</div>
+									<p className="text-sm text-green-700 dark:text-green-300 line-clamp-2">{study.results}</p>
+								</div>
+
+								{/* Technologies */}
+								<div>
+									<div className="text-xs font-medium text-muted-foreground mb-2">Technologies</div>
+									<div className="flex flex-wrap gap-1">
+										{study.technologies.slice(0, 3).map((tech: string) => (
+											<Badge key={tech} variant="secondary" className="text-xs px-2 py-1">
+												{tech}
+											</Badge>
+										))}
+										{study.technologies.length > 3 && (
+											<Badge variant="outline" className="text-xs px-2 py-1">
+												+{study.technologies.length - 3} more
+											</Badge>
+										)}
+									</div>
+								</div>
+
+								{/* Footer Actions */}
+								<div className="flex items-center justify-between pt-4 border-t">
+									<div className="flex items-center gap-2 text-xs text-muted-foreground">
+										<BarChart3 className="h-3 w-3" />
+										<span>{study.views.toLocaleString()} views</span>
+									</div>
+									<Button variant="ghost" size="sm" asChild className="text-xs">
+										<Link href={`/dashboard/case-studies/${study.id}?isEdit=false`}>
+											View Details
+											<ArrowRight className="h-3 w-3 ml-1" />
 										</Link>
 									</Button>
-									<Button variant="ghost" size="sm" asChild>
-										<Link href={`/dashboard/case-studies/${study.id}/edit`}>
-											<Edit className="h-4 w-4" />
-										</Link>
-									</Button>
-									<Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">
-										<Trash2 className="h-4 w-4" />
-									</Button>
-								</div>
-							</div>
-
-							<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-								<div>
-									<h5 className="font-semibold mb-2 text-red-600">Challenge</h5>
-									<p className="text-sm text-muted-foreground">{study.challenge}</p>
-								</div>
-								<div>
-									<h5 className="font-semibold mb-2 text-blue-600">Solution</h5>
-									<p className="text-sm text-muted-foreground">{study.solution}</p>
-								</div>
-								<div>
-									<h5 className="font-semibold mb-2 text-green-600">Results</h5>
-									<p className="text-sm text-muted-foreground">{study.results}</p>
-								</div>
-							</div>
-
-							<div className="mt-4 pt-4 border-t">
-								<div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-									<div>
-										<span className="font-medium">Duration:</span>
-										<p className="text-muted-foreground">{study.duration}</p>
-									</div>
-									<div>
-										<span className="font-medium">Team Size:</span>
-										<p className="text-muted-foreground">{study.teamSize}</p>
-									</div>
-									<div>
-										<span className="font-medium">Views:</span>
-										<p className="text-muted-foreground">{study.views.toLocaleString()}</p>
-									</div>
-									<div>
-										<span className="font-medium">Published:</span>
-										<p className="text-muted-foreground">
-											{study.publishDate ? new Date(study.publishDate).toLocaleDateString() : "Not published"}
-										</p>
-									</div>
-								</div>
-							</div>
-
-							<div className="mt-3">
-								<div className="flex flex-wrap gap-2">
-									{study.technologies.map((tech: string) => (
-										<Badge key={tech} variant="outline" className="text-xs">
-											{tech}
-										</Badge>
-									))}
 								</div>
 							</div>
 						</CardContent>
@@ -188,37 +271,89 @@ export default function CaseStudiesPage() {
 				))}
 			</div>
 
-			{/* Stats Cards */}
-			<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-				<Card>
-					<CardContent className="p-4">
-						<div className="flex items-center gap-2">
-							<TrendingUp className="h-5 w-5 text-cyan-600" />
-							<div>
-								<div className="text-2xl font-bold">8</div>
-								<p className="text-sm text-muted-foreground">Total Studies</p>
+			{/* Performance Analytics Section */}
+			<div className="space-y-6">
+				<div className="flex items-center gap-3">
+					<div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl">
+						<BarChart3 className="h-5 w-5 text-white" />
+					</div>
+					<div>
+						<h2 className="text-xl font-bold">Performance Analytics</h2>
+						<p className="text-sm text-muted-foreground">Track your case study success</p>
+					</div>
+				</div>
+
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+					{/* Total Studies */}
+					<Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20">
+						<CardContent className="p-6">
+							<div className="flex items-center justify-between">
+								<div>
+									<div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{caseStudies.length}</div>
+									<p className="text-sm font-medium text-blue-800 dark:text-blue-200">Total Studies</p>
+									<p className="text-xs text-blue-600/70 dark:text-blue-400/70">All case studies</p>
+								</div>
+								<div className="flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
+									<Target className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+								</div>
 							</div>
-						</div>
-					</CardContent>
-				</Card>
-				<Card>
-					<CardContent className="p-4">
-						<div className="text-2xl font-bold">6</div>
-						<p className="text-sm text-muted-foreground">Published</p>
-					</CardContent>
-				</Card>
-				<Card>
-					<CardContent className="p-4">
-						<div className="text-2xl font-bold">2</div>
-						<p className="text-sm text-muted-foreground">Featured</p>
-					</CardContent>
-				</Card>
-				<Card>
-					<CardContent className="p-4">
-						<div className="text-2xl font-bold">12.5K</div>
-						<p className="text-sm text-muted-foreground">Total Views</p>
-					</CardContent>
-				</Card>
+						</CardContent>
+					</Card>
+
+					{/* Published */}
+					<Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
+						<CardContent className="p-6">
+							<div className="flex items-center justify-between">
+								<div>
+									<div className="text-3xl font-bold text-green-600 dark:text-green-400">
+										{caseStudies.filter((cs: any) => cs.status === "published").length}
+									</div>
+									<p className="text-sm font-medium text-green-800 dark:text-green-200">Published</p>
+									<p className="text-xs text-green-600/70 dark:text-green-400/70">Live on website</p>
+								</div>
+								<div className="flex items-center justify-center w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl">
+									<Calendar className="h-6 w-6 text-green-600 dark:text-green-400" />
+								</div>
+							</div>
+						</CardContent>
+					</Card>
+
+					{/* Featured */}
+					<Card className="border-0 shadow-lg bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20">
+						<CardContent className="p-6">
+							<div className="flex items-center justify-between">
+								<div>
+									<div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">
+										{caseStudies.filter((cs: any) => cs.featured).length}
+									</div>
+									<p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">Featured</p>
+									<p className="text-xs text-yellow-600/70 dark:text-yellow-400/70">Homepage highlights</p>
+								</div>
+								<div className="flex items-center justify-center w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl">
+									<Star className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
+								</div>
+							</div>
+						</CardContent>
+					</Card>
+
+					{/* Total Views */}
+					<Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20">
+						<CardContent className="p-6">
+							<div className="flex items-center justify-between">
+								<div>
+									<div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
+										{caseStudies.reduce((sum: number, cs: any) => sum + cs.views, 0).toLocaleString()}
+									</div>
+									<p className="text-sm font-medium text-purple-800 dark:text-purple-200">Total Views</p>
+									<p className="text-xs text-purple-600/70 dark:text-purple-400/70">All time views</p>
+								</div>
+								<div className="flex items-center justify-center w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+									<TrendingUp className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+								</div>
+							</div>
+						</CardContent>
+					</Card>
+				</div>
 			</div>
 		</div>
 	);
