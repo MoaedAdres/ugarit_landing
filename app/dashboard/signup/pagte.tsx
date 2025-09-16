@@ -1,7 +1,7 @@
 import React from "react";
 
 function pagte() {
-  return <div>pagte</div>;
+	return <div>pagte</div>;
 }
 
 export default pagte;

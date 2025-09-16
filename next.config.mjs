@@ -4,18 +4,18 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true,
-  },
-  experimental: {
-    serverComponentsExternalPackages: ["next-auth"],
-  },
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
+	typescript: {
+		ignoreBuildErrors: true,
+	},
+	images: {
+		unoptimized: true,
+	},
+	experimental: {
+		serverComponentsExternalPackages: ["next-auth"],
+	},
 };
 
 export default withNextIntl(nextConfig);

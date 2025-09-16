@@ -1,4 +1,4 @@
 export enum ErrorMessages {
-  ServerError = "ServerError",
-  Default = "Default",
+	ServerError = "ServerError",
+	Default = "Default",
 }

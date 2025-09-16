@@ -13,24 +13,24 @@ import { CtaSection } from "@/components/sections/cta-section";
 import { fetchHomePage } from "@/lib/api";
 
 export default async function HomePage() {
-  const homeData = await fetchHomePage();
+	const homeData = await fetchHomePage();
 
-  return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
-        <HeroSection hero={homeData.hero} />
-        <ServicesHighlights highlights={homeData.highlights} />
-        <FeaturesSection features={homeData.features} />
-        <StatsSection kpis={homeData.kpis} />
-        <CaseStudiesSection caseStudyIds={homeData.case_studies} />
-        <TestimonialsSection testimonialIds={homeData.testimonials} />
-        <PartnersSection partnerIds={homeData.partners} />
-        <PricingSection />
-        <BlogPreviewSection count={homeData.blog_preview_count} />
-        <CtaSection cta={homeData.cta} />
-      </main>
-      <Footer />
-    </div>
-  );
+	return (
+		<div className="min-h-screen">
+			<Header />
+			<main>
+				<HeroSection hero={homeData.hero} />
+				<ServicesHighlights highlights={homeData.highlights} />
+				<FeaturesSection features={homeData.features} />
+				<StatsSection kpis={homeData.kpis} />
+				<CaseStudiesSection caseStudyIds={homeData.case_studies} />
+				<TestimonialsSection testimonialIds={homeData.testimonials} />
+				<PartnersSection partnerIds={homeData.partners} />
+				<PricingSection />
+				<BlogPreviewSection count={homeData.blog_preview_count} />
+				<CtaSection cta={homeData.cta} />
+			</main>
+			<Footer />
+		</div>
+	);
 }
