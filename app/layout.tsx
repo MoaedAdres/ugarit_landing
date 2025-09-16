@@ -69,7 +69,7 @@ export default async function RootLayout({
       lang={locale}
       dir={isRtl ? "rtl" : "ltr"}
       suppressHydrationWarning
-      className="scroll-smooth"
+      className="scroll-smooth bg-primary-50"
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

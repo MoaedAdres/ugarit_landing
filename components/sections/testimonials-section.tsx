@@ -8,6 +8,7 @@ import { Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import MySwiper from "../Reusable-components/MySwiper";
 
 interface TestimonialsSectionProps {
   testimonialIds: string[];
@@ -82,71 +83,47 @@ export function TestimonialsSection({
             to say about our services
           </p>
         </div>
+        <MySwiper>
+          {mockTestimonials.map((testimonial, index) => (
+            <Card key={index} className="group hover:shadow-glow transition-all duration-300 border-0 gradient-card h-full flex flex-col py-0 xl:py-6 ">
+              <CardContent className="p-6 h-full flex flex-col">
+                <Quote className="h-6 w-6 text-gradient-inspiring  mb-4" />
 
-        <div className="relative">
-          <Swiper
-            modules={[Pagination]}
-            spaceBetween={30}
-            slidesPerView={1}
-            pagination={{
-              clickable: true,
-              dynamicBullets: true,
-            }}
-            breakpoints={{
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-              },
-            }}
-            className="testimonials-swiper"
-          >
-            {mockTestimonials.map((testimonial, index) => (
-              <SwiperSlide key={testimonial.id}>
-                <Card className="group hover:shadow-glow transition-all duration-300 border-0 gradient-card hover:-translate-y-2 h-full flex flex-col">
-                  <CardContent className="p-6 h-full flex flex-col">
-                    <Quote className="h-6 w-6 text-primary/30 mb-4" />
+                <div className="flex mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-4 w-4 text-yellow-400 fill-current"
+                    />
+                  ))}
+                </div>
 
-                    <div className="flex mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-4 w-4 text-yellow-400 fill-current"
-                        />
-                      ))}
+                <blockquote className="text-muted-foreground leading-relaxed mb-6 text-xs flex-grow">
+                  "{testimonial.quote}"
+                </blockquote>
+
+                <div className="flex items-center space-x-3 mt-auto">
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                    <span className="font-semibold text-primary-600 text-sm">
+                      {testimonial.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-tech-navy text-sm">
+                      {testimonial.name}
                     </div>
-
-                    <blockquote className="text-muted-foreground leading-relaxed mb-6 text-sm flex-grow">
-                      "{testimonial.quote}"
-                    </blockquote>
-
-                    <div className="flex items-center space-x-3 mt-auto">
-                      <div className="w-10 h-10 gradient-primary rounded-full flex items-center justify-center">
-                        <span className="font-semibold text-white text-sm">
-                          {testimonial.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </span>
-                      </div>
-                      <div>
-                        <div className="font-semibold text-tech-navy text-sm">
-                          {testimonial.name}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {testimonial.role}, {testimonial.company}
-                        </div>
-                      </div>
+                    <div className="text-xs text-muted-foreground">
+                      {testimonial.role}, {testimonial.company}
                     </div>
-                  </CardContent>
-                </Card>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </MySwiper>
       </div>
     </section>
   );

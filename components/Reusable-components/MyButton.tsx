@@ -1,7 +1,6 @@
 import { Button } from "../ui/button";
 import { IMyButton } from "@/interfaces/ui/button";
 import { cn } from "@/lib/utils";
-import { Arrow } from "@radix-ui/react-select";
 import { getTranslations } from "next-intl/server";
 
 async function MyButton({
@@ -10,19 +9,22 @@ async function MyButton({
   Icon,
   classes,
   size = "lg",
+  iconClasses = "h-5 w-5",
+  ...props
 }: IMyButton) {
   const t = await getTranslations();
   return (
     <Button
       variant={variant}
       size={size}
+      {...props}
       className={cn(
-        "text-secondary-900 bg-background hover:bg-background transition-smooth px-8 py-4 text-lg",
+        "text-secondary-900 bg-secondary-100 hover:bg-background transition-smooth px-8 py-4 text-lg",
         classes,
       )}
     >
-      {Icon && <Icon className="h-5 w-5" />}
-      {t(text)}
+      {Icon && <Icon className={iconClasses} />}
+      {text && t(text)}
     </Button>
   );
 }

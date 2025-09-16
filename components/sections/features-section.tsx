@@ -19,11 +19,10 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
         {features.map((feature, index) => (
           <div
             key={index}
-            className={`flex flex-col lg:flex-row items-center gap-12 ${
-              feature.variant === "image-right"
+            className={`flex flex-col lg:flex-row items-center gap-12 ${feature.variant === "image-right"
                 ? "lg:flex-row"
                 : "lg:flex-row-reverse"
-            } animate-in fade-in-0 slide-in-from-bottom-8 duration-1000`}
+              } animate-in fade-in-0 slide-in-from-bottom-8 duration-1000`}
             style={{ animationDelay: `${index * 300}ms` }}
           >
             {/* Content */}
@@ -63,7 +62,7 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
                 className="relative w-full h-full rounded-xl overflow-hidden shadow-lg transition-all duration-500 
                              hover:shadow-glow hover:scale-105 hover:-rotate-1 transform-gpu"
               >
-                <Image
+                {/* <Image
                   src={feature.media.url || "/placeholder.svg"}
                   alt={feature.title}
                   // fill
@@ -71,7 +70,7 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
                   unoptimized={true}
                   placeholder="blur"
                   className="object-cover w-full h-full transition-transform duration-700 hover:scale-110"
-                />
+                /> */}
                 <div
                   className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 
                                transition-opacity duration-500 hover:opacity-100"

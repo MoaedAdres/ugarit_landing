@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-
+import StatsBacground from "@/public/jpgs/stats/statsBackground.jpg"
+import MyImage from "../Reusable-components/MyImage";
 interface KPI {
   label: string;
   value: number;
@@ -66,13 +67,14 @@ export function StatsSection({ kpis }: StatsSectionProps) {
   return (
     <section className="py-16 bg-gradient-hero relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-tech-navy/10"></div>
+      <MyImage className="absolute inset-0  backdrop-blur-lg" src={StatsBacground} alt="stats background" />
+      {/* <div className=" bg-tech-navy/10"></div> */}
       <div className="relative container mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-tech-navy mb-4">
-            Trusted by <span className="text-primary">Industry Leaders</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
+            Trusted by <span className="text-secondary-foreground">Industry Leaders</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-secondary-800 max-w-2xl mx-auto leading-relaxed">
             Our track record speaks for itself with measurable results and
             satisfied clients
           </p>
