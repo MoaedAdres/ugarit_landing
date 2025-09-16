@@ -1,24 +1,24 @@
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Linkedin, Twitter, Github, Calendar, FileText } from "lucide-react"
-import Link from "next/link"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Linkedin, Twitter, Github, Calendar, FileText } from "lucide-react";
+import Link from "next/link";
 
 interface AuthorProfileProps {
   author: {
-    name: string
-    role: string
-    bio: string
-    avatar: string
+    name: string;
+    role: string;
+    bio: string;
+    avatar: string;
     socials: {
-      linkedin?: string
-      twitter?: string
-      github?: string
-    }
-    expertise: string[]
-    posts_count: number
-    joined_date: string
-  }
+      linkedin?: string;
+      twitter?: string;
+      github?: string;
+    };
+    expertise: string[];
+    posts_count: number;
+    joined_date: string;
+  };
 }
 
 export function AuthorProfile({ author }: AuthorProfileProps) {
@@ -40,13 +40,19 @@ export function AuthorProfile({ author }: AuthorProfileProps) {
 
               {/* Info */}
               <div className="flex-1 text-center md:text-left">
-                <h1 className="font-heading font-black text-3xl md:text-4xl text-foreground mb-2">{author.name}</h1>
+                <h1 className="font-heading font-black text-3xl md:text-4xl text-foreground mb-2">
+                  {author.name}
+                </h1>
                 <p className="text-xl text-primary mb-4">{author.role}</p>
-                <p className="text-muted-foreground leading-relaxed mb-6">{author.bio}</p>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  {author.bio}
+                </p>
 
                 {/* Expertise */}
                 <div className="mb-6">
-                  <h3 className="font-heading font-semibold text-foreground mb-3">Expertise</h3>
+                  <h3 className="font-heading font-semibold text-foreground mb-3">
+                    Expertise
+                  </h3>
                   <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                     {author.expertise.map((skill, index) => (
                       <Badge key={index} variant="secondary">
@@ -64,7 +70,9 @@ export function AuthorProfile({ author }: AuthorProfileProps) {
                   </div>
                   <div className="flex items-center space-x-1">
                     <Calendar className="h-4 w-4" />
-                    <span>Joined {new Date(author.joined_date).toLocaleDateString()}</span>
+                    <span>
+                      Joined {new Date(author.joined_date).toLocaleDateString()}
+                    </span>
                   </div>
                 </div>
 
@@ -98,5 +106,5 @@ export function AuthorProfile({ author }: AuthorProfileProps) {
         </Card>
       </div>
     </section>
-  )
+  );
 }

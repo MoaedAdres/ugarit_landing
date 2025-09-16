@@ -6,10 +6,11 @@ export function CareersHero() {
           Join Our Team
         </h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-          Build the future of technology with us. We're looking for passionate individuals who want to make a real
-          impact in the world of IT solutions and digital transformation.
+          Build the future of technology with us. We're looking for passionate
+          individuals who want to make a real impact in the world of IT
+          solutions and digital transformation.
         </p>
       </div>
     </section>
-  )
+  );
 }

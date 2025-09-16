@@ -23,11 +23,11 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image className="size-16" alt="logo" src={Logo} />
-            <span className="text-xl font-bold text-primary-foreground">
+            {/* <span className="text-xl font-bold text-primary-foreground">
               Ugarit Technologies
-            </span>
+            </span> */}
           </Link>
-          {/* <LocaleSwitcher /> */}
+          <LocaleSwitcher />
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             <Link

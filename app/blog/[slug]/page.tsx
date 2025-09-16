@@ -1,11 +1,11 @@
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
-import { BlogPostHero } from "@/components/blog/blog-post-hero"
-import { BlogPostContent } from "@/components/blog/blog-post-content"
-import { BlogPostToc } from "@/components/blog/blog-post-toc"
-import { RelatedPosts } from "@/components/blog/related-posts"
-import { BlogPostCta } from "@/components/blog/blog-post-cta"
-import { notFound } from "next/navigation"
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { BlogPostHero } from "@/components/blog/blog-post-hero";
+import { BlogPostContent } from "@/components/blog/blog-post-content";
+import { BlogPostToc } from "@/components/blog/blog-post-toc";
+import { RelatedPosts } from "@/components/blog/related-posts";
+import { BlogPostCta } from "@/components/blog/blog-post-cta";
+import { notFound } from "next/navigation";
 
 // Mock blog post data - replace with actual API call
 const getBlogPostData = (slug: string) => {
@@ -66,7 +66,10 @@ Ensure optimal performance in the cloud environment:
 
 Successful cloud migration requires careful planning, the right strategy, and ongoing optimization. By following these best practices, enterprises can realize the full benefits of cloud computing while minimizing risks and disruptions.
       `,
-      cover_image: { url: "/blog-cloud-migration-detail.png", alt: "Cloud migration strategy" },
+      cover_image: {
+        url: "/blog-cloud-migration-detail.png",
+        alt: "Cloud migration strategy",
+      },
       author: {
         id: "david-kim",
         name: "David Kim",
@@ -80,31 +83,47 @@ Successful cloud migration requires careful planning, the right strategy, and on
       reading_time: "6 min read",
       toc: [
         { id: "introduction", title: "Introduction", level: 1 },
-        { id: "planning-your-migration-strategy", title: "Planning Your Migration Strategy", level: 1 },
+        {
+          id: "planning-your-migration-strategy",
+          title: "Planning Your Migration Strategy",
+          level: 1,
+        },
         { id: "assessment-phase", title: "Assessment Phase", level: 2 },
         { id: "migration-approaches", title: "Migration Approaches", level: 2 },
-        { id: "implementation-best-practices", title: "Implementation Best Practices", level: 1 },
-        { id: "security-considerations", title: "Security Considerations", level: 2 },
-        { id: "performance-optimization", title: "Performance Optimization", level: 2 },
+        {
+          id: "implementation-best-practices",
+          title: "Implementation Best Practices",
+          level: 1,
+        },
+        {
+          id: "security-considerations",
+          title: "Security Considerations",
+          level: 2,
+        },
+        {
+          id: "performance-optimization",
+          title: "Performance Optimization",
+          level: 2,
+        },
         { id: "conclusion", title: "Conclusion", level: 1 },
       ],
     },
-  }
+  };
 
-  return blogPosts[slug] || null
-}
+  return blogPosts[slug] || null;
+};
 
 interface BlogPostPageProps {
   params: {
-    slug: string
-  }
+    slug: string;
+  };
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getBlogPostData(params.slug)
+  const post = getBlogPostData(params.slug);
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -127,5 +146,5 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

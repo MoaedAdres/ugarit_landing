@@ -9,20 +9,28 @@ export function MobileMenuToggle() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     const mobileMenu = document.getElementById("mobile-menu");
-    
+
     if (mobileMenu) {
       if (!isMobileMenuOpen) {
         mobileMenu.classList.remove("hidden");
-        mobileMenu.classList.add("animate-in", "slide-in-from-top-2", "duration-300");
+        mobileMenu.classList.add(
+          "animate-in",
+          "slide-in-from-top-2",
+          "duration-300",
+        );
       } else {
         mobileMenu.classList.add("hidden");
-        mobileMenu.classList.remove("animate-in", "slide-in-from-top-2", "duration-300");
+        mobileMenu.classList.remove(
+          "animate-in",
+          "slide-in-from-top-2",
+          "duration-300",
+        );
       }
     }
   };
 
   return (
-    <button 
+    <button
       className="lg:hidden p-2 rounded-md hover:bg-muted transition-smooth"
       onClick={toggleMobileMenu}
       aria-label="Toggle mobile menu"

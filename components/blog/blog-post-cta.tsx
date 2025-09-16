@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Mail, Rss } from "lucide-react"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Mail, Rss } from "lucide-react";
+import Link from "next/link";
 
 export function BlogPostCta() {
   return (
@@ -13,8 +13,8 @@ export function BlogPostCta() {
               Stay Updated with Our Latest Insights
             </h2>
             <p className="text-muted-foreground mb-8 text-pretty">
-              Subscribe to our newsletter and never miss the latest technology trends, best practices, and expert
-              insights.
+              Subscribe to our newsletter and never miss the latest technology
+              trends, best practices, and expert insights.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg">
@@ -34,5 +34,5 @@ export function BlogPostCta() {
         </Card>
       </div>
     </section>
-  )
+  );
 }

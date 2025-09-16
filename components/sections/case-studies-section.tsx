@@ -1,10 +1,10 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, TrendingUp } from "lucide-react"
-import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, TrendingUp } from "lucide-react";
+import Link from "next/link";
 
 interface CaseStudiesSectionProps {
-  caseStudyIds: string[]
+  caseStudyIds: string[];
 }
 
 // Mock case studies data - replace with actual API call
@@ -14,7 +14,8 @@ const mockCaseStudies = [
     title: "Retail Chain ML Implementation",
     client: "Major Retail Corporation",
     sector: "Retail",
-    summary: "Reduced operational costs by 30% through machine learning optimization",
+    summary:
+      "Reduced operational costs by 30% through machine learning optimization",
     results: [
       { label: "Cost Reduction", value: "30%" },
       { label: "Processing Speed", value: "5x faster" },
@@ -45,7 +46,7 @@ const mockCaseStudies = [
     ],
     image: "/case-study-healthcare.png",
   },
-]
+];
 
 export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
   return (
@@ -56,14 +57,15 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
             Success <span className="text-primary">Stories</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Real results from real clients. See how we've helped businesses transform their IT infrastructure
+            Real results from real clients. See how we've helped businesses
+            transform their IT infrastructure
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockCaseStudies.map((study, index) => (
-            <Card 
-              key={study.id} 
+            <Card
+              key={study.id}
               className="group hover:shadow-glow transition-all duration-300 border-0 gradient-card hover:-translate-y-2 overflow-hidden"
             >
               {/* Image placeholder with overlay */}
@@ -71,7 +73,9 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
                 <div className="absolute inset-0 bg-tech-navy/60 flex items-center justify-center">
                   <div className="text-center">
                     <TrendingUp className="h-10 w-10 text-white mx-auto mb-2" />
-                    <p className="text-xs text-white/80 font-medium">{study.sector}</p>
+                    <p className="text-xs text-white/80 font-medium">
+                      {study.sector}
+                    </p>
                   </div>
                 </div>
                 <div className="absolute top-3 right-3">
@@ -92,9 +96,16 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
 
                 <div className="grid grid-cols-2 gap-3 mb-5">
                   {study.results.map((result, resultIndex) => (
-                    <div key={resultIndex} className="text-center p-3 bg-primary/5 rounded-lg border border-primary/10">
-                      <div className="font-bold text-base text-primary">{result.value}</div>
-                      <div className="text-xs text-muted-foreground">{result.label}</div>
+                    <div
+                      key={resultIndex}
+                      className="text-center p-3 bg-primary/5 rounded-lg border border-primary/10"
+                    >
+                      <div className="font-bold text-base text-primary">
+                        {result.value}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {result.label}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -115,7 +126,10 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
         </div>
 
         <div className="text-center mt-10">
-          <Button className="gradient-primary hover:opacity-90 transition-smooth px-6 py-3 font-semibold" asChild>
+          <Button
+            className="gradient-primary hover:opacity-90 transition-smooth px-6 py-3 font-semibold"
+            asChild
+          >
             <Link href="/case-studies">
               View All Case Studies
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -124,5 +138,5 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
         </div>
       </div>
     </section>
-  )
+  );
 }

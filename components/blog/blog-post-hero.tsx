@@ -1,24 +1,24 @@
-import { Badge } from "@/components/ui/badge"
-import { Calendar, Clock, Share2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { Badge } from "@/components/ui/badge";
+import { Calendar, Clock, Share2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface BlogPostHeroProps {
   post: {
-    title: string
-    excerpt: string
-    cover_image: { url: string; alt: string }
+    title: string;
+    excerpt: string;
+    cover_image: { url: string; alt: string };
     author: {
-      id: string
-      name: string
-      role: string
-      avatar: string
-    }
-    published_at: string
-    categories: string[]
-    tags: string[]
-    reading_time: string
-  }
+      id: string;
+      name: string;
+      role: string;
+      avatar: string;
+    };
+    published_at: string;
+    categories: string[];
+    tags: string[];
+    reading_time: string;
+  };
 }
 
 export function BlogPostHero({ post }: BlogPostHeroProps) {
@@ -41,7 +41,9 @@ export function BlogPostHero({ post }: BlogPostHeroProps) {
           </h1>
 
           {/* Excerpt */}
-          <p className="text-xl text-muted-foreground mb-8 leading-relaxed text-pretty">{post.excerpt}</p>
+          <p className="text-xl text-muted-foreground mb-8 leading-relaxed text-pretty">
+            {post.excerpt}
+          </p>
 
           {/* Meta Info */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
@@ -63,7 +65,9 @@ export function BlogPostHero({ post }: BlogPostHeroProps) {
                   >
                     {post.author.name}
                   </Link>
-                  <div className="text-sm text-muted-foreground">{post.author.role}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {post.author.role}
+                  </div>
                 </div>
               </div>
 
@@ -71,7 +75,9 @@ export function BlogPostHero({ post }: BlogPostHeroProps) {
               <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                 <div className="flex items-center space-x-1">
                   <Calendar className="h-4 w-4" />
-                  <span>{new Date(post.published_at).toLocaleDateString()}</span>
+                  <span>
+                    {new Date(post.published_at).toLocaleDateString()}
+                  </span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Clock className="h-4 w-4" />
@@ -98,5 +104,5 @@ export function BlogPostHero({ post }: BlogPostHeroProps) {
         </div>
       </div>
     </section>
-  )
+  );
 }

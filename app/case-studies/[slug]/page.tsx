@@ -1,13 +1,13 @@
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
-import { CaseStudyHero } from "@/components/case-studies/case-study-hero"
-import { CaseStudyOverview } from "@/components/case-studies/case-study-overview"
-import { CaseStudyResults } from "@/components/case-studies/case-study-results"
-import { CaseStudyTestimonial } from "@/components/case-studies/case-study-testimonial"
-import { CaseStudyGallery } from "@/components/case-studies/case-study-gallery"
-import { RelatedCaseStudies } from "@/components/case-studies/related-case-studies"
-import { CaseStudyCta } from "@/components/case-studies/case-study-cta"
-import { notFound } from "next/navigation"
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { CaseStudyHero } from "@/components/case-studies/case-study-hero";
+import { CaseStudyOverview } from "@/components/case-studies/case-study-overview";
+import { CaseStudyResults } from "@/components/case-studies/case-study-results";
+import { CaseStudyTestimonial } from "@/components/case-studies/case-study-testimonial";
+import { CaseStudyGallery } from "@/components/case-studies/case-study-gallery";
+import { RelatedCaseStudies } from "@/components/case-studies/related-case-studies";
+import { CaseStudyCta } from "@/components/case-studies/case-study-cta";
+import { notFound } from "next/navigation";
 
 // Mock case study data - replace with actual API call
 const getCaseStudyData = (slug: string) => {
@@ -63,26 +63,31 @@ const getCaseStudyData = (slug: string) => {
         { url: "/case-study-retail-2.png", alt: "Analytics interface" },
         { url: "/case-study-retail-3.png", alt: "Mobile application" },
       ],
-      tags: ["Cloud Migration", "Machine Learning", "Cost Reduction", "Performance"],
+      tags: [
+        "Cloud Migration",
+        "Machine Learning",
+        "Cost Reduction",
+        "Performance",
+      ],
       timeline: "6 months",
       team_size: "8 specialists",
     },
-  }
+  };
 
-  return caseStudies[slug] || null
-}
+  return caseStudies[slug] || null;
+};
 
 interface CaseStudyPageProps {
   params: {
-    slug: string
-  }
+    slug: string;
+  };
 }
 
 export default function CaseStudyPage({ params }: CaseStudyPageProps) {
-  const caseStudy = getCaseStudyData(params.slug)
+  const caseStudy = getCaseStudyData(params.slug);
 
   if (!caseStudy) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -99,5 +104,5 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

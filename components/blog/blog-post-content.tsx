@@ -1,7 +1,7 @@
 interface BlogPostContentProps {
   post: {
-    body: string
-  }
+    body: string;
+  };
 }
 
 export function BlogPostContent({ post }: BlogPostContentProps) {
@@ -12,5 +12,5 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
         dangerouslySetInnerHTML={{ __html: post.body.replace(/\n/g, "<br />") }}
       />
     </article>
-  )
+  );
 }

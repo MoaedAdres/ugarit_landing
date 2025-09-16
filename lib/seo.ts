@@ -1,24 +1,26 @@
-import type { Metadata } from "next"
+import type { Metadata } from "next";
 
 export interface SEOConfig {
-  title: string
-  description: string
-  keywords?: string[]
-  canonicalUrl?: string
-  ogImage?: string
-  ogType?: "website" | "article" | "product"
-  publishedTime?: string
-  modifiedTime?: string
-  author?: string
-  section?: string
-  tags?: string[]
+  title: string;
+  description: string;
+  keywords?: string[];
+  canonicalUrl?: string;
+  ogImage?: string;
+  ogType?: "website" | "article" | "product";
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  section?: string;
+  tags?: string[];
 }
 
 export const DEFAULT_SEO = {
   siteName: "Ugarit Technologies",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://ugarit-tech.com",
-  defaultTitle: "Ugarit Technologies - Enterprise IT Solutions & Cloud Services",
-  defaultDescription: "Leading provider of enterprise IT solutions, cloud infrastructure, DevOps consulting, and digital transformation services. Build. Scale. Secure.",
+  defaultTitle:
+    "Ugarit Technologies - Enterprise IT Solutions & Cloud Services",
+  defaultDescription:
+    "Leading provider of enterprise IT solutions, cloud infrastructure, DevOps consulting, and digital transformation services. Build. Scale. Secure.",
   defaultKeywords: [
     "IT solutions",
     "cloud services",
@@ -29,13 +31,13 @@ export const DEFAULT_SEO = {
     "cloud infrastructure",
     "software development",
     "IT consulting",
-    "technology services"
+    "technology services",
   ],
   defaultOgImage: "/og-image.jpg",
   twitterHandle: "@UgaritTech",
   linkedinUrl: "https://linkedin.com/company/ugarit-technologies",
-  githubUrl: "https://github.com/ugarit-technologies"
-}
+  githubUrl: "https://github.com/ugarit-technologies",
+};
 
 export function generateMetadata(config: SEOConfig): Metadata {
   const {
@@ -49,17 +51,19 @@ export function generateMetadata(config: SEOConfig): Metadata {
     modifiedTime,
     author,
     section,
-    tags = []
-  } = config
+    tags = [],
+  } = config;
 
-  const fullTitle = title.includes(DEFAULT_SEO.siteName) 
-    ? title 
-    : `${title} | ${DEFAULT_SEO.siteName}`
+  const fullTitle = title.includes(DEFAULT_SEO.siteName)
+    ? title
+    : `${title} | ${DEFAULT_SEO.siteName}`;
 
-  const url = canonicalUrl || DEFAULT_SEO.siteUrl
-  const imageUrl = ogImage.startsWith("http") ? ogImage : `${DEFAULT_SEO.siteUrl}${ogImage}`
+  const url = canonicalUrl || DEFAULT_SEO.siteUrl;
+  const imageUrl = ogImage.startsWith("http")
+    ? ogImage
+    : `${DEFAULT_SEO.siteUrl}${ogImage}`;
 
-  const allKeywords = [...DEFAULT_SEO.defaultKeywords, ...keywords, ...tags]
+  const allKeywords = [...DEFAULT_SEO.defaultKeywords, ...keywords, ...tags];
 
   return {
     title: fullTitle,
@@ -116,11 +120,14 @@ export function generateMetadata(config: SEOConfig): Metadata {
       yandex: process.env.YANDEX_VERIFICATION,
       bing: process.env.BING_VERIFICATION,
     },
-  }
+  };
 }
 
-export function generateJsonLd(type: "Organization" | "WebSite" | "Article" | "Service", data: any) {
-  const baseUrl = DEFAULT_SEO.siteUrl
+export function generateJsonLd(
+  type: "Organization" | "WebSite" | "Article" | "Service",
+  data: any,
+) {
+  const baseUrl = DEFAULT_SEO.siteUrl;
 
   switch (type) {
     case "Organization":
@@ -134,27 +141,27 @@ export function generateJsonLd(type: "Organization" | "WebSite" | "Article" | "S
         foundingDate: "2020",
         address: {
           "@type": "PostalAddress",
-          addressCountry: "US"
+          addressCountry: "US",
         },
         contactPoint: {
           "@type": "ContactPoint",
           telephone: "+1-XXX-XXX-XXXX",
           contactType: "customer service",
-          availableLanguage: "English"
+          availableLanguage: "English",
         },
         sameAs: [
           DEFAULT_SEO.linkedinUrl,
           DEFAULT_SEO.githubUrl,
-          `https://twitter.com/${DEFAULT_SEO.twitterHandle.replace("@", "")}`
+          `https://twitter.com/${DEFAULT_SEO.twitterHandle.replace("@", "")}`,
         ],
         serviceType: [
           "IT Consulting",
           "Cloud Services",
           "DevOps",
           "Software Development",
-          "Cybersecurity"
-        ]
-      }
+          "Cybersecurity",
+        ],
+      };
 
     case "WebSite":
       return {
@@ -166,14 +173,14 @@ export function generateJsonLd(type: "Organization" | "WebSite" | "Article" | "S
         publisher: {
           "@type": "Organization",
           name: DEFAULT_SEO.siteName,
-          logo: `${baseUrl}/logo.png`
+          logo: `${baseUrl}/logo.png`,
         },
         potentialAction: {
           "@type": "SearchAction",
           target: `${baseUrl}/search?q={search_term_string}`,
-          "query-input": "required name=search_term_string"
-        }
-      }
+          "query-input": "required name=search_term_string",
+        },
+      };
 
     case "Article":
       return {
@@ -181,23 +188,25 @@ export function generateJsonLd(type: "Organization" | "WebSite" | "Article" | "S
         "@type": "Article",
         headline: data.title,
         description: data.description,
-        image: data.image ? `${baseUrl}${data.image}` : `${baseUrl}${DEFAULT_SEO.defaultOgImage}`,
+        image: data.image
+          ? `${baseUrl}${data.image}`
+          : `${baseUrl}${DEFAULT_SEO.defaultOgImage}`,
         author: {
           "@type": "Person",
-          name: data.author || DEFAULT_SEO.siteName
+          name: data.author || DEFAULT_SEO.siteName,
         },
         publisher: {
           "@type": "Organization",
           name: DEFAULT_SEO.siteName,
-          logo: `${baseUrl}/logo.png`
+          logo: `${baseUrl}/logo.png`,
         },
         datePublished: data.publishedTime,
         dateModified: data.modifiedTime || data.publishedTime,
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": data.url
-        }
-      }
+          "@id": data.url,
+        },
+      };
 
     case "Service":
       return {
@@ -208,30 +217,34 @@ export function generateJsonLd(type: "Organization" | "WebSite" | "Article" | "S
         provider: {
           "@type": "Organization",
           name: DEFAULT_SEO.siteName,
-          url: baseUrl
+          url: baseUrl,
         },
         serviceType: data.serviceType,
         areaServed: "Worldwide",
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "IT Services",
-          itemListElement: data.services?.map((service: any, index: number) => ({
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: service.name,
-              description: service.description
-            }
-          }))
-        }
-      }
+          itemListElement: data.services?.map(
+            (service: any, index: number) => ({
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: service.name,
+                description: service.description,
+              },
+            }),
+          ),
+        },
+      };
 
     default:
-      return null
+      return null;
   }
 }
 
-export function generateBreadcrumbJsonLd(breadcrumbs: { name: string; url: string }[]) {
+export function generateBreadcrumbJsonLd(
+  breadcrumbs: { name: string; url: string }[],
+) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -239,7 +252,7 @@ export function generateBreadcrumbJsonLd(breadcrumbs: { name: string; url: strin
       "@type": "ListItem",
       position: index + 1,
       name: breadcrumb.name,
-      item: breadcrumb.url
-    }))
-  }
+      item: breadcrumb.url,
+    })),
+  };
 }

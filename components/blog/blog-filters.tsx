@@ -1,23 +1,42 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Search } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
-const categories = ["All", "Cloud", "DevOps", "Security", "AI & ML", "Best Practices", "Case Studies"]
+const categories = [
+  "All",
+  "Cloud",
+  "DevOps",
+  "Security",
+  "AI & ML",
+  "Best Practices",
+  "Case Studies",
+];
 
-const tags = ["Azure", "AWS", "Kubernetes", "Docker", "CI/CD", "Automation", "Monitoring", "Performance"]
+const tags = [
+  "Azure",
+  "AWS",
+  "Kubernetes",
+  "Docker",
+  "CI/CD",
+  "Automation",
+  "Monitoring",
+  "Performance",
+];
 
 export function BlogFilters() {
-  const [selectedCategory, setSelectedCategory] = useState("All")
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleTag = (tag: string) => {
-    setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
-  }
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+    );
+  };
 
   return (
     <section className="py-12 bg-muted/30 border-y border-border">
@@ -38,12 +57,16 @@ export function BlogFilters() {
 
           {/* Categories */}
           <div>
-            <h3 className="font-heading font-semibold text-lg text-foreground mb-4">Categories</h3>
+            <h3 className="font-heading font-semibold text-lg text-foreground mb-4">
+              Categories
+            </h3>
             <div className="flex flex-wrap gap-2">
               {categories.map((category) => (
                 <Button
                   key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
+                  variant={
+                    selectedCategory === category ? "default" : "outline"
+                  }
                   size="sm"
                   onClick={() => setSelectedCategory(category)}
                   className="rounded-full"
@@ -56,7 +79,9 @@ export function BlogFilters() {
 
           {/* Tags */}
           <div>
-            <h3 className="font-heading font-semibold text-lg text-foreground mb-4">Tags</h3>
+            <h3 className="font-heading font-semibold text-lg text-foreground mb-4">
+              Tags
+            </h3>
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <Badge
@@ -72,13 +97,20 @@ export function BlogFilters() {
           </div>
 
           {/* Active Filters */}
-          {(selectedCategory !== "All" || selectedTags.length > 0 || searchQuery) && (
+          {(selectedCategory !== "All" ||
+            selectedTags.length > 0 ||
+            searchQuery) && (
             <div className="flex items-center gap-2 pt-4 border-t border-border">
-              <span className="text-sm text-muted-foreground">Active filters:</span>
+              <span className="text-sm text-muted-foreground">
+                Active filters:
+              </span>
               {selectedCategory !== "All" && (
                 <Badge variant="secondary" className="gap-1">
                   {selectedCategory}
-                  <button onClick={() => setSelectedCategory("All")} className="ml-1 hover:text-destructive">
+                  <button
+                    onClick={() => setSelectedCategory("All")}
+                    className="ml-1 hover:text-destructive"
+                  >
                     ×
                   </button>
                 </Badge>
@@ -86,7 +118,10 @@ export function BlogFilters() {
               {selectedTags.map((tag) => (
                 <Badge key={tag} variant="secondary" className="gap-1">
                   {tag}
-                  <button onClick={() => toggleTag(tag)} className="ml-1 hover:text-destructive">
+                  <button
+                    onClick={() => toggleTag(tag)}
+                    className="ml-1 hover:text-destructive"
+                  >
                     ×
                   </button>
                 </Badge>
@@ -94,7 +129,10 @@ export function BlogFilters() {
               {searchQuery && (
                 <Badge variant="secondary" className="gap-1">
                   "{searchQuery}"
-                  <button onClick={() => setSearchQuery("")} className="ml-1 hover:text-destructive">
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="ml-1 hover:text-destructive"
+                  >
                     ×
                   </button>
                 </Badge>
@@ -104,5 +142,5 @@ export function BlogFilters() {
         </div>
       </div>
     </section>
-  )
+  );
 }

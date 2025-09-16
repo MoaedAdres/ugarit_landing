@@ -6,10 +6,11 @@ export function ContactHero() {
           Get In Touch
         </h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-          Ready to transform your IT infrastructure? Let's discuss how our expert team can help you achieve your
-          technology goals and drive business growth.
+          Ready to transform your IT infrastructure? Let's discuss how our
+          expert team can help you achieve your technology goals and drive
+          business growth.
         </p>
       </div>
     </section>
-  )
+  );
 }

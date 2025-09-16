@@ -8,14 +8,14 @@ export async function getCurrentUser() {
 
 export async function requireAuth(role?: string) {
   const session = await getServerSession(authOptions);
-  
+
   if (!session) {
     throw new Error("Authentication required");
   }
-  
+
   if (role && session.user.role !== role) {
     throw new Error(`Access denied. ${role} role required.`);
   }
-  
+
   return session;
 }

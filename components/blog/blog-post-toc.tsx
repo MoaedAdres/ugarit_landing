@@ -1,40 +1,40 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface TocItem {
-  id: string
-  title: string
-  level: number
+  id: string;
+  title: string;
+  level: number;
 }
 
 interface BlogPostTocProps {
-  toc: TocItem[]
+  toc: TocItem[];
 }
 
 export function BlogPostToc({ toc }: BlogPostTocProps) {
-  const [activeId, setActiveId] = useState("")
+  const [activeId, setActiveId] = useState("");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
+            setActiveId(entry.target.id);
           }
-        })
+        });
       },
       { rootMargin: "-20% 0% -35% 0%" },
-    )
+    );
 
     toc.forEach((item) => {
-      const element = document.getElementById(item.id)
-      if (element) observer.observe(element)
-    })
+      const element = document.getElementById(item.id);
+      if (element) observer.observe(element);
+    });
 
-    return () => observer.disconnect()
-  }, [toc])
+    return () => observer.disconnect();
+  }, [toc]);
 
   return (
     <div className="sticky top-24">
@@ -57,5 +57,5 @@ export function BlogPostToc({ toc }: BlogPostTocProps) {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

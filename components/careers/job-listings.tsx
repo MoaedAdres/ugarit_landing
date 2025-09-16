@@ -1,8 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { MapPin, Clock, DollarSign } from "lucide-react"
-import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { MapPin, Clock, DollarSign } from "lucide-react";
+import Link from "next/link";
 
 // Mock job listings - replace with actual API call
 const jobs = [
@@ -15,8 +15,17 @@ const jobs = [
     salary_range: "$120,000 - $160,000",
     description:
       "Lead cloud architecture design and implementation for enterprise clients. Work with cutting-edge technologies and mentor junior team members.",
-    requirements: ["5+ years cloud experience", "Azure/AWS certifications", "Leadership experience"],
-    benefits: ["Health insurance", "401k matching", "Remote work", "Professional development"],
+    requirements: [
+      "5+ years cloud experience",
+      "Azure/AWS certifications",
+      "Leadership experience",
+    ],
+    benefits: [
+      "Health insurance",
+      "401k matching",
+      "Remote work",
+      "Professional development",
+    ],
   },
   {
     id: "devops-engineer",
@@ -27,8 +36,17 @@ const jobs = [
     salary_range: "$100,000 - $140,000",
     description:
       "Build and maintain CI/CD pipelines, automate infrastructure, and improve development workflows for our clients.",
-    requirements: ["3+ years DevOps experience", "Kubernetes expertise", "CI/CD pipeline experience"],
-    benefits: ["Health insurance", "Stock options", "Flexible hours", "Learning budget"],
+    requirements: [
+      "3+ years DevOps experience",
+      "Kubernetes expertise",
+      "CI/CD pipeline experience",
+    ],
+    benefits: [
+      "Health insurance",
+      "Stock options",
+      "Flexible hours",
+      "Learning budget",
+    ],
   },
   {
     id: "security-consultant",
@@ -39,10 +57,19 @@ const jobs = [
     salary_range: "$110,000 - $150,000",
     description:
       "Assess security postures, implement security frameworks, and help clients achieve compliance with industry standards.",
-    requirements: ["Security certifications", "Compliance experience", "Risk assessment skills"],
-    benefits: ["Health insurance", "Travel opportunities", "Certification support", "Bonus structure"],
+    requirements: [
+      "Security certifications",
+      "Compliance experience",
+      "Risk assessment skills",
+    ],
+    benefits: [
+      "Health insurance",
+      "Travel opportunities",
+      "Certification support",
+      "Bonus structure",
+    ],
   },
-]
+];
 
 export function JobListings() {
   return (
@@ -52,12 +79,17 @@ export function JobListings() {
           <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4 text-balance">
             Open Positions
           </h2>
-          <p className="text-xl text-muted-foreground text-pretty">Find your next career opportunity with us</p>
+          <p className="text-xl text-muted-foreground text-pretty">
+            Find your next career opportunity with us
+          </p>
         </div>
 
         <div className="space-y-6 max-w-4xl mx-auto">
           {jobs.map((job, index) => (
-            <Card key={job.id} className="group hover:shadow-lg transition-all duration-300">
+            <Card
+              key={job.id}
+              className="group hover:shadow-lg transition-all duration-300"
+            >
               <CardContent className="p-8">
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                   <div className="flex-1">
@@ -69,7 +101,9 @@ export function JobListings() {
                     <h3 className="font-heading font-bold text-2xl text-foreground mb-3 group-hover:text-primary transition-colors">
                       {job.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">{job.description}</p>
+                    <p className="text-muted-foreground mb-4 leading-relaxed">
+                      {job.description}
+                    </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-muted-foreground">
                       <div className="flex items-center space-x-2">
@@ -102,12 +136,14 @@ export function JobListings() {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">Don't see a position that fits?</p>
+          <p className="text-muted-foreground mb-4">
+            Don't see a position that fits?
+          </p>
           <Button variant="outline" asChild>
             <Link href="/contact">Send us your resume</Link>
           </Button>
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
-import { AuthorProfile } from "@/components/blog/author-profile"
-import { AuthorPosts } from "@/components/blog/author-posts"
-import { notFound } from "next/navigation"
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { AuthorProfile } from "@/components/blog/author-profile";
+import { AuthorPosts } from "@/components/blog/author-posts";
+import { notFound } from "next/navigation";
 
 // Mock author data - replace with actual API call
 const getAuthorData = (id: string) => {
@@ -22,22 +22,22 @@ const getAuthorData = (id: string) => {
       posts_count: 15,
       joined_date: "2022-03-15",
     },
-  }
+  };
 
-  return authors[id] || null
-}
+  return authors[id] || null;
+};
 
 interface AuthorPageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default function AuthorPage({ params }: AuthorPageProps) {
-  const author = getAuthorData(params.id)
+  const author = getAuthorData(params.id);
 
   if (!author) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -49,5 +49,5 @@ export default function AuthorPage({ params }: AuthorPageProps) {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

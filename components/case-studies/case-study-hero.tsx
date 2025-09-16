@@ -1,16 +1,16 @@
-import { Badge } from "@/components/ui/badge"
-import { Calendar, Users, Clock } from "lucide-react"
+import { Badge } from "@/components/ui/badge";
+import { Calendar, Users, Clock } from "lucide-react";
 
 interface CaseStudyHeroProps {
   caseStudy: {
-    client_name: string
-    sector: string
-    problem: string
-    solution: string
-    timeline: string
-    team_size: string
-    tags: string[]
-  }
+    client_name: string;
+    sector: string;
+    problem: string;
+    solution: string;
+    timeline: string;
+    team_size: string;
+    tags: string[];
+  };
 }
 
 export function CaseStudyHero({ caseStudy }: CaseStudyHeroProps) {
@@ -48,16 +48,24 @@ export function CaseStudyHero({ caseStudy }: CaseStudyHeroProps) {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <h2 className="font-heading font-bold text-2xl text-foreground mb-4">The Challenge</h2>
-              <p className="text-muted-foreground leading-relaxed">{caseStudy.problem}</p>
+              <h2 className="font-heading font-bold text-2xl text-foreground mb-4">
+                The Challenge
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                {caseStudy.problem}
+              </p>
             </div>
             <div>
-              <h2 className="font-heading font-bold text-2xl text-foreground mb-4">Our Solution</h2>
-              <p className="text-muted-foreground leading-relaxed">{caseStudy.solution}</p>
+              <h2 className="font-heading font-bold text-2xl text-foreground mb-4">
+                Our Solution
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                {caseStudy.solution}
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -7,7 +7,7 @@ export async function authFetcher<T>(
   path: string,
   requestInit?: RequestInit,
 ): Promise<T> {
-   const session = await getSession();
+  const session = await getSession();
   const token = session?.accessToken;
   const isAuthorized = !!token;
   console.log("authFetcher", path);

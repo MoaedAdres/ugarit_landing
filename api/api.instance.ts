@@ -3,9 +3,10 @@ import { RequestInit } from "next/dist/server/web/spec-extension/request";
 import { normalizeUrl } from "@/utils/normalizeUrl";
 import { ErrorMessages } from "@/constants/errors";
 import { FetchError } from "./types/error";
+import { BASE_URL } from "./config";
 
 // Configuration
-const baseUrl = process.env.BASE_URL;
+const baseUrl = BASE_URL;
 const DEFAULT_REVALIDATION_TIME = 3600 * 3; // 3 hours
 const API_TIMEOUT = Number(process.env.NEXT_PUBLIC_API_TIMEOUT || 30000);
 
@@ -33,10 +34,8 @@ export default async function apiFetcher<T>(
       ...requestInit?.headers,
     } as HeadersInit,
     next: {
-
       revalidate: DEFAULT_REVALIDATION_TIME,
       ...requestInit?.next,
-
     },
     signal: controller.signal,
     ...requestInit,
@@ -47,7 +46,11 @@ export default async function apiFetcher<T>(
     console.log(
       `Fetch Response status:${response.status} statusText:${response.statusText} Ok:${response.ok}`,
     );
-    console.log(url, JSON.stringify(response.url), JSON.stringify(response.body)); //JSON.stringify(response.body)
+    console.log(
+      url,
+      JSON.stringify(response.url),
+      JSON.stringify(response.body),
+    ); //JSON.stringify(response.body)
     // console.log(url,response);
     // Clean up timeout regardless of outcome
     clearTimeout(timeoutId);

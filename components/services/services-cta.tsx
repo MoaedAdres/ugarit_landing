@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Phone, Mail, Calendar } from "lucide-react"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Phone, Mail, Calendar } from "lucide-react";
+import Link from "next/link";
 
 export function ServicesCta() {
   return (
@@ -20,8 +20,12 @@ export function ServicesCta() {
           <Card className="text-center hover:shadow-lg transition-shadow">
             <CardContent className="p-6">
               <Phone className="h-8 w-8 text-primary mx-auto mb-4" />
-              <h3 className="font-heading font-semibold text-lg mb-2">Call Us</h3>
-              <p className="text-muted-foreground mb-4">Speak directly with our experts</p>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                Call Us
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Speak directly with our experts
+              </p>
               <Button variant="outline" asChild>
                 <Link href="tel:+15551234567">+1 (555) 123-4567</Link>
               </Button>
@@ -31,8 +35,12 @@ export function ServicesCta() {
           <Card className="text-center hover:shadow-lg transition-shadow">
             <CardContent className="p-6">
               <Mail className="h-8 w-8 text-primary mx-auto mb-4" />
-              <h3 className="font-heading font-semibold text-lg mb-2">Email Us</h3>
-              <p className="text-muted-foreground mb-4">Get detailed information</p>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                Email Us
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Get detailed information
+              </p>
               <Button variant="outline" asChild>
                 <Link href="mailto:info@ugarittech.com">Send Email</Link>
               </Button>
@@ -42,7 +50,9 @@ export function ServicesCta() {
           <Card className="text-center hover:shadow-lg transition-shadow">
             <CardContent className="p-6">
               <Calendar className="h-8 w-8 text-primary mx-auto mb-4" />
-              <h3 className="font-heading font-semibold text-lg mb-2">Schedule Call</h3>
+              <h3 className="font-heading font-semibold text-lg mb-2">
+                Schedule Call
+              </h3>
               <p className="text-muted-foreground mb-4">Book a consultation</p>
               <Button asChild>
                 <Link href="/contact">Schedule Now</Link>
@@ -52,5 +62,5 @@ export function ServicesCta() {
         </div>
       </div>
     </section>
-  )
+  );
 }

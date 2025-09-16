@@ -1,12 +1,17 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface FAQ {
-  question: string
-  answer: string
+  question: string;
+  answer: string;
 }
 
 interface ServiceFaqsProps {
-  faqs: FAQ[]
+  faqs: FAQ[];
 }
 
 export function ServiceFaqs({ faqs }: ServiceFaqsProps) {
@@ -25,14 +30,22 @@ export function ServiceFaqs({ faqs }: ServiceFaqsProps) {
 
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border border-border rounded-lg px-6">
-                <AccordionTrigger className="text-left font-heading font-semibold">{faq.question}</AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="border border-border rounded-lg px-6"
+              >
+                <AccordionTrigger className="text-left font-heading font-semibold">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </div>
       </div>
     </section>
-  )
+  );
 }

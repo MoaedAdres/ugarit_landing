@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function CaseStudyCta() {
   return (
@@ -10,10 +10,16 @@ export function CaseStudyCta() {
             Ready to Create Your Success Story?
           </h2>
           <p className="text-xl mb-8 text-primary-foreground/90 text-pretty">
-            Let's discuss how we can help transform your business with proven IT solutions
+            Let's discuss how we can help transform your business with proven IT
+            solutions
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary" className="text-lg px-8 py-6">
+            <Button
+              asChild
+              size="lg"
+              variant="secondary"
+              className="text-lg px-8 py-6"
+            >
               <Link href="/contact">Start Your Project</Link>
             </Button>
             <Button
@@ -28,5 +34,5 @@ export function CaseStudyCta() {
         </div>
       </div>
     </section>
-  )
+  );
 }

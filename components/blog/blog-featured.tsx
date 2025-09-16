@@ -1,8 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, ArrowRight } from "lucide-react"
-import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Calendar, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 // Mock featured blog post - replace with actual API call
 const featuredPost = {
@@ -11,7 +11,10 @@ const featuredPost = {
   title: "The Future of Cloud Computing: Trends Shaping 2024 and Beyond",
   excerpt:
     "Explore the emerging trends in cloud computing that are revolutionizing how businesses operate, from edge computing to serverless architectures and AI-driven automation.",
-  cover_image: { url: "/blog-featured-cloud.png", alt: "Future of cloud computing" },
+  cover_image: {
+    url: "/blog-featured-cloud.png",
+    alt: "Future of cloud computing",
+  },
   author: {
     name: "David Kim",
     role: "Cloud Solutions Architect",
@@ -21,7 +24,7 @@ const featuredPost = {
   categories: ["Cloud", "Technology Trends"],
   reading_time: "8 min read",
   featured: true,
-}
+};
 
 export function BlogFeatured() {
   return (
@@ -42,7 +45,9 @@ export function BlogFeatured() {
                   <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-3xl">☁️</span>
                   </div>
-                  <p className="text-muted-foreground">{featuredPost.cover_image.alt}</p>
+                  <p className="text-muted-foreground">
+                    {featuredPost.cover_image.alt}
+                  </p>
                 </div>
               </div>
             </div>
@@ -61,7 +66,9 @@ export function BlogFeatured() {
                 {featuredPost.title}
               </h2>
 
-              <p className="text-muted-foreground leading-relaxed mb-6 text-pretty">{featuredPost.excerpt}</p>
+              <p className="text-muted-foreground leading-relaxed mb-6 text-pretty">
+                {featuredPost.excerpt}
+              </p>
 
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-4">
@@ -74,14 +81,20 @@ export function BlogFeatured() {
                     </span>
                   </div>
                   <div>
-                    <div className="font-medium text-foreground">{featuredPost.author.name}</div>
-                    <div className="text-sm text-muted-foreground">{featuredPost.author.role}</div>
+                    <div className="font-medium text-foreground">
+                      {featuredPost.author.name}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {featuredPost.author.role}
+                    </div>
                   </div>
                 </div>
                 <div className="text-sm text-muted-foreground">
                   <div className="flex items-center space-x-1 mb-1">
                     <Calendar className="h-4 w-4" />
-                    <span>{new Date(featuredPost.published_at).toLocaleDateString()}</span>
+                    <span>
+                      {new Date(featuredPost.published_at).toLocaleDateString()}
+                    </span>
                   </div>
                   <div>{featuredPost.reading_time}</div>
                 </div>
@@ -98,5 +111,5 @@ export function BlogFeatured() {
         </Card>
       </div>
     </section>
-  )
+  );
 }

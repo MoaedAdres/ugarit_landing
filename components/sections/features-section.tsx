@@ -1,10 +1,10 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Check } from "lucide-react";
 
 interface Feature {
   title: string;
   bullets: string[];
-  media: { url: string };
+  media: { url: StaticImageData };
   variant: string;
 }
 
@@ -30,7 +30,7 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
             <div className="flex-1 space-y-6">
               <h2
                 className="text-3xl md:text-4xl font-bold text-tech-navy mb-4
-                           transition-colors duration-300 hover:text-primary"
+                           transition-colors duration-300 hover:text-secondary-foreground"
               >
                 {feature.title}
               </h2>
@@ -60,14 +60,17 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
             {/* Image */}
             <div className="flex-1">
               <div
-                className="relative aspect-video rounded-xl overflow-hidden shadow-lg transition-all duration-500 
+                className="relative w-full h-full rounded-xl overflow-hidden shadow-lg transition-all duration-500 
                              hover:shadow-glow hover:scale-105 hover:-rotate-1 transform-gpu"
               >
                 <Image
                   src={feature.media.url || "/placeholder.svg"}
                   alt={feature.title}
-                  fill
-                  className="object-cover transition-transform duration-700 hover:scale-110"
+                  // fill
+                  priority
+                  unoptimized={true}
+                  placeholder="blur"
+                  className="object-cover w-full h-full transition-transform duration-700 hover:scale-110"
                 />
                 <div
                   className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 

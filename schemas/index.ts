@@ -8,8 +8,8 @@ export const requiredPasswordValidation = (params?: {
   return requiredStringValidation({
     error,
     minLength: 2,
-    minLengthError: "كلمة المرور مطلوبة (8 أحرف على الأقل)"
-  })
+    minLengthError: "كلمة المرور مطلوبة (8 أحرف على الأقل)",
+  });
 };
 
 export const requiredStringValidation = (params?: {
@@ -30,7 +30,7 @@ export const requiredStringValidation = (params?: {
   if (minLength !== undefined) {
     schema = schema.min(
       minLength,
-      minLengthError ?? `يجب أن يحتوي النص على الأقل ${minLength} حرف`
+      minLengthError ?? `يجب أن يحتوي النص على الأقل ${minLength} حرف`,
     );
   } else {
     schema = schema.min(1, error ?? "هذا الحقل مطلوب");
@@ -39,7 +39,7 @@ export const requiredStringValidation = (params?: {
   if (maxLength !== undefined) {
     schema = schema.max(
       maxLength,
-      maxLengthError ?? `يجب ألا يتجاوز النص ${maxLength} حرف`
+      maxLengthError ?? `يجب ألا يتجاوز النص ${maxLength} حرف`,
     );
   }
 
@@ -57,8 +57,12 @@ export const requiredEmailValidation = (params?: {
 }) => {
   const { error, invalidError } = params ?? {};
   return requiredStringValidation({ error: error ?? "البريد الإلكتروني مطلوب" })
-    .email(invalidError ?? "يجب أن يكون بريدًا إلكترونيًا صالحًا (مثل: user@gmail.com)")
+    .email(
+      invalidError ??
+        "يجب أن يكون بريدًا إلكترونيًا صالحًا (مثل: user@gmail.com)",
+    )
     .refine(isValidAllowedEmail, {
-      message: "يُسمح فقط باستخدام بريد إلكتروني من نوع @gmail.com أو @outlook.com",
+      message:
+        "يُسمح فقط باستخدام بريد إلكتروني من نوع @gmail.com أو @outlook.com",
     });
 };

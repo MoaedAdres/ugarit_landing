@@ -12,8 +12,8 @@ import { Globe } from "lucide-react";
 import { useLocale } from "next-intl";
 
 const locales = [
-  { code: "en", name: "English", nativeName: "English" },
-  { code: "ar", name: "Arabic", nativeName: "العربية" },
+  { code: "en", nativeName: "English" },
+  { code: "ar", nativeName: "العربية" },
 ];
 
 export function LocaleSwitcher() {
@@ -26,14 +26,12 @@ export function LocaleSwitcher() {
     router.refresh();
   };
 
-  const currentLocale = locales.find((l) => l.code === locale);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm">
-          <Globe className="h-4 w-4 mr-2" />
-          {currentLocale?.nativeName}
+        <Button size="sm">
+          <Globe className="h-4 w-4" />
+          {/* {currentLocale?.nativeName} */}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -41,11 +39,10 @@ export function LocaleSwitcher() {
           <DropdownMenuItem
             key={loc.code}
             onClick={() => handleLocaleChange(loc.code)}
-            className={locale === loc.code ? "bg-accent" : ""}
+            className={locale === loc.code ? "bg-primary" : ""}
           >
             <div className="flex flex-col">
               <span>{loc.nativeName}</span>
-              <span className="text-xs text-muted-foreground">{loc.name}</span>
             </div>
           </DropdownMenuItem>
         ))}

@@ -1,19 +1,21 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Quote } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card";
+import { Quote } from "lucide-react";
 
 interface Testimonial {
-  quote: string
-  name: string
-  role: string
-  company: string
-  avatar: string
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+  avatar: string;
 }
 
 interface CaseStudyTestimonialProps {
-  testimonial: Testimonial
+  testimonial: Testimonial;
 }
 
-export function CaseStudyTestimonial({ testimonial }: CaseStudyTestimonialProps) {
+export function CaseStudyTestimonial({
+  testimonial,
+}: CaseStudyTestimonialProps) {
   return (
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,7 +35,9 @@ export function CaseStudyTestimonial({ testimonial }: CaseStudyTestimonialProps)
                 </span>
               </div>
               <div className="text-left">
-                <div className="font-heading font-bold text-lg text-foreground">{testimonial.name}</div>
+                <div className="font-heading font-bold text-lg text-foreground">
+                  {testimonial.name}
+                </div>
                 <div className="text-muted-foreground">
                   {testimonial.role}, {testimonial.company}
                 </div>
@@ -43,5 +47,5 @@ export function CaseStudyTestimonial({ testimonial }: CaseStudyTestimonialProps)
         </Card>
       </div>
     </section>
-  )
+  );
 }

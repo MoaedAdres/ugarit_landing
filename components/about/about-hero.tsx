@@ -7,11 +7,12 @@ export function AboutHero() {
             About Ugarit Technologies
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed text-pretty">
-            We are a team of passionate technology experts dedicated to helping businesses transform their IT
-            infrastructure and achieve sustainable growth through innovative solutions and strategic guidance.
+            We are a team of passionate technology experts dedicated to helping
+            businesses transform their IT infrastructure and achieve sustainable
+            growth through innovative solutions and strategic guidance.
           </p>
         </div>
       </div>
     </section>
-  )
+  );
 }

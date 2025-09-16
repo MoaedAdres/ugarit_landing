@@ -1,7 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Linkedin, Twitter } from "lucide-react"
-import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Linkedin, Twitter } from "lucide-react";
+import Link from "next/link";
 
 const teamMembers = [
   {
@@ -32,7 +32,7 @@ const teamMembers = [
     expertise: ["CI/CD", "Kubernetes", "Automation", "Monitoring"],
     social: { linkedin: "#", twitter: "#" },
   },
-]
+];
 
 export function AboutTeam() {
   return (
@@ -43,13 +43,17 @@ export function AboutTeam() {
             Meet Our Team
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-            The experts behind our innovative solutions and exceptional service delivery
+            The experts behind our innovative solutions and exceptional service
+            delivery
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {teamMembers.map((member, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300">
+            <Card
+              key={index}
+              className="group hover:shadow-lg transition-all duration-300"
+            >
               <CardContent className="p-6 text-center">
                 {/* Avatar */}
                 <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
@@ -61,14 +65,22 @@ export function AboutTeam() {
                   </span>
                 </div>
 
-                <h3 className="font-heading font-bold text-lg text-foreground mb-1">{member.name}</h3>
+                <h3 className="font-heading font-bold text-lg text-foreground mb-1">
+                  {member.name}
+                </h3>
                 <p className="text-primary font-medium mb-3">{member.role}</p>
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{member.bio}</p>
+                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                  {member.bio}
+                </p>
 
                 {/* Expertise */}
                 <div className="flex flex-wrap gap-1 justify-center mb-4">
                   {member.expertise.slice(0, 3).map((skill, skillIndex) => (
-                    <Badge key={skillIndex} variant="secondary" className="text-xs">
+                    <Badge
+                      key={skillIndex}
+                      variant="secondary"
+                      className="text-xs"
+                    >
                       {skill}
                     </Badge>
                   ))}
@@ -95,5 +107,5 @@ export function AboutTeam() {
         </div>
       </div>
     </section>
-  )
+  );
 }

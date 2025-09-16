@@ -4,16 +4,20 @@ import heroImage from "@/public/hero-image.jpg";
 import Image from "next/image";
 import heroRightBackground from "@/public/jpgs/hero-right.jpg";
 import { ModeToggle } from "../theme/toggle-theme";
+import AnimatedButton from "../animations/AnimatedButton";
+import MyButton from "../Reusable-components/MyButton";
 interface HeroProps {
   hero: {
     title: string;
     subtitle: string;
+    description: string;
     ctas: Array<{ label: string; href: string }>;
     bg_media: { type: string; url: string };
   };
 }
 
 export function HeroSection({ hero }: HeroProps) {
+  console.log("hero", hero);
   return (
     <section className="relative min-h-[90vh] mt-[10vh] flex flex-row-reverse hero-section items-center justify-between overflow-hidden">
       {/* <Image
@@ -43,31 +47,20 @@ export function HeroSection({ hero }: HeroProps) {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl text-secondary-9 md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Build. Scale.{" "}
-            <span className="text-primary-foreground">Secure.</span>
+          <h1 className="text-5xl text-secondary-900 md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            {hero.title}
+            <span className="text-secondary-foreground"> {hero.subtitle}</span>
           </h1>
           <p className="text-xl md:text-2xl text-secondary-800 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Transform your business with cutting-edge IT solutions, cloud
-            services, and digital transformation expertise from industry
-            leaders.
+            {hero.description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Button
-              size="lg"
-              className="hover:border-0 border border-secondary bg-transparent gradient-primary hover:opacity-90 transition-smooth px-8 py-4 text-lg font-semibold group"
-            >
-              Get Started Today
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-tech-navy transition-smooth px-8 py-4 text-lg"
-            >
-              <Play className="mr-2 h-5 w-5" />
-              Watch Demo
-            </Button>
+            <AnimatedButton text="hero.get_started_today" />
+            <MyButton
+              Icon={Play}
+              classes={"text-secondary-900"}
+              text="hero.watch_demo"
+            />
           </div>
           {/* // Stats */}
           {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-white/20">
@@ -98,13 +91,6 @@ export function HeroSection({ hero }: HeroProps) {
           </div> */}
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white rounded-full animate-bounce mt-2"></div>
-        </div>
-      </div> */}
     </section>
   );
 }

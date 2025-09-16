@@ -9,6 +9,7 @@ import {
   Smartphone,
   ArrowRight,
 } from "lucide-react";
+import AnimatedButton from "../animations/AnimatedButton";
 
 // Static services data with the new styling
 const services = [
@@ -78,10 +79,10 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-tech-navy mb-4">
-            Our <span className="text-primary">Services</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
+            Our <span className="text-secondary-foreground">Services</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-secondary-800 max-w-2xl mx-auto leading-relaxed">
             We deliver comprehensive IT solutions that drive innovation, enhance
             security, and accelerate your digital transformation journey.
           </p>
@@ -96,16 +97,16 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
                 key={index}
                 className="group hover:shadow-glow transition-all duration-300 border-0 gradient-card hover:-translate-y-2"
               >
-                <CardContent className="p-8">
-                  <div className="flex items-center justify-center w-16 h-16 gradient-primary rounded-xl mb-6 group-hover:scale-110 transition-transform">
+                <CardContent className="p-5">
+                  <div className="flex items-center mx-auto justify-center w-16 h-16 gradient-primary rounded-xl mb-6 group-hover:scale-110 transition-transform">
                     <Icon className="h-8 w-8 text-white" />
                   </div>
 
-                  <h3 className="text-2xl font-bold text-tech-navy mb-4 group-hover:text-primary transition-colors">
+                  <h3 className="text-2xl text-center font-bold text-tech-navy mb-4 group-hover:text-secondary-foreground transition-colors">
                     {service.title}
                   </h3>
 
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                  <p className="text-secondary-800 text-sm mb-6 leading-relaxed">
                     {service.description}
                   </p>
 
@@ -115,7 +116,7 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
                         key={idx}
                         className="flex items-center text-sm text-muted-foreground"
                       >
-                        <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                        <div className="w-2 h-2 bg-secondary-foreground rounded-full mr-3"></div>
                         {feature}
                       </li>
                     ))}
@@ -123,10 +124,10 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
 
                   <Button
                     variant="ghost"
-                    className="group/btn text-primary hover:text-primary hover:bg-primary/10 p-0 h-auto font-semibold"
+                    className="group/btn text-transparent group-hover:text-secondary  hover:text-secondary-foreground hover:bg-primary/10 p-0 h-auto font-semibold"
                   >
                     Learn More
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
                 </CardContent>
               </Card>
@@ -136,10 +137,11 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
 
         {/* CTA */}
         <div className="text-center">
-          <Button className="gradient-primary hover:opacity-90 transition-smooth px-6 py-3 font-semibold">
+          <AnimatedButton text="services.explore_all_services" />
+          {/* <Button className="gradient-primary hover:opacity-90 transition-smooth px-6 py-3 font-semibold">
             Explore All Services
             <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          </Button> */}
         </div>
       </div>
     </section>

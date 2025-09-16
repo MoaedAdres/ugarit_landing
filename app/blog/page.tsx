@@ -1,8 +1,8 @@
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
-import { BlogGrid } from "@/components/blog/blog-grid"
-import { BlogFilters } from "@/components/blog/blog-filters"
-import { BlogFeatured } from "@/components/blog/blog-featured"
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { BlogGrid } from "@/components/blog/blog-grid";
+import { BlogFilters } from "@/components/blog/blog-filters";
+import { BlogFeatured } from "@/components/blog/blog-featured";
 
 export default function BlogPage() {
   return (
@@ -16,8 +16,8 @@ export default function BlogPage() {
               Insights & Resources
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-              Stay updated with the latest trends, best practices, and insights from our technology experts and industry
-              thought leaders
+              Stay updated with the latest trends, best practices, and insights
+              from our technology experts and industry thought leaders
             </p>
           </div>
         </section>
@@ -28,5 +28,5 @@ export default function BlogPage() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

@@ -1,12 +1,12 @@
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
-import { ServiceHero } from "@/components/services/service-hero"
-import { ServiceFeatures } from "@/components/services/service-features"
-import { ServiceProcess } from "@/components/services/service-process"
-import { ServiceFaqs } from "@/components/services/service-faqs"
-import { ServiceCta } from "@/components/services/service-cta"
-import { RelatedServices } from "@/components/services/related-services"
-import { notFound } from "next/navigation"
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { ServiceHero } from "@/components/services/service-hero";
+import { ServiceFeatures } from "@/components/services/service-features";
+import { ServiceProcess } from "@/components/services/service-process";
+import { ServiceFaqs } from "@/components/services/service-faqs";
+import { ServiceCta } from "@/components/services/service-cta";
+import { RelatedServices } from "@/components/services/related-services";
+import { notFound } from "next/navigation";
 
 // Mock service data - replace with actual API call
 const getServiceData = (slug: string) => {
@@ -14,8 +14,12 @@ const getServiceData = (slug: string) => {
     cloud: {
       slug: "cloud",
       title: "Cloud Services",
-      excerpt: "Comprehensive cloud migration and optimization services for Azure and AWS",
-      hero_media: { url: "/service-cloud-hero.png", alt: "Cloud infrastructure" },
+      excerpt:
+        "Comprehensive cloud migration and optimization services for Azure and AWS",
+      hero_media: {
+        url: "/service-cloud-hero.png",
+        alt: "Cloud infrastructure",
+      },
       body_blocks: [
         {
           type: "rich_text",
@@ -40,15 +44,18 @@ const getServiceData = (slug: string) => {
       process_steps: [
         {
           title: "Assessment & Planning",
-          description: "Comprehensive analysis of your current infrastructure and migration strategy development",
+          description:
+            "Comprehensive analysis of your current infrastructure and migration strategy development",
         },
         {
           title: "Migration Execution",
-          description: "Careful migration of applications and data with minimal downtime",
+          description:
+            "Careful migration of applications and data with minimal downtime",
         },
         {
           title: "Optimization & Monitoring",
-          description: "Ongoing optimization and 24/7 monitoring to ensure peak performance",
+          description:
+            "Ongoing optimization and 24/7 monitoring to ensure peak performance",
         },
       ],
       faqs: [
@@ -72,7 +79,8 @@ const getServiceData = (slug: string) => {
     devops: {
       slug: "devops",
       title: "DevOps Solutions",
-      excerpt: "Streamline development with CI/CD pipelines, automation, and best practices",
+      excerpt:
+        "Streamline development with CI/CD pipelines, automation, and best practices",
       hero_media: { url: "/service-devops-hero.png", alt: "DevOps pipeline" },
       body_blocks: [
         {
@@ -98,15 +106,18 @@ const getServiceData = (slug: string) => {
       process_steps: [
         {
           title: "Current State Analysis",
-          description: "Assess existing development and deployment processes to identify improvement opportunities",
+          description:
+            "Assess existing development and deployment processes to identify improvement opportunities",
         },
         {
           title: "Pipeline Design & Implementation",
-          description: "Design and implement automated CI/CD pipelines tailored to your technology stack",
+          description:
+            "Design and implement automated CI/CD pipelines tailored to your technology stack",
         },
         {
           title: "Training & Optimization",
-          description: "Train your team and continuously optimize processes for maximum efficiency",
+          description:
+            "Train your team and continuously optimize processes for maximum efficiency",
         },
       ],
       faqs: [
@@ -127,22 +138,22 @@ const getServiceData = (slug: string) => {
         subtitle: "Let's build your DevOps pipeline",
       },
     },
-  }
+  };
 
-  return services[slug] || null
-}
+  return services[slug] || null;
+};
 
 interface ServicePageProps {
   params: {
-    slug: string
-  }
+    slug: string;
+  };
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  const service = getServiceData(params.slug)
+  const service = getServiceData(params.slug);
 
   if (!service) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -158,5 +169,5 @@ export default function ServicePage({ params }: ServicePageProps) {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

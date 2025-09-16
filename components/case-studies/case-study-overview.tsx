@@ -1,13 +1,13 @@
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card";
 
 interface CaseStudyOverviewProps {
   caseStudy: {
     body_blocks: Array<{
-      type: string
-      title: string
-      content: string
-    }>
-  }
+      type: string;
+      title: string;
+      content: string;
+    }>;
+  };
 }
 
 export function CaseStudyOverview({ caseStudy }: CaseStudyOverviewProps) {
@@ -18,9 +18,13 @@ export function CaseStudyOverview({ caseStudy }: CaseStudyOverviewProps) {
           {caseStudy.body_blocks.map((block, index) => (
             <Card key={index} className="overflow-hidden">
               <CardContent className="p-8">
-                <h2 className="font-heading font-bold text-2xl text-foreground mb-6">{block.title}</h2>
+                <h2 className="font-heading font-bold text-2xl text-foreground mb-6">
+                  {block.title}
+                </h2>
                 <div className="prose prose-lg max-w-none">
-                  <p className="text-muted-foreground leading-relaxed">{block.content}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {block.content}
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -28,5 +32,5 @@ export function CaseStudyOverview({ caseStudy }: CaseStudyOverviewProps) {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, User, Clock, ArrowRight } from "lucide-react"
-import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Calendar, User, Clock, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 // Mock blog posts data - replace with actual API call
 const blogPosts = [
@@ -12,7 +12,10 @@ const blogPosts = [
     title: "Cloud Migration Best Practices for Enterprise Applications",
     excerpt:
       "Learn the essential strategies and considerations for successfully migrating enterprise applications to the cloud without disrupting business operations.",
-    cover_image: { url: "/blog-cloud-migration.png", alt: "Cloud migration strategy" },
+    cover_image: {
+      url: "/blog-cloud-migration.png",
+      alt: "Cloud migration strategy",
+    },
     author: {
       id: "david-kim",
       name: "David Kim",
@@ -46,7 +49,10 @@ const blogPosts = [
     title: "Complete Guide to Kubernetes Monitoring and Observability",
     excerpt:
       "Master the tools and techniques needed to effectively monitor and troubleshoot Kubernetes clusters in production environments.",
-    cover_image: { url: "/blog-kubernetes.png", alt: "Kubernetes monitoring dashboard" },
+    cover_image: {
+      url: "/blog-kubernetes.png",
+      alt: "Kubernetes monitoring dashboard",
+    },
     author: {
       id: "alex-rodriguez",
       name: "Alex Rodriguez",
@@ -63,7 +69,10 @@ const blogPosts = [
     title: "AI-Driven Infrastructure Optimization: The Next Frontier",
     excerpt:
       "Explore how artificial intelligence is revolutionizing infrastructure management and optimization for modern enterprises.",
-    cover_image: { url: "/blog-ai-infrastructure.png", alt: "AI infrastructure optimization" },
+    cover_image: {
+      url: "/blog-ai-infrastructure.png",
+      alt: "AI infrastructure optimization",
+    },
     author: {
       id: "sarah-chen",
       name: "Sarah Chen",
@@ -80,7 +89,10 @@ const blogPosts = [
     title: "Microservices Architecture Patterns for Scalable Applications",
     excerpt:
       "Learn proven patterns and best practices for designing and implementing microservices architectures that scale.",
-    cover_image: { url: "/blog-microservices.png", alt: "Microservices architecture diagram" },
+    cover_image: {
+      url: "/blog-microservices.png",
+      alt: "Microservices architecture diagram",
+    },
     author: {
       id: "michael-torres",
       name: "Michael Torres",
@@ -97,7 +109,10 @@ const blogPosts = [
     title: "Implementing Zero Trust Security in Modern IT Infrastructure",
     excerpt:
       "A comprehensive guide to implementing zero trust security principles to protect your organization's digital assets.",
-    cover_image: { url: "/blog-zero-trust.png", alt: "Zero trust security model" },
+    cover_image: {
+      url: "/blog-zero-trust.png",
+      alt: "Zero trust security model",
+    },
     author: {
       id: "jennifer-lee",
       name: "Jennifer Lee",
@@ -108,7 +123,7 @@ const blogPosts = [
     tags: ["Security", "Zero Trust", "Compliance"],
     reading_time: "11 min read",
   },
-]
+];
 
 export function BlogGrid() {
   return (
@@ -116,7 +131,10 @@ export function BlogGrid() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post, index) => (
-            <Card key={post.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
+            <Card
+              key={post.id}
+              className="group hover:shadow-xl transition-all duration-300 overflow-hidden"
+            >
               {/* Cover Image */}
               <div className="aspect-video bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center">
                 <div className="text-center p-6">
@@ -125,7 +143,11 @@ export function BlogGrid() {
                   </div>
                   <div className="flex flex-wrap gap-1 justify-center">
                     {post.categories.slice(0, 2).map((category, catIndex) => (
-                      <Badge key={catIndex} variant="outline" className="text-xs">
+                      <Badge
+                        key={catIndex}
+                        variant="outline"
+                        className="text-xs"
+                      >
                         {category}
                       </Badge>
                     ))}
@@ -137,12 +159,18 @@ export function BlogGrid() {
                 <h3 className="font-heading font-bold text-xl text-foreground mb-3 group-hover:text-primary transition-colors text-balance">
                   {post.title}
                 </h3>
-                <p className="text-muted-foreground mb-4 leading-relaxed text-pretty">{post.excerpt}</p>
+                <p className="text-muted-foreground mb-4 leading-relaxed text-pretty">
+                  {post.excerpt}
+                </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1 mb-4">
                   {post.tags.slice(0, 3).map((tag, tagIndex) => (
-                    <Badge key={tagIndex} variant="secondary" className="text-xs">
+                    <Badge
+                      key={tagIndex}
+                      variant="secondary"
+                      className="text-xs"
+                    >
                       {tag}
                     </Badge>
                   ))}
@@ -152,7 +180,10 @@ export function BlogGrid() {
                 <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
                   <div className="flex items-center space-x-2">
                     <User className="h-4 w-4" />
-                    <Link href={`/blog/author/${post.author.id}`} className="hover:text-primary transition-colors">
+                    <Link
+                      href={`/blog/author/${post.author.id}`}
+                      className="hover:text-primary transition-colors"
+                    >
                       {post.author.name}
                     </Link>
                   </div>
@@ -165,7 +196,9 @@ export function BlogGrid() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                     <Calendar className="h-4 w-4" />
-                    <span>{new Date(post.published_at).toLocaleDateString()}</span>
+                    <span>
+                      {new Date(post.published_at).toLocaleDateString()}
+                    </span>
                   </div>
                   <Button
                     variant="outline"
@@ -192,5 +225,5 @@ export function BlogGrid() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -84,24 +84,37 @@ export function PricingSection() {
                   </div>
                 </div>
               )}
-              
+
               <CardContent className="p-6 flex flex-col h-full">
                 <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-tech-navy mb-2">{plan.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
+                  <h3 className="text-xl font-bold text-tech-navy mb-2">
+                    {plan.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {plan.description}
+                  </p>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold text-primary">${plan.price}</span>
-                    <span className="text-muted-foreground ml-1">/{plan.period}</span>
+                    <span className="text-4xl font-bold text-primary">
+                      ${plan.price}
+                    </span>
+                    <span className="text-muted-foreground ml-1">
+                      /{plan.period}
+                    </span>
                   </div>
                 </div>
 
                 <ul className="space-y-3 mb-6 flex-grow">
                   {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start space-x-3">
+                    <li
+                      key={featureIndex}
+                      className="flex items-start space-x-3"
+                    >
                       <div className="w-5 h-5 gradient-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Check className="h-3 w-3 text-white" />
                       </div>
-                      <span className="text-sm text-muted-foreground">{feature}</span>
+                      <span className="text-sm text-muted-foreground">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -126,7 +139,10 @@ export function PricingSection() {
           <p className="text-sm text-muted-foreground mb-4">
             Need a custom solution? We're here to help.
           </p>
-          <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
+          <Button
+            variant="outline"
+            className="border-primary text-primary hover:bg-primary hover:text-white"
+          >
             Contact Us for Custom Pricing
           </Button>
         </div>

@@ -1,12 +1,14 @@
 export type Messages = {
-  auth: typeof import("../messages/en/auth.json")
-  errors: typeof import("../messages/en/errors.json")
-  dashboard: typeof import("../messages/en/dashboard.json")
-  session: typeof import("../messages/en/session.json")
-}
+  auth: typeof import("../messages/en/auth.json");
+  errors: typeof import("../messages/en/errors.json");
+  dashboard: typeof import("../messages/en/dashboard.json");
+  session: typeof import("../messages/en/session.json");
+  hero: typeof import("../messages/en/hero.json");
+};
 
 export type IntlKeys =
   | keyof Messages
+  | `hero.${keyof Messages["hero"]}`
   | `auth.signin.${keyof Messages["auth"]["signin"]}`
   | `auth.signup.${keyof Messages["auth"]["signup"]}`
   | `auth.signup.roles.${keyof Messages["auth"]["signup"]["roles"]}`
@@ -17,13 +19,13 @@ export type IntlKeys =
   | `session.${keyof Messages["session"]}`
   | "errors.noPermission"
   | "errors.noPermissionAction"
-  | "errors.signInRequired"
+  | "errors.signInRequired";
 
 // Recursive type to extract all nested keys
 export type NestedKeyOf<ObjectType extends object> = {
   [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
     ? `${Key}` | `${Key}.${NestedKeyOf<ObjectType[Key]>}`
-    : `${Key}`
-}[keyof ObjectType & (string | number)]
+    : `${Key}`;
+}[keyof ObjectType & (string | number)];
 
-export type TranslationKeys = NestedKeyOf<Messages>
+export type TranslationKeys = NestedKeyOf<Messages>;

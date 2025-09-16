@@ -1,7 +1,7 @@
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
-import { CaseStudiesGrid } from "@/components/case-studies/case-studies-grid"
-import { CaseStudiesFilters } from "@/components/case-studies/case-studies-filters"
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { CaseStudiesGrid } from "@/components/case-studies/case-studies-grid";
+import { CaseStudiesFilters } from "@/components/case-studies/case-studies-filters";
 
 export default function CaseStudiesPage() {
   return (
@@ -15,8 +15,9 @@ export default function CaseStudiesPage() {
               Case Studies
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-              Real results from real clients. Discover how we've helped businesses transform their IT infrastructure and
-              achieve measurable success
+              Real results from real clients. Discover how we've helped
+              businesses transform their IT infrastructure and achieve
+              measurable success
             </p>
           </div>
         </section>
@@ -26,5 +27,5 @@ export default function CaseStudiesPage() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

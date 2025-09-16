@@ -1,22 +1,22 @@
 import { withAuth } from "next-auth/middleware";
-import createIntlMiddleware from "next-intl/middleware"
-import { type NextRequest, NextResponse } from "next/server"
+import createIntlMiddleware from "next-intl/middleware";
+import { type NextRequest, NextResponse } from "next/server";
 
 const intlMiddleware = createIntlMiddleware({
   locales: ["en", "ar"],
   defaultLocale: "en",
   localePrefix: "never", // Don't add locale prefix to URLs
-})
+});
 export default withAuth(
   function middleware(req) {
     const { pathname } = req.nextUrl;
     const token = req.nextauth.token;
 
-    const intlResponse = intlMiddleware(req)
+    const intlResponse = intlMiddleware(req);
     if (intlResponse) {
-      return intlResponse
+      return intlResponse;
     }
-    
+
     // Role-based routing
     const roleRoutes: Record<string, string[]> = {
       admin: ["/admin"],
@@ -27,7 +27,7 @@ export default withAuth(
     const allowedPaths = roleRoutes[userRole] || [];
 
     // Check if user has access to the requested path
-    const hasAccess = allowedPaths.some(path => pathname.startsWith(path));
+    const hasAccess = allowedPaths.some((path) => pathname.startsWith(path));
 
     if (!hasAccess) {
       return NextResponse.redirect(new URL("/unauthorized", req.url));
@@ -39,11 +39,9 @@ export default withAuth(
     callbacks: {
       authorized: ({ token }) => !!token,
     },
-  }
+  },
 );
 
 export const config = {
-  matcher: [
-    "/dashboard",
-  ],
+  matcher: ["/dashboard"],
 };

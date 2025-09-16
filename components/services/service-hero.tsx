@@ -1,12 +1,12 @@
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
 
 interface ServiceHeroProps {
   service: {
-    title: string
-    excerpt: string
-    hero_media: { url: string; alt: string }
-    body_blocks: Array<{ type: string; content: string }>
-  }
+    title: string;
+    excerpt: string;
+    hero_media: { url: string; alt: string };
+    body_blocks: Array<{ type: string; content: string }>;
+  };
 }
 
 export function ServiceHero({ service }: ServiceHeroProps) {
@@ -21,10 +21,14 @@ export function ServiceHero({ service }: ServiceHeroProps) {
             <h1 className="font-heading font-black text-4xl md:text-5xl text-foreground text-balance">
               {service.title}
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed text-pretty">{service.excerpt}</p>
+            <p className="text-xl text-muted-foreground leading-relaxed text-pretty">
+              {service.excerpt}
+            </p>
             {service.body_blocks.map((block, index) => (
               <div key={index} className="prose prose-lg max-w-none">
-                <p className="text-muted-foreground leading-relaxed">{block.content}</p>
+                <p className="text-muted-foreground leading-relaxed">
+                  {block.content}
+                </p>
               </div>
             ))}
           </div>
@@ -35,12 +39,14 @@ export function ServiceHero({ service }: ServiceHeroProps) {
                 <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-4xl">⚡</span>
                 </div>
-                <p className="text-muted-foreground">{service.hero_media.alt}</p>
+                <p className="text-muted-foreground">
+                  {service.hero_media.alt}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

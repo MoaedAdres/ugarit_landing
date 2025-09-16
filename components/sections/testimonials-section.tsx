@@ -67,7 +67,9 @@ const mockTestimonials = [
   },
 ];
 
-export function TestimonialsSection({ testimonialIds }: TestimonialsSectionProps) {
+export function TestimonialsSection({
+  testimonialIds,
+}: TestimonialsSectionProps) {
   return (
     <section className="py-16 bg-gradient-hero">
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
@@ -76,7 +78,8 @@ export function TestimonialsSection({ testimonialIds }: TestimonialsSectionProps
             What Our <span className="text-primary">Clients Say</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Don't just take our word for it. Here's what industry leaders have to say about our services
+            Don't just take our word for it. Here's what industry leaders have
+            to say about our services
           </p>
         </div>
 
@@ -109,7 +112,10 @@ export function TestimonialsSection({ testimonialIds }: TestimonialsSectionProps
 
                     <div className="flex mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                        <Star
+                          key={i}
+                          className="h-4 w-4 text-yellow-400 fill-current"
+                        />
                       ))}
                     </div>
 
@@ -127,7 +133,9 @@ export function TestimonialsSection({ testimonialIds }: TestimonialsSectionProps
                         </span>
                       </div>
                       <div>
-                        <div className="font-semibold text-tech-navy text-sm">{testimonial.name}</div>
+                        <div className="font-semibold text-tech-navy text-sm">
+                          {testimonial.name}
+                        </div>
                         <div className="text-xs text-muted-foreground">
                           {testimonial.role}, {testimonial.company}
                         </div>
@@ -142,4 +150,4 @@ export function TestimonialsSection({ testimonialIds }: TestimonialsSectionProps
       </div>
     </section>
   );
-};
+}

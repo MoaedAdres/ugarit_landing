@@ -1,8 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Building } from "lucide-react"
-import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Building } from "lucide-react";
+import Link from "next/link";
 
 // Mock case studies data - replace with actual API call
 const caseStudies = [
@@ -12,7 +12,8 @@ const caseStudies = [
     client_name: "RetailMax Corporation",
     sector: "Retail",
     problem: "High operational costs and inefficient inventory management",
-    solution: "Implemented ML-powered inventory optimization and cloud migration",
+    solution:
+      "Implemented ML-powered inventory optimization and cloud migration",
     results_kpis: [
       { label: "Cost Reduction", value: "30%" },
       { label: "Processing Speed", value: "5x faster" },
@@ -28,7 +29,8 @@ const caseStudies = [
     client_name: "SecureBank Solutions",
     sector: "Financial Services",
     problem: "Legacy infrastructure limiting scalability and compliance",
-    solution: "Complete cloud migration with enhanced security and compliance framework",
+    solution:
+      "Complete cloud migration with enhanced security and compliance framework",
     results_kpis: [
       { label: "Uptime", value: "99.9%" },
       { label: "Security Score", value: "A+" },
@@ -44,7 +46,8 @@ const caseStudies = [
     client_name: "MedTech Regional",
     sector: "Healthcare",
     problem: "Slow deployment cycles and security compliance challenges",
-    solution: "DevOps transformation with automated CI/CD and security integration",
+    solution:
+      "DevOps transformation with automated CI/CD and security integration",
     results_kpis: [
       { label: "Deployment Speed", value: "10x faster" },
       { label: "Security Compliance", value: "100%" },
@@ -60,7 +63,8 @@ const caseStudies = [
     client_name: "Industrial Dynamics",
     sector: "Manufacturing",
     problem: "Lack of real-time visibility into production processes",
-    solution: "IoT implementation with real-time analytics and predictive maintenance",
+    solution:
+      "IoT implementation with real-time analytics and predictive maintenance",
     results_kpis: [
       { label: "Downtime Reduction", value: "40%" },
       { label: "Efficiency Gain", value: "25%" },
@@ -92,7 +96,8 @@ const caseStudies = [
     client_name: "InnovateLabs",
     sector: "Technology",
     problem: "Rapid growth overwhelming existing infrastructure",
-    solution: "Scalable cloud architecture with automated scaling and monitoring",
+    solution:
+      "Scalable cloud architecture with automated scaling and monitoring",
     results_kpis: [
       { label: "Scalability", value: "1000x" },
       { label: "Response Time", value: "50ms" },
@@ -102,7 +107,7 @@ const caseStudies = [
     tags: ["Cloud Migration", "Performance", "Automation"],
     testimonial: "We can now handle massive scale without any issues.",
   },
-]
+];
 
 export function CaseStudiesGrid() {
   return (
@@ -110,7 +115,10 @@ export function CaseStudiesGrid() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {caseStudies.map((study, index) => (
-            <Card key={study.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
+            <Card
+              key={study.id}
+              className="group hover:shadow-xl transition-all duration-300 overflow-hidden"
+            >
               {/* Header */}
               <div className="p-6 border-b border-border">
                 <div className="flex items-center justify-between mb-4">
@@ -122,7 +130,9 @@ export function CaseStudiesGrid() {
                 <h3 className="font-heading font-bold text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
                   {study.client_name}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-3">{study.problem}</p>
+                <p className="text-sm text-muted-foreground mb-3">
+                  {study.problem}
+                </p>
                 <p className="text-sm text-foreground">{study.solution}</p>
               </div>
 
@@ -130,9 +140,16 @@ export function CaseStudiesGrid() {
                 {/* Results */}
                 <div className="grid grid-cols-3 gap-3 mb-6">
                   {study.results_kpis.slice(0, 3).map((result, resultIndex) => (
-                    <div key={resultIndex} className="text-center p-3 bg-muted/50 rounded-lg">
-                      <div className="font-heading font-bold text-lg text-primary">{result.value}</div>
-                      <div className="text-xs text-muted-foreground">{result.label}</div>
+                    <div
+                      key={resultIndex}
+                      className="text-center p-3 bg-muted/50 rounded-lg"
+                    >
+                      <div className="font-heading font-bold text-lg text-primary">
+                        {result.value}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {result.label}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -140,7 +157,11 @@ export function CaseStudiesGrid() {
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {study.tags.slice(0, 2).map((tag, tagIndex) => (
-                    <Badge key={tagIndex} variant="secondary" className="text-xs">
+                    <Badge
+                      key={tagIndex}
+                      variant="secondary"
+                      className="text-xs"
+                    >
                       {tag}
                     </Badge>
                   ))}
@@ -174,5 +195,5 @@ export function CaseStudiesGrid() {
         </div>
       </div>
     </section>
-  )
+  );
 }

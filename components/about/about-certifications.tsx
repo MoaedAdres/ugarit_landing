@@ -1,10 +1,14 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Award, Shield, CheckCircle } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card";
+import { Award, Shield, CheckCircle } from "lucide-react";
 
 const certifications = [
   {
     category: "Cloud Platforms",
-    items: ["Microsoft Azure Certified", "AWS Advanced Consulting Partner", "Google Cloud Partner"],
+    items: [
+      "Microsoft Azure Certified",
+      "AWS Advanced Consulting Partner",
+      "Google Cloud Partner",
+    ],
   },
   {
     category: "Security & Compliance",
@@ -14,14 +18,14 @@ const certifications = [
     category: "Industry Standards",
     items: ["ITIL Foundation", "Agile Certified", "DevOps Institute Partner"],
   },
-]
+];
 
 const awards = [
   "Microsoft Partner of the Year 2023",
   "AWS Rising Star Partner 2022",
   "Best Cloud Migration Service 2023",
   "Excellence in DevOps Implementation 2022",
-]
+];
 
 export function AboutCertifications() {
   return (
@@ -41,16 +45,23 @@ export function AboutCertifications() {
           <div>
             <div className="flex items-center mb-8">
               <Shield className="h-8 w-8 text-primary mr-3" />
-              <h3 className="font-heading font-bold text-2xl text-foreground">Certifications</h3>
+              <h3 className="font-heading font-bold text-2xl text-foreground">
+                Certifications
+              </h3>
             </div>
             <div className="space-y-6">
               {certifications.map((cert, index) => (
                 <Card key={index}>
                   <CardContent className="p-6">
-                    <h4 className="font-heading font-semibold text-lg text-foreground mb-4">{cert.category}</h4>
+                    <h4 className="font-heading font-semibold text-lg text-foreground mb-4">
+                      {cert.category}
+                    </h4>
                     <div className="space-y-2">
                       {cert.items.map((item, itemIndex) => (
-                        <div key={itemIndex} className="flex items-center space-x-2">
+                        <div
+                          key={itemIndex}
+                          className="flex items-center space-x-2"
+                        >
                           <CheckCircle className="h-4 w-4 text-green-500" />
                           <span className="text-muted-foreground">{item}</span>
                         </div>
@@ -66,11 +77,16 @@ export function AboutCertifications() {
           <div>
             <div className="flex items-center mb-8">
               <Award className="h-8 w-8 text-primary mr-3" />
-              <h3 className="font-heading font-bold text-2xl text-foreground">Awards & Recognition</h3>
+              <h3 className="font-heading font-bold text-2xl text-foreground">
+                Awards & Recognition
+              </h3>
             </div>
             <div className="space-y-4">
               {awards.map((award, index) => (
-                <Card key={index} className="group hover:shadow-lg transition-shadow">
+                <Card
+                  key={index}
+                  className="group hover:shadow-lg transition-shadow"
+                >
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-3">
                       <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -88,5 +104,5 @@ export function AboutCertifications() {
         </div>
       </div>
     </section>
-  )
+  );
 }
