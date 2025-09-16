@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -15,7 +21,9 @@ export default function HomePage() {
 						<Button asChild>
 							<Link href="/dashboard/home/edit-hero">Edit Hero Content</Link>
 						</Button>
-						<p className="text-sm text-muted-foreground">Last updated: 2 hours ago</p>
+						<p className="text-sm text-muted-foreground">
+							Last updated: 2 hours ago
+						</p>
 					</div>
 				</CardContent>
 			</Card>
@@ -27,7 +35,9 @@ export default function HomePage() {
 				</CardHeader>
 				<CardContent>
 					<Button asChild>
-						<Link href="/dashboard/home/manage-highlights">Manage Highlights</Link>
+						<Link href="/dashboard/home/manage-highlights">
+							Manage Highlights
+						</Link>
 					</Button>
 				</CardContent>
 			</Card>
