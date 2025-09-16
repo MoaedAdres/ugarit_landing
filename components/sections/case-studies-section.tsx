@@ -53,10 +53,10 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
     <section className="py-16 bg-gradient-hero">
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-tech-navy mb-4">
-            Success <span className="text-primary">Stories</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
+            Success <span className="text-secondary-foreground">Stories</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-secondary-800 max-w-2xl mx-auto leading-relaxed">
             Real results from real clients. See how we've helped businesses
             transform their IT infrastructure
           </p>

@@ -6,6 +6,7 @@ import heroRightBackground from "@/public/jpgs/hero-right.jpg";
 import { ModeToggle } from "../theme/toggle-theme";
 import AnimatedButton from "../animations/AnimatedButton";
 import MyButton from "../Reusable-components/MyButton";
+import TypewriterDescription from "../Reusable-components/TypeWriterDescription";
 interface HeroProps {
   hero: {
     title: string;
@@ -47,12 +48,17 @@ export function HeroSection({ hero }: HeroProps) {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl text-secondary-900 md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            {hero.title}
-            <span className="text-secondary-foreground"> {hero.subtitle}</span>
+          <h1 className="text-5xl animate-fade-in-up text-secondary-900 md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            {/* <TypewriterDescription duration={200} text={hero.title} /> */}
+            {hero.title}{" "}
+            <span className="text-secondary-foreground">
+              {/* <TypewriterDescription duration={200} text={hero.subtitle} /> */}
+              {hero.subtitle}
+            </span>
           </h1>
           <p className="text-xl md:text-2xl text-secondary-800 mb-8 leading-relaxed max-w-3xl mx-auto">
-            {hero.description}
+            <TypewriterDescription text={hero.description} />
+            {/* {hero.description} */}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <AnimatedButton text="hero.get_started_today" />
@@ -62,33 +68,6 @@ export function HeroSection({ hero }: HeroProps) {
               text="hero.watch_demo"
             />
           </div>
-          {/* // Stats */}
-          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-white/20">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-tech-teal mb-2">
-                500+
-              </div>
-              <div className="text-gray-300">Projects Delivered</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-tech-teal mb-2">
-                98%
-              </div>
-              <div className="text-gray-300">Client Satisfaction</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-tech-teal mb-2">
-                24/7
-              </div>
-              <div className="text-gray-300">Support Available</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-tech-teal mb-2">
-                15+
-              </div>
-              <div className="text-gray-300">Years Experience</div>
-            </div>
-          </div> */}
         </div>
       </div>
     </section>

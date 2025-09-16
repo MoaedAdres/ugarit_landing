@@ -10,7 +10,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 import AnimatedButton from "../animations/AnimatedButton";
-
+import MyImage from "../Reusable-components/MyImage";
+import LightImage from "@/public/jpgs/lights/Light.jpg"
+import TypewriterDescription from "../Reusable-components/TypeWriterDescription";
 // Static services data with the new styling
 const services = [
   {
@@ -68,23 +70,43 @@ const services = [
     features: ["Process Automation", "Digital Strategy", "Change Management"],
   },
 ];
-
+import SupportImage from "@/public/jpgs/stats/support.jpg"
+import Image from "next/image";
 interface ServicesHighlightsProps {
   highlights?: any[]; // Keep for API compatibility but use static data
 }
 
 export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
   return (
-    <section className="py-8 bg-gradient-hero">
-      <div className="container mx-auto px-4">
+    <section className="pt-8 relative">
+      <div className="grid absolute bg-primary-50 -top-12 w-[80%] mx-28 rounded-lg shadow-lg py-4 z-50 grid-cols-2 md:grid-cols-4 gap-8">
+        {[
+          { title: "500+", description: "Projects Delivered", img: SupportImage },
+          { title: "98%", description: "Client Satisfaction", img: SupportImage },
+          { title: "24/7", description: "Support Available", img: SupportImage },
+          { title: "15+", description: "Years Experience", img: SupportImage }
+        ].map((element, index) => (
+          <div key={index} className="text-center flex flex-col items-center animate-fade-in-up hover:opacity-0">
+            {/* <Image className="size-16" src={element.img} alt={element.description} /> */}
+            <div className="text-3xl md:text-4xl font-bold text-secondary-900 mb-2">
+              {element.title}
+            </div>
+            <div className="text-secondary-800">{element.description}</div>
+          </div>
+        ))}
+      </div>
+      <MyImage src={LightImage} className="h-full absolute top-56" alt="light bottom" />
+      <div className="container relative mt-24 mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
             Our <span className="text-secondary-foreground">Services</span>
           </h2>
           <p className="text-lg text-secondary-800 max-w-2xl mx-auto leading-relaxed">
-            We deliver comprehensive IT solutions that drive innovation, enhance
-            security, and accelerate your digital transformation journey.
+            <TypewriterDescription duration={100} text="We deliver comprehensive IT solutions that drive innovation, enhance
+            security, and accelerate your digital transformation journey." />
+            {/* We deliver comprehensive IT solutions that drive innovation, enhance
+            security, and accelerate your digital transformation journey. */}
           </p>
         </div>
 
@@ -93,13 +115,15 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
+              // <MyAnimationCard>
+
               <Card
                 key={index}
-                className="group hover:shadow-glow transition-all duration-300 border-0 gradient-card hover:-translate-y-2"
+                className="cardgroup group hover:shadow-glow transition-all duration-300 border-0 gradient-card hover:-translate-y-2 hover:scale-110 !pb-0"
               >
                 <CardContent className="p-5">
-                  <div className="flex items-center mx-auto justify-center w-16 h-16 gradient-primary rounded-xl mb-6 group-hover:scale-110 transition-transform">
-                    <Icon className="h-8 w-8 text-white" />
+                  <div className="flex items-center mx-auto justify-center w-16 h-16 hero-section rounded-xl mb-6 group-hover:scale-110 transition-transform">
+                    <Icon className="h-8 w-8 text-secondary-foreground" />
                   </div>
 
                   <h3 className="text-2xl text-center font-bold text-tech-navy mb-4 group-hover:text-secondary-foreground transition-colors">
@@ -121,16 +145,19 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
                       </li>
                     ))}
                   </ul>
+                  <div className="w-full flex justify-end">
 
-                  <Button
-                    variant="ghost"
-                    className="group/btn text-transparent group-hover:text-secondary  hover:text-secondary-foreground hover:bg-primary/10 p-0 h-auto font-semibold"
-                  >
-                    Learn More
-                    <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      className="group/btn justify-end text-transparent group-hover:text-secondary hover:text-secondary-foreground hover:bg-primary/10 p-0 h-auto font-semibold"
+                    >
+                      Learn More
+                      <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
+              // </MyAnimationCard>
             );
           })}
         </div>
@@ -138,10 +165,6 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
         {/* CTA */}
         <div className="text-center">
           <AnimatedButton text="services.explore_all_services" />
-          {/* <Button className="gradient-primary hover:opacity-90 transition-smooth px-6 py-3 font-semibold">
-            Explore All Services
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button> */}
         </div>
       </div>
     </section>
