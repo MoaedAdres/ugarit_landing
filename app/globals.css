@@ -53,6 +53,9 @@
 	--color-tech-light: var(--tech-light);
 
 	--color-primary-50: var(--primary-50);
+	--color-primary-100: var(--primary-100);
+	--color-primary-150: var(--primary-150);
+	--color-primary-300: var(--primary-300);
 	--color-primary-600: var(--primary-600);
 	--color-primary-700: var(--primary-700);
 	--color-primary-850: var(--primary-850);
@@ -61,6 +64,7 @@
 	--color-secondary-100: var(--secondary-100);
 	--color-secondary-800: var(--secondary-800);
 	--color-secondary-900: var(--secondary-900);
+	--color-secondary-950: var(--secondary-950);
 }
 
 .hero-section {
@@ -70,12 +74,9 @@
 	background: -webkit-linear-gradient(180deg, hsla(206, 78%, 93%, 1) 0%, hsla(23, 25%, 81%, 1) 100%);
 	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#DFEFFB", endColorstr="#DBCCC3", GradientType=1 );
 }
-
-.text-gradient-inspiring {
-	background: linear-gradient(180deg, hsla(206, 78%, 93%, 1) 0%, hsla(23, 25%, 81%, 1) 100%);
-	background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+.gradient-icon {
+	--gradient-from: #3b82f6;
+	--gradient-to: #10b981;
 }
 
 :root {
@@ -90,6 +91,9 @@
 
 	--primary: hsla(206, 78%, 93%, 1);
 	--primary-50: hsla(206, 78%, 99%, 1);
+	--primary-100: hsla(206, 78%, 99%, 1);
+	--primary-150: hsla(206, 78%, 98%, 1);
+	--primary-300: hsla(206, 78%, 96%, 1);
 	--primary-600: hsla(206, 53%, 81%, 1);
 	--primary-700: hsla(206, 47%, 70%, 1);
 	--primary-850: hsla(206, 43%, 52%, 1);
@@ -101,6 +105,7 @@
 	--secondary-100: hsla(22, 25%, 91%, 1);
 	--secondary-800: hsla(22, 22%, 21%, 1);
 	--secondary-900: hsla(22, 22%, 11%, 1);
+	--secondary-950: hsla(22, 22%, 5%, 1);
 
 	--muted: hsl(220 15% 95%);
 	--muted-foreground: hsl(220 10% 46%);
@@ -390,6 +395,7 @@
 	position: absolute;
 	inset: 0;
 	padding: 3px;
+	z-index: 50;
 	border-radius: 0.5rem;
 	background: linear-gradient(180deg, hsla(206, 78%, 93%, 1) 0%, hsla(23, 25%, 81%, 1) 100%);
 	-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -400,6 +406,10 @@
 	transition: opacity 0.3s ease-in-out, transform 1s ease-in-out;
 }
 .cardgroup:hover::before {
+	opacity: 1;
+}
+
+.withoutHover .cardgroup::before {
 	opacity: 1;
 }
 
@@ -417,4 +427,19 @@
 
 .animate-fade-in-up {
 	animation: fadeInUp 1.5s ease-out forwards;
+}
+
+@keyframes fadeInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-300px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+.animate-fade-in-left {
+	animation: fadeInLeft 1.5s ease-out forwards;
 }

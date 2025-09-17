@@ -2,8 +2,12 @@ import { getTranslations } from "next-intl/server";
 
 // API integration layer for REST endpoints
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.ugarittech.com/api/v1";
-import FeaturesSection from "@/public/jpgs/features.jpg";
+import FeaturesImage from "@/public/jpgs/features/features.jpg";
 import { StaticImageData } from "next/image";
+import TaskCompleted from "@/public/jpgs/stats/projects-completed.jpg";
+import EnterpriseClients from "@/public/jpgs/stats/enterprise-clients.jpg";
+import TeamMembers from "@/public/jpgs/stats/team-members.jpg";
+import YearsExperience from "@/public/pngs/stats/YearsExperience.png";
 export interface ApiResponse<T> {
 	data: T;
 	success: boolean;
@@ -30,7 +34,7 @@ export interface HomePage {
 		media: { url: StaticImageData };
 		variant: string;
 	}>;
-	kpis: Array<{ label: string; value: number }>;
+	kpis: Array<{ label: string; value: number; img?: string | StaticImageData }>;
 	case_studies: string[];
 	testimonials: string[];
 	partners: string[];
@@ -126,15 +130,15 @@ export async function fetchHomePage(): Promise<HomePage> {
 					"24/7 support and monitoring",
 					"Proven track record with enterprise clients",
 				],
-				media: { url: FeaturesSection },
+				media: { url: FeaturesImage },
 				variant: "image-right",
 			},
 		],
 		kpis: [
-			{ label: "Projects Completed", value: 120 },
-			{ label: "Enterprise Clients", value: 45 },
-			{ label: "Years Experience", value: 8 },
-			{ label: "Team Members", value: 25 },
+			{ label: "Projects Completed", value: 120, img: TaskCompleted },
+			{ label: "Enterprise Clients", value: 45, img: EnterpriseClients },
+			{ label: "Years Experience", value: 8, img: YearsExperience },
+			{ label: "Team Members", value: 25, img: TeamMembers },
 		],
 		case_studies: ["retail-ml-cost-cut"],
 		testimonials: ["sara-it-director"],

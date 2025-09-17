@@ -75,10 +75,10 @@ export function TestimonialsSection({
     <section className="py-16 bg-gradient-hero">
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-tech-navy mb-4">
-            What Our <span className="text-primary">Clients Say</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
+            What Our <span className="text-secondary-foreground">Clients Say</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-secondary-800 max-w-2xl mx-auto leading-relaxed">
             Don't just take our word for it. Here's what industry leaders have
             to say about our services
           </p>

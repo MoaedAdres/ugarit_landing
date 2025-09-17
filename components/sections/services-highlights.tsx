@@ -98,7 +98,7 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
       <MyImage src={LightImage} className="h-full absolute top-56" alt="light bottom" />
       <div className="container relative mt-24 mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
             Our <span className="text-secondary-foreground">Services</span>
           </h2>
@@ -115,18 +115,16 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              // <MyAnimationCard>
-
               <Card
                 key={index}
-                className="cardgroup group hover:shadow-glow transition-all duration-300 border-0 gradient-card hover:-translate-y-2 hover:scale-110 !pb-0"
+                className="cardgroup group backdrop-contrast-150 backdrop-blur-lg shadow-xl hover:shadow-glow transition-all duration-300 border-0 hover:-translate-y-2 hover:scale-110 !pb-0"
               >
                 <CardContent className="p-5">
-                  <div className="flex items-center mx-auto justify-center w-16 h-16 hero-section rounded-xl mb-6 group-hover:scale-110 transition-transform">
-                    <Icon className="h-8 w-8 text-secondary-foreground" />
+                  <div className="flex items-center mx-auto justify-center w-16 h-16 group-hover:bg-primary ease-in-out duration-300 delay-200 rounded-xl mb-6 group-hover:scale-110 transition-all">
+                    <Icon className="h-10 w-10 text-secondary-800" />
                   </div>
 
-                  <h3 className="text-2xl text-center font-bold text-tech-navy mb-4 group-hover:text-secondary-foreground transition-colors">
+                  <h3 className="text-2xl text-center font-bold text-secondary-800 mb-4 transition-colors">
                     {service.title}
                   </h3>
 
@@ -140,7 +138,7 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
                         key={idx}
                         className="flex items-center text-sm text-muted-foreground"
                       >
-                        <div className="w-2 h-2 bg-secondary-foreground rounded-full mr-3"></div>
+                        <div className="w-2 h-2 hero-section rounded-full mr-3"></div>
                         {feature}
                       </li>
                     ))}
@@ -149,7 +147,7 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
 
                     <Button
                       variant="ghost"
-                      className="group/btn justify-end text-transparent group-hover:text-secondary hover:text-secondary-foreground hover:bg-primary/10 p-0 h-auto font-semibold"
+                      className="group/btn justify-end text-transparent group-hover:text-secondary-foreground hover:text-secondary-foreground hover:bg-primary/10 p-0 h-auto font-semibold"
                     >
                       Learn More
                       <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
@@ -157,7 +155,6 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
                   </div>
                 </CardContent>
               </Card>
-              // </MyAnimationCard>
             );
           })}
         </div>
