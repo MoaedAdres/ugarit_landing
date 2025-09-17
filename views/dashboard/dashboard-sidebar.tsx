@@ -36,6 +36,7 @@ const sidebarItems: SidebarItem[] = [
 		icon: Edit,
 		children: [
 			{ id: "home", label: "Home Page", icon: Home, href: "/dashboard/home" },
+			{ id: "hero", label: "Hero Page", icon: Home, href: "/dashboard/hero" },
 			{
 				id: "services",
 				label: "Services",

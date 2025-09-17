@@ -34,6 +34,8 @@ You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, 
 - Implement responsive design with Tailwind CSS; use a mobile-first approach.
 - Ensure dashboard view components work well on different screen sizes.
 - Use consistent spacing and typography throughout the dashboard views.
+- Always use the Resuable componetns in the RComponetns folder if possible.
+
 
 ## Dashboard Views Performance Optimization
 - Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
