@@ -7,39 +7,39 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import 'swiper/css';
 import { IChildren } from '@/interfaces/shared';
-import MyButton from './MyButton';
-export default function MySwiper({ children }: IChildren) {
+import { IMySwiper } from '@/interfaces/ui/swiper';
+import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
+import { cn } from '@/lib/utils';
+export default function MySwiper({ wrapperClasses = "shadow-md h-[300px]", swiperClasses = "h-[400px] xl:h-[450px]", swiperSlideClasses = "withoutHover", children, effect, grabCursor, centeredSlides = true, slidesPerView = 3, loop, speed, autoplay = {
+    delay: 0,
+    disableOnInteraction: false,
+}, coverflowEffect, pagination, initialSlide = 1, spaceBetween = 70, anotherModules, activeSlideClasses = "bg-white cardgroup shadow-lg scale-130", showNextButton = true, showPreviousButton = true, showPagination = true, parentClasses = "py-8" }: IChildren & IMySwiper) {
     const swiperRef = useRef<SwiperType>();
     // I used this state to start with the second slide as active
     const [activeIndex, setActiveIndex] = useState(1);
+    const modules = [EffectCoverflow, Pagination, ...(anotherModules || [])];
+
     return (
-        <div className="w-full max-w-6xl mx-auto px-4 py-8">
+        <div className={cn("w-full max-w-6xl mx-auto px-4 ", parentClasses)}>
             <div className="relative">
                 <Swiper
-                    spaceBetween={70}
-                    slidesPerView={3}
-                    centeredSlides={true}
-                    autoplay={{
-                        delay: 0,
-                        disableOnInteraction: false,
-                    }}
+                    {...{ effect, grabCursor, centeredSlides, slidesPerView, loop, speed, autoplay, coverflowEffect, pagination, initialSlide, spaceBetween, modules }}
                     // Start with the second slide centered
-                    initialSlide={1}
                     onBeforeInit={(swiper) => {
                         swiperRef.current = swiper;
                     }}
                     onSlideChange={(swiper) => {
                         setActiveIndex(swiper.activeIndex);
                     }}
-                    className="w-full h-[400px] xl:h-[450px] py-3 xl:py-10"
+                    className={cn("w-full xl:py-10", swiperClasses)}
                 >
                     {React.Children.map(children, (child, index) => (
-                        <SwiperSlide className='h-[200px]' key={index}>
-                            <div className={`mt-12 xl:mt-14 rounded-xl flex flex-col justify-between transition-all duration-300 
+                        <SwiperSlide className={swiperSlideClasses} key={index}>
+                            <div className={cn(`mt-12 xl:mt-14 rounded-lg flex flex-col justify-between transition-all duration-300 
                 ${activeIndex === index ?
-                                    'transform scale-130 bg-white border-2 border-secondary-foreground shadow-lg' :
+                                    `transform ${activeSlideClasses}` :
                                     `opacity-80`} 
-                shadow-md`}
+                `, wrapperClasses)}
                             >
 
                                 {child}
@@ -47,23 +47,23 @@ export default function MySwiper({ children }: IChildren) {
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                <Button
+                {showPreviousButton && <Button
                     size="icon"
                     className="absolute left-0 top-1/2 transform -translate-x-4 z-10 bg-white shadow-md"
                     onClick={() => swiperRef.current?.slidePrev()}
                 >
                     <ChevronLeft className="h-4 w-4" />
-                </Button>
-                <Button
+                </Button>}
+                {showNextButton && <Button
                     size="icon"
                     className="absolute right-0 top-1/2 transform translate-x-4 z-10 bg-white shadow-md"
                     onClick={() => swiperRef.current?.slideNext()}
                 >
                     <ChevronRight className="h-4 w-4" />
-                </Button>
+                </Button>}
             </div>
 
-            <div className="flex justify-center mt-6 space-x-2">
+            {showPagination && <div className="flex justify-center mt-6 space-x-2">
                 {React.Children.map(children, (_, index) => (
                     <button
                         key={index}
@@ -71,7 +71,7 @@ export default function MySwiper({ children }: IChildren) {
                         onClick={() => swiperRef.current?.slideTo(index)}
                     />
                 ))}
-            </div>
+            </div>}
         </div >
     );
 }

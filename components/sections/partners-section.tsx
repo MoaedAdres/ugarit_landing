@@ -21,7 +21,10 @@ import {
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
+import MySwiper from "../Reusable-components/MySwiper";
+import SinglePartner from "./SinglePartner";
+import LightBottom from "@/public/jpgs/lights/Light.jpg"
+import MyImage from "../Reusable-components/MyImage";
 interface PartnersSectionProps {
   partnerIds: string[];
 }
@@ -137,19 +140,31 @@ const mockPartners = [
 
 export function PartnersSection({ partnerIds }: PartnersSectionProps) {
   return (
-    <section className="py-16 bg-gradient-hero border-y border-border/20">
+    <section className="py-16 relative bg-gradient-hero border-y border-border/20">
+      <MyImage src={LightBottom} alt="light bottom" className="absolute h-full" />
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-tech-navy mb-4">
-            Trusted <span className="text-primary">Technology Partners</span>
+          <h2 className="text-2xl md:text-3xl font-bold text-secondary-900  mb-4">
+            Trusted <span className="text-secondary-foreground">Technology Partners</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-secondary-800 max-w-2xl mx-auto">
             We work with industry-leading platforms and technologies to deliver
             cutting-edge solutions
           </p>
         </div>
 
-        <div className="relative">
+        <MySwiper slidesPerView={4} parentClasses="" showPagination={false} pagination={false} wrapperClasses="" swiperClasses="!py-0" activeSlideClasses="" showNextButton={false} showPreviousButton={false} speed={2000} anotherModules={[Autoplay]} autoplay={{ disableOnInteraction: false, delay: 0 }}>
+          {mockPartners.slice(0, mockPartners?.length / 2).map((partner, index) =>
+            <SinglePartner Icon="" key={index} name={partner.name} />
+          )}
+        </MySwiper>
+
+        <MySwiper slidesPerView={4} parentClasses="" showPagination={false} pagination={false} wrapperClasses="" swiperClasses="!py-0" activeSlideClasses="" showNextButton={false} showPreviousButton={false} speed={2000} anotherModules={[Autoplay]} autoplay={{ disableOnInteraction: false, reverseDirection: true, delay: 0 }}>
+          {mockPartners.slice((mockPartners?.length / 2) + 1).map((partner, index) =>
+            <SinglePartner Icon="" key={index} name={partner.name} />
+          )}
+        </MySwiper>
+        {/* <div className="relative">
           <Swiper
             modules={[Autoplay, Pagination]}
             spaceBetween={30}
@@ -214,7 +229,7 @@ export function PartnersSection({ partnerIds }: PartnersSectionProps) {
               );
             })}
           </Swiper>
-        </div>
+        </div> */}
       </div>
     </section>
   );

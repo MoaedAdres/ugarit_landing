@@ -1,7 +1,9 @@
+"use client"
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 interface CaseStudiesSectionProps {
   caseStudyIds: string[];
@@ -46,7 +48,42 @@ const mockCaseStudies = [
     ],
     image: "/case-study-healthcare.png",
   },
+  {
+    id: "healthcare-devopss",
+    title: "Healthcare DevOps Transformation",
+    client: "Regional Healthcare Network",
+    sector: "Healthcare",
+    summary: "Accelerated deployment cycles and improved patient data security",
+    results: [
+      { label: "Deployment Speed", value: "10x faster" },
+      { label: "Security Compliance", value: "100%" },
+    ],
+    image: "/case-study-healthcare.png",
+  },
+  {
+    id: "healthcare-devopsss",
+    title: "Healthcare DevOps Transformation",
+    client: "Regional Healthcare Network",
+    sector: "Healthcare",
+    summary: "Accelerated deployment cycles and improved patient data security",
+    results: [
+      { label: "Deployment Speed", value: "10x faster" },
+      { label: "Security Compliance", value: "100%" },
+    ],
+    image: "/case-study-healthcare.png",
+  },
+
 ];
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-cards';
+
+import './styles.css';
+
+// import required modules
+import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
+import MySwiper from "../Reusable-components/MySwiper";
 
 export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
   return (
@@ -61,15 +98,30 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
             transform their IT infrastructure
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockCaseStudies.map((study, index) => (
+        <MySwiper activeSlideClasses="" effect={'coverflow'} grabCursor={true} slidesPerView={"auto"} loop={true} speed={2000} autoplay={{
+          delay: 0,
+          disableOnInteraction: false,
+          reverseDirection: false,
+        }}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          anotherModules={[Autoplay]}
+          swiperClasses="h-[500px] !py-0 xl:h-[650px]"
+          wrapperClasses=""
+          swiperSlideClasses="!w-fit !h-full"
+        >
+          {mockCaseStudies.map((study) => (
             <Card
               key={study.id}
-              className="group hover:shadow-glow transition-all duration-300 border-0 gradient-card hover:-translate-y-2 overflow-hidden"
+              className="group h-full !py-0 hover:shadow-glow transition-all duration-300 border-0 gradient-card overflow-hidden"
             >
               {/* Image placeholder with overlay */}
-              <div className="aspect-video bg-gradient-to-br from-tech-blue/20 to-tech-teal/20 relative overflow-hidden">
+              <div className="h-60 bg-gradient-to-br from-tech-blue/20 to-tech-teal/20 relative overflow-hidden">
                 <div className="absolute inset-0 bg-tech-navy/60 flex items-center justify-center">
                   <div className="text-center">
                     <TrendingUp className="h-10 w-10 text-white mx-auto mb-2" />
@@ -84,13 +136,13 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
               </div>
 
               <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-tech-navy mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-lg font-bold text-secondary-950 mb-2 group-hover:text-secondary-foreground transition-colors">
                   {study.title}
                 </h3>
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wide font-medium">
+                <p className="text-xs text-secondary-900 mb-1 tracking-wide font-medium">
                   {study.client}
                 </p>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                <p className="text-sm text-secondary-900 mb-4 leading-relaxed">
                   {study.summary}
                 </p>
 
@@ -100,10 +152,10 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
                       key={resultIndex}
                       className="text-center p-3 bg-primary/5 rounded-lg border border-primary/10"
                     >
-                      <div className="font-bold text-base text-primary">
+                      <div className="font-bold text-base text-secondary">
                         {result.value}
                       </div>
-                      <div className="text-xs text-muted-foreground">
+                      <div className="text-xs text-secondary-900">
                         {result.label}
                       </div>
                     </div>
@@ -112,7 +164,7 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
 
                 <Button
                   variant="ghost"
-                  className="group/btn text-primary hover:text-primary hover:bg-primary/10 p-0 h-auto font-medium text-sm w-full justify-center"
+                  className="group/btn text-seondary hover:text-primary hover:bg-primary/10 p-0 h-auto font-medium text-sm w-full justify-center"
                   asChild
                 >
                   <Link href={`/case-studies/${study.id}`}>
@@ -123,9 +175,10 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </MySwiper>
+        {/* </div> */}
 
-        <div className="text-center mt-10">
+        <div className="text-center">
           <Button
             className="gradient-primary hover:opacity-90 transition-smooth px-6 py-3 font-semibold"
             asChild
@@ -137,6 +190,6 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
           </Button>
         </div>
       </div>
-    </section>
+    </section >
   );
 }

@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Star } from "lucide-react";
+import AnimatedButton from "../animations/AnimatedButton";
 
 const pricingPlans = [
   {
@@ -60,10 +61,10 @@ export function PricingSection() {
     <section className="py-16 bg-gradient-hero">
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-tech-navy mb-4">
-            Choose Your <span className="text-primary">Plan</span>
+          <h2 className="text-3xl md:text-4xl font-bold  text-secondary-900 mb-4">
+            Choose Your <span className="text-secondary-foreground">Plan</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-secondary-800 max-w-2xl mx-auto leading-relaxed">
             Flexible pricing options designed to scale with your business needs
           </p>
         </div>
@@ -72,13 +73,11 @@ export function PricingSection() {
           {pricingPlans.map((plan, index) => (
             <Card
               key={plan.name}
-              className={`group hover:shadow-glow transition-all duration-300 border-0 gradient-card hover:-translate-y-2 relative flex flex-col ${
-                plan.popular ? "ring-2 ring-primary" : ""
-              }`}
+              className={`cardgroup group hover:shadow-glow shadow-lg transition-all duration-300 border-0 gradient-card hover:-translate-y-2 relative flex flex-col`}
             >
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-primary text-white px-4 py-1 rounded-full text-xs font-semibold flex items-center">
+                <div className="absolute z-[60] -top-3 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-secondary-foreground text-white px-4 py-1 rounded-full text-xs font-semibold flex items-center">
                     <Star className="h-3 w-3 mr-1" />
                     Most Popular
                   </div>
@@ -94,7 +93,7 @@ export function PricingSection() {
                     {plan.description}
                   </p>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold text-primary">
+                    <span className="text-4xl font-bold text-secondary">
                       ${plan.price}
                     </span>
                     <span className="text-muted-foreground ml-1">
@@ -121,11 +120,10 @@ export function PricingSection() {
 
                 <div className="mt-auto">
                   <Button
-                    className={`w-full transition-all duration-300 ${
-                      plan.popular
-                        ? "gradient-primary hover:opacity-90"
-                        : "bg-white text-tech-navy border border-border hover:bg-primary hover:text-white"
-                    }`}
+                    className={`w-full transition-all duration-300 ${plan.popular
+                      ? "gradient-primary hover:opacity-90"
+                      : "bg-white text-tech-navy border border-border hover:bg-primary hover:text-white"
+                      }`}
                   >
                     {plan.cta}
                   </Button>
@@ -139,12 +137,7 @@ export function PricingSection() {
           <p className="text-sm text-muted-foreground mb-4">
             Need a custom solution? We're here to help.
           </p>
-          <Button
-            variant="outline"
-            className="border-primary text-primary hover:bg-primary hover:text-white"
-          >
-            Contact Us for Custom Pricing
-          </Button>
+          <AnimatedButton text="pricing.contact_us_for_custom_pricing" />
         </div>
       </div>
     </section>

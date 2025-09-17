@@ -11,7 +11,7 @@ interface CtaSectionProps {
 
 export function CtaSection({ cta }: CtaSectionProps) {
   return (
-    <section className="py-20 bg-gradient-to-r from-primary to-secondary text-primary-foreground">
+    <section className="py-20  text-primary-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4 text-balance">
