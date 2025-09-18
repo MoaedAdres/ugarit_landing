@@ -1,0 +1,110 @@
+"use client";
+
+import RCard from "@/RComponents/RCard";
+import RButton from "@/RComponents/RButton";
+import RFlex from "@/RComponents/RFlex";
+import { Badge } from "@/components/ui/badge";
+import { myIcons } from "@/constants/icons";
+
+interface BlogPostActionsProps {
+	blogPostData: any;
+}
+
+export function BlogPostActions({ blogPostData }: BlogPostActionsProps) {
+	return (
+		<div className="space-y-6">
+			{/* Post Status */}
+			<RCard
+				title="Post Status"
+				cardClassName="border-0 shadow-lg"
+				contentComponent={
+					<div className="space-y-6">
+						<div className="space-y-4">
+							<div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+								<div>
+									<div className="font-medium text-sm">Status</div>
+									<div className="text-xs text-muted-foreground">Publication status</div>
+								</div>
+								<Badge variant={blogPostData.status === "published" ? "default" : "secondary"} className="font-medium">
+									{blogPostData.status === "published" ? "Published" : "Draft"}
+								</Badge>
+							</div>
+							<div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+								<div>
+									<div className="font-medium text-sm">Featured</div>
+									<div className="text-xs text-muted-foreground">Homepage highlight</div>
+								</div>
+								<Badge variant={blogPostData.featured ? "default" : "secondary"} className="font-medium">
+									{blogPostData.featured ? "Yes" : "No"}
+								</Badge>
+							</div>
+							<div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+								<div>
+									<div className="font-medium text-sm">Comments</div>
+									<div className="text-xs text-muted-foreground">Reader engagement</div>
+								</div>
+								<Badge variant={blogPostData.allowComments ? "default" : "secondary"} className="font-medium">
+									{blogPostData.allowComments ? "Enabled" : "Disabled"}
+								</Badge>
+							</div>
+							<div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+								<div>
+									<div className="font-medium text-sm">Publish Date</div>
+									<div className="text-xs text-muted-foreground">When published</div>
+								</div>
+								<span className="text-sm text-muted-foreground font-medium">
+									{new Date(blogPostData.publishDate).toLocaleDateString()}
+								</span>
+							</div>
+							<div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+								<div>
+									<div className="font-medium text-sm">Last Updated</div>
+									<div className="text-xs text-muted-foreground">Recent changes</div>
+								</div>
+								<span className="text-sm text-muted-foreground font-medium">{blogPostData.updatedAt}</span>
+							</div>
+						</div>
+					</div>
+				}
+			/>
+
+			{/* Quick Actions */}
+			<RCard
+				title="Quick Actions"
+				cardClassName="border-0 shadow-lg"
+				contentComponent={
+					<RFlex className="flex-col gap-3">
+						<RButton
+							className="w-full"
+							size="lg"
+							onClick={() => window.location.href = `/dashboard/blog/${blogPostData.id}?isEdit=true`}
+							icon={<i className={`${myIcons.edit} h-4 w-4`} />}
+							text="Edit Post"
+						/>
+						<RButton
+							variant="outline"
+							className="w-full"
+							size="lg"
+							icon={<i className={`${myIcons.eye} h-4 w-4`} />}
+							text="Preview on Site"
+						/>
+						<RButton
+							variant="outline"
+							className="w-full"
+							size="lg"
+							icon={<i className={`${myIcons.comment} h-4 w-4`} />}
+							text="View Comments"
+						/>
+						<RButton
+							variant="outline"
+							className="w-full text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20"
+							size="lg"
+							icon={<i className={`${myIcons.xmark} h-4 w-4`} />}
+							text="Delete Post"
+						/>
+					</RFlex>
+				}
+			/>
+		</div>
+	);
+}

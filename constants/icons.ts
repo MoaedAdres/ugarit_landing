@@ -190,5 +190,8 @@ export const myIcons = {
   userReg:"fa-regular fa-user",
   mapDot:"fa-solid fa-location-dot",
   arrowRightLong:"fa-solid fa-arrow-right-long",
-  chatSolid:"fa-solid fa-comment-dots"
+  chatSolid:"fa-solid fa-comment-dots",
+  trendingUp:"fa-solid fa-trending-up",
+  comment:"fa-solid fa-comment",
+  quote:"fa-solid fa-quote-left"
 };
