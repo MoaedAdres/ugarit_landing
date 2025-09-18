@@ -2,12 +2,18 @@ import { getTranslations } from "next-intl/server";
 
 // API integration layer for REST endpoints
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.ugarittech.com/api/v1";
-import FeaturesImage from "@/public/jpgs/features/features.jpg";
+import FeaturesImage from "@/public/jpgs/features/features.png";
 import { StaticImageData } from "next/image";
 import TaskCompleted from "@/public/jpgs/stats/projects-completed.jpg";
 import EnterpriseClients from "@/public/jpgs/stats/enterprise-clients.jpg";
 import TeamMembers from "@/public/jpgs/stats/team-members.jpg";
 import YearsExperience from "@/public/pngs/stats/YearsExperience.png";
+
+import image1 from "@/public/gifs/hero/image1.png";
+import image2 from "@/public/gifs/hero/image2.png";
+import image3 from "@/public/gifs/hero/image3.png";
+import image4 from "@/public/gifs/hero/image4.png";
+
 export interface ApiResponse<T> {
 	data: T;
 	success: boolean;
@@ -15,12 +21,14 @@ export interface ApiResponse<T> {
 }
 
 export interface HomePage {
+	navigations: { name: string; href: string }[];
 	hero: {
 		title: string;
 		subtitle: string;
 		description: string;
 		ctas: Array<{ label: string; href: string }>;
 		bg_media: { type: string; url: string };
+		images: string[] | StaticImageData[];
 	};
 	highlights: Array<{
 		service_slug: string;
@@ -94,12 +102,20 @@ export async function fetchHomePage(): Promise<HomePage> {
 	const t = await getTranslations();
 	// Mock data for development - replace with actual API call
 	return {
+		navigations: [
+			{ name: "Services", href: "/services" },
+			{ name: "Case Studies", href: "/case-studies" },
+			{ name: "Blog", href: "/blog" },
+			{ name: "About", href: "/about" },
+			{ name: "Contact", href: "/contact" },
+		],
 		hero: {
 			title: t("hero.build_scale"),
 			subtitle: t("hero.secure"),
 			description: t("hero.professional_it_solutions_cloud_services_for_enterprise_clients"),
 			ctas: [{ label: "Get Started", href: "/contact" }],
 			bg_media: { type: "image", url: "/modern-tech-office.png" },
+			images: [image1, image2, image3, image4],
 		},
 		highlights: [
 			{

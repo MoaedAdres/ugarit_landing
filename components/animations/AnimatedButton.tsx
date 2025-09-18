@@ -8,7 +8,7 @@ async function AnimatedButton({ text }: IAnimatedButtonProps) {
   return (
     <Button
       size="lg"
-      className="relative overflow-hidden border border-secondary bg-transparent hover:bg-transparent px-8 py-4 text-lg font-semibold group"
+      className="relative items-center overflow-hidden border border-secondary-900 bg-transparent hover:bg-transparent px-8 py-4 text-lg font-semibold group"
     >
       {/* Static background */}
       <span className="absolute inset-0 bg-transparent z-0"></span>
@@ -24,7 +24,7 @@ async function AnimatedButton({ text }: IAnimatedButtonProps) {
       <span className="relative z-10 text-secondary-900 transition-colors duration-500">
         {t(text)}
       </span>
-      <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
+      <ArrowRight className="text-secondary-900 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
     </Button>
   );
 }

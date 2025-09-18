@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight, User } from "lucide-react";
 import Link from "next/link";
+import SingleBlog from "./SingleBlog";
 
 interface BlogPreviewSectionProps {
   count: number;
@@ -42,7 +43,7 @@ const mockBlogPosts = [
 ];
 
 export function BlogPreviewSection({ count }: BlogPreviewSectionProps) {
-  const displayPosts = mockBlogPosts.slice(0, count);
+  const displayPosts = mockBlogPosts.slice(0, count).map((blog, index) => ({ ...blog, index }));
 
   return (
     <section className="py-20 bg-background">
@@ -57,62 +58,9 @@ export function BlogPreviewSection({ count }: BlogPreviewSectionProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {displayPosts.map((post, index) => (
-            <Card
-              key={post.id}
-              className="group hover:shadow-lg transition-all duration-300 overflow-hidden"
-            >
-              <div className="aspect-video bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl">📝</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    {post.categories.map((category, catIndex) => (
-                      <span
-                        key={catIndex}
-                        className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full"
-                      >
-                        {category}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="font-heading font-semibold text-xl text-foreground mb-3 group-hover:text-primary transition-colors text-balance">
-                  {post.title}
-                </h3>
-                <p className="text-muted-foreground mb-4 leading-relaxed text-pretty">
-                  {post.excerpt}
-                </p>
-
-                <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-                  <div className="flex items-center space-x-2">
-                    <User className="h-4 w-4" />
-                    <span>{post.author}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="h-4 w-4" />
-                    <span>
-                      {new Date(post.published_at).toLocaleDateString()}
-                    </span>
-                  </div>
-                </div>
-
-                <Button
-                  variant="outline"
-                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors bg-transparent"
-                  asChild
-                >
-                  <Link href={`/blog/${post.id}`}>
-                    Read More
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+        <div className="flex flex-col gap-8">
+          {displayPosts.map((post) => (
+            <SingleBlog article={post} />
           ))}
         </div>
 

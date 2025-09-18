@@ -83,9 +83,9 @@ export function TestimonialsSection({
             to say about our services
           </p>
         </div>
-        <MySwiper>
+        <MySwiper needAutoPlay={false}>
           {mockTestimonials.map((testimonial, index) => (
-            <Card key={index} className="group hover:shadow-glow transition-all duration-300 border-0 gradient-card h-full flex flex-col py-0 xl:py-6 ">
+            <Card key={index} className="group hover:shadow-glow transition-all duration-300 border-0  h-full flex flex-col py-0 xl:py-6 ">
               <CardContent className="p-6 h-full flex flex-col">
                 <Quote className="h-6 w-6 text-gradient-inspiring  mb-4" />
 

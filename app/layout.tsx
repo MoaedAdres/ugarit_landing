@@ -89,7 +89,7 @@ export default async function RootLayout({
 					}}
 				/>
 			</head>
-			<body className={`font-sans antialiased ${montserrat.variable} ${openSans.variable} ${GeistMono.variable}`}>
+			<body className={`font-sans bg-background antialiased ${montserrat.variable} ${openSans.variable} ${GeistMono.variable}`}>
 				<NextIntlClientProvider messages={messages}>
 					<Suspense fallback={<div>Loading...</div>}>
 						<AuthProvider>
