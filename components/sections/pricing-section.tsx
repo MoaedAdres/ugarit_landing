@@ -73,7 +73,7 @@ export function PricingSection() {
           {pricingPlans.map((plan, index) => (
             <Card
               key={plan.name}
-              className={`cardgroup group hover:shadow-glow shadow-lg transition-all duration-300 border-0 gradient-card hover:-translate-y-2 relative flex flex-col`}
+              className={`cardgroup group hover:shadow-glow shadow-lg transition-all duration-300 border-0  hover:-translate-y-2 relative flex flex-col`}
             >
               {plan.popular && (
                 <div className="absolute z-[60] -top-3 left-1/2 transform -translate-x-1/2">
@@ -86,14 +86,14 @@ export function PricingSection() {
 
               <CardContent className="p-6 flex flex-col h-full">
                 <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-tech-navy mb-2">
+                  <h3 className="text-xl font-bold text-secondary-900 mb-2">
                     {plan.name}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     {plan.description}
                   </p>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold text-secondary">
+                    <span className="text-4xl font-bold text-secondary-900">
                       ${plan.price}
                     </span>
                     <span className="text-muted-foreground ml-1">

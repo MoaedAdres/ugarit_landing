@@ -1,10 +1,7 @@
-"use client"
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp } from "lucide-react";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from 'swiper/react';
-
 interface CaseStudiesSectionProps {
   caseStudyIds: string[];
 }
@@ -74,15 +71,8 @@ const mockCaseStudies = [
   },
 
 ];
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-cards';
-
-import './styles.css';
 
 // import required modules
-import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
 import MySwiper from "../Reusable-components/MySwiper";
 
 export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
@@ -103,6 +93,8 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
           disableOnInteraction: false,
           reverseDirection: false,
         }}
+          showNextButton={false}
+          showPreviousButton={false}
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
@@ -110,7 +102,6 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
             modifier: 1,
             slideShadows: true,
           }}
-          anotherModules={[Autoplay]}
           swiperClasses="h-[500px] !py-0 xl:h-[650px]"
           wrapperClasses=""
           swiperSlideClasses="!w-fit !h-full"
@@ -118,7 +109,7 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
           {mockCaseStudies.map((study) => (
             <Card
               key={study.id}
-              className="group h-full !py-0 hover:shadow-glow transition-all duration-300 border-0 gradient-card overflow-hidden"
+              className="group !py-0 hover:shadow-glow transition-all duration-300 border-0 gradient-card overflow-hidden"
             >
               {/* Image placeholder with overlay */}
               <div className="h-60 bg-gradient-to-br from-tech-blue/20 to-tech-teal/20 relative overflow-hidden">

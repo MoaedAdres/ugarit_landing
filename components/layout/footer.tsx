@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { Linkedin, Twitter, Mail, Phone, MapPin } from "lucide-react";
 import LightImage from "@/public/jpgs/lights/footer-light.jpg";
+import DarkImage from "@/public/pngs/dark-mode/lights/footer-background.png";
 import MyImage from "../Reusable-components/MyImage";
 
 export function Footer() {
   return (
     <div className="relative">
-      <MyImage src={LightImage} alt="light image" className="absolute w-full h-[425px]" />
+      <MyImage src={LightImage} alt="light image" className="dark:hidden absolute w-full h-[425px]" />
+      <MyImage src={DarkImage} alt="light image" className="hidden dark:block absolute w-full h-[425px]" />
       <footer
         className="relative -bottom-24 w-full h-full">
         <div className="container w-full relative z-10 mx-auto py-10">

@@ -19,7 +19,7 @@ async function MyButton({
       size={size}
       {...props}
       className={cn(
-        "text-secondary-900 bg-secondary-100 hover:bg-background transition-smooth px-8 py-4 text-lg",
+        "text-secondary-900 shadow-md bg-background transition-smooth px-8 py-4 text-lg",
         classes,
       )}
     >

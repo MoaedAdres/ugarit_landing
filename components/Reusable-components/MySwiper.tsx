@@ -8,19 +8,24 @@ import { Button } from '@/components/ui/button';
 import 'swiper/css';
 import { IChildren } from '@/interfaces/shared';
 import { IMySwiper } from '@/interfaces/ui/swiper';
-import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
+import { EffectCoverflow, Pagination, Autoplay, EffectCards } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-cards';
 import { cn } from '@/lib/utils';
-export default function MySwiper({ wrapperClasses = "shadow-md h-[300px]", swiperClasses = "h-[400px] xl:h-[450px]", swiperSlideClasses = "withoutHover", children, effect, grabCursor, centeredSlides = true, slidesPerView = 3, loop, speed, autoplay = {
+export default function MySwiper({ needEffectCards = false, needAutoPlay = true, wrapperClasses = "shadow-md h-[300px]", swiperClasses = "h-[400px] xl:h-[450px]", swiperSlideClasses = "withoutHover", children, effect, grabCursor, centeredSlides = true, slidesPerView = 3, loop, speed, autoplay = {
     delay: 0,
     disableOnInteraction: false,
-}, coverflowEffect, pagination, initialSlide = 1, spaceBetween = 70, anotherModules, activeSlideClasses = "bg-white cardgroup shadow-lg scale-130", showNextButton = true, showPreviousButton = true, showPagination = true, parentClasses = "py-8" }: IChildren & IMySwiper) {
+}, coverflowEffect, pagination, initialSlide = 1, spaceBetween = 70, anotherModules, activeSlideClasses = "bg-white cardgroup shadow-lg scale-130", showNextButton = true, showPreviousButton = true, showPagination = true, parentClasses = "py-8  max-w-6xl" }: IChildren & IMySwiper) {
     const swiperRef = useRef<SwiperType>();
     // I used this state to start with the second slide as active
     const [activeIndex, setActiveIndex] = useState(1);
     const modules = [EffectCoverflow, Pagination, ...(anotherModules || [])];
-
+    needAutoPlay && modules.push(Autoplay)
+    needEffectCards && modules.push(EffectCards)
     return (
-        <div className={cn("w-full max-w-6xl mx-auto px-4 ", parentClasses)}>
+        <div className={cn("w-full mx-auto px-4 ", parentClasses)}>
             <div className="relative">
                 <Swiper
                     {...{ effect, grabCursor, centeredSlides, slidesPerView, loop, speed, autoplay, coverflowEffect, pagination, initialSlide, spaceBetween, modules }}

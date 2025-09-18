@@ -10,6 +10,8 @@ export interface IMySwiper {
 	showPreviousButton?: boolean;
 	showNextButton?: boolean;
 	showPagination?: boolean;
+	needAutoPlay?: boolean;
+	needEffectCards?: boolean;
 	slidesPerView?: number | "auto";
 	speed?: number;
 	autoplay?: boolean | AutoplayOptions;

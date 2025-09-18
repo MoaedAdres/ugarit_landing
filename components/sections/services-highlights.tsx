@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import AnimatedButton from "../animations/AnimatedButton";
 import MyImage from "../Reusable-components/MyImage";
-import LightImage from "@/public/jpgs/lights/Light.jpg"
+import LightImage from "@/public/jpgs/lights/Light.png"
+import DarkImage from "@/public/pngs/dark-mode/lights/DarkBackground.png"
 import TypewriterDescription from "../Reusable-components/TypeWriterDescription";
 // Static services data with the new styling
 const services = [
@@ -70,7 +71,6 @@ const services = [
     features: ["Process Automation", "Digital Strategy", "Change Management"],
   },
 ];
-import SupportImage from "@/public/jpgs/stats/support.jpg"
 import Image from "next/image";
 interface ServicesHighlightsProps {
   highlights?: any[]; // Keep for API compatibility but use static data
@@ -79,12 +79,12 @@ interface ServicesHighlightsProps {
 export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
   return (
     <section className="pt-8 relative">
-      <div className="grid absolute bg-primary-50 -top-12 w-[80%] mx-28 rounded-lg shadow-lg py-4 z-50 grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="grid bg-background absolute -top-12 w-[80%] mx-28 rounded-lg dark:shadow-gray-600 shadow-md py-4 z-50 grid-cols-2 md:grid-cols-4 gap-8">
         {[
-          { title: "500+", description: "Projects Delivered", img: SupportImage },
-          { title: "98%", description: "Client Satisfaction", img: SupportImage },
-          { title: "24/7", description: "Support Available", img: SupportImage },
-          { title: "15+", description: "Years Experience", img: SupportImage }
+          { title: "500+", description: "Projects Delivered" },
+          { title: "98%", description: "Client Satisfaction" },
+          { title: "24/7", description: "Support Available" },
+          { title: "15+", description: "Years Experience" }
         ].map((element, index) => (
           <div key={index} className="text-center flex flex-col items-center animate-fade-in-up hover:opacity-0">
             {/* <Image className="size-16" src={element.img} alt={element.description} /> */}
@@ -95,7 +95,8 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
           </div>
         ))}
       </div>
-      <MyImage src={LightImage} className="h-full absolute top-56" alt="light bottom" />
+      <MyImage src={LightImage} className="dark:hidden h-full w-full absolute top-56" alt="light bottom" />
+      <MyImage src={DarkImage} className="dark:bloack hidden h-full w-full absolute top-56" alt="dark bottom" />
       <div className="container relative mt-24 mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">

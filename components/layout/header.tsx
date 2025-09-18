@@ -6,16 +6,13 @@ import { ModeToggle } from "../theme/toggle-theme";
 import { LocaleSwitcher } from "../locale/locale-switcher";
 import Image from "next/image";
 import Logo from "@/public/pngs/Color logo - no background.png";
-
-const navigation = [
-  { name: "Services", href: "/services" },
-  { name: "Case Studies", href: "/case-studies" },
-  { name: "Blog", href: "/blog" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
-];
-
-export function Header() {
+interface IHeader {
+  navigations: {
+    name: string
+    href: string
+  }[]
+}
+export function Header({ navigations }: IHeader) {
   return (
     <header className="fixed top-0 left-0 right-0 z-[99] backdrop-blur-lg bg-transparent transition-smooth">
       <div className="container mx-auto px-4">
@@ -23,9 +20,6 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image className="size-16" alt="logo" src={Logo} />
-            {/* <span className="text-xl font-bold text-primary-foreground">
-              Ugarit Technologies
-            </span> */}
           </Link>
           <LocaleSwitcher />
           {/* Desktop Navigation */}

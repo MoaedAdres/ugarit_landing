@@ -6,5 +6,6 @@ export interface IMyImage {
 	loading?: "eager" | "lazy";
 	fill?: boolean;
 	priority?: boolean;
+	unoptimized?: boolean;
 	placeholder?: PlaceholderValue;
 }
