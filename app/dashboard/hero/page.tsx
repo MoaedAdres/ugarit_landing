@@ -106,6 +106,7 @@ export default function HeroPage() {
 						innerContent={true}
 						contentClassName="space-y-4"
 						tabs={tabs}
+						variant="pills"
 					/>
 					{activeTab === "content" && <HeroContentTab heroData={heroData} mode={mode} onInputChange={handleInputChange} />}
 					{activeTab === "buttons" && <HeroButtonsTab heroData={heroData} mode={mode} onInputChange={handleInputChange} />}
