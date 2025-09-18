@@ -193,5 +193,13 @@ export const myIcons = {
   chatSolid:"fa-solid fa-comment-dots",
   trendingUp:"fa-solid fa-trending-up",
   comment:"fa-solid fa-comment",
-  quote:"fa-solid fa-quote-left"
+  quote:"fa-solid fa-quote-left",
+  building:"fa-solid fa-building",
+  dollar:"fa-solid fa-dollar-sign",
+  ellipsis:"fa-solid fa-ellipsis",
+  envelope:"fa-solid fa-envelope",
+  phone:"fa-solid fa-phone",
+  mapPin:"fa-solid fa-map-pin",
+  externalLink:"fa-solid fa-external-link",
+  handshake:"fa-solid fa-handshake",
 };
