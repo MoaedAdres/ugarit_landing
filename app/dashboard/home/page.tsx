@@ -1,17 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import {
-	HomeHeader,
-	SectionsGrid,
-	SectionOrderList,
-	type SectionData,
-	defaultSections,
-} from "@/views/dashboard/home";
-import RCard from "@/RComponents/RCard";
-import RButton from "@/RComponents/RButton";
+import { useEffect, useState } from "react";
+import { HomeHeader, SectionsGrid, SectionOrderList, type SectionData, defaultSections } from "@/views/dashboard/home";
 import RFlex from "@/RComponents/RFlex";
-
+import { useFetchData } from "@/hooks/use-fetch-data";
+import { homeRepository } from "@/api/services/dashboard/home";
 
 export default function HomePage() {
 	const [sections, setSections] = useState<SectionData[]>(defaultSections);
@@ -22,6 +15,13 @@ export default function HomePage() {
 		console.log(`Toggling section: ${sectionId}`);
 	};
 
+	const { data, isLoading, error } = useFetchData({
+		queryKey: ["sections"],
+		queryFn: () => homeRepository.getsections(),
+	});
+
+	console.log("data home page", data);
+	// // homeRepository.getHome();
 	const handleSaveOrder = () => {
 		// In real implementation, this would save the new order to your API
 		console.log(

@@ -20,6 +20,7 @@ export default async function apiFetcher<T>(
   path: string,
   requestInit?: RequestInit,
 ): Promise<T> {
+  console.log("apiFetcher", path, baseUrl);
   const url = normalizeUrl(baseUrl, path);
   const timeout = API_TIMEOUT;
   const controller = new AbortController();
