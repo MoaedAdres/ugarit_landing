@@ -41,7 +41,7 @@ export function HeroSection({ hero }: HeroProps) {
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="flex gap-2">
           <div className="my-auto">
-            <h1 className="text-5xl animate-fade-in-up text-secondary-900 md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-5xl animate-fade-in-up text-secondary-900 md:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
               {/* <TypewriterDescription duration={200} text={hero.title} /> */}
               {hero.title}{" "}
               <span className="text-secondary-foreground">
@@ -49,7 +49,7 @@ export function HeroSection({ hero }: HeroProps) {
                 {hero.subtitle}
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-secondary-800 mb-8 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg lg:text-2xl text-secondary-800 mb-8 leading-relaxed md:max-w-3xl mx-auto">
               <TypewriterDescription text={hero.description} />
               {/* {hero.description} */}
             </p>
@@ -60,7 +60,6 @@ export function HeroSection({ hero }: HeroProps) {
               </div>
               <MyButton
                 Icon={Play}
-                classes={"text-secondary-900"}
                 text="hero.watch_demo"
               />
             </div>

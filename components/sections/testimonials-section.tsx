@@ -1,14 +1,6 @@
-"use client";
-
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Quote } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
 import MySwiper from "../Reusable-components/MySwiper";
+import { myIcons } from "@/constants/icons";
 
 interface TestimonialsSectionProps {
   testimonialIds: string[];
@@ -86,15 +78,13 @@ export function TestimonialsSection({
         <MySwiper needAutoPlay={false}>
           {mockTestimonials.map((testimonial, index) => (
             <Card key={index} className="group hover:shadow-glow transition-all duration-300 border-0  h-full flex flex-col py-0 xl:py-6 ">
-              <CardContent className="p-6 h-full flex flex-col">
-                <Quote className="h-6 w-6 text-gradient-inspiring  mb-4" />
-
+              <CardContent className="p-3 lg:p-6 h-full flex flex-col">
+                <i className={myIcons.quote + " h-6 w-6 text-gradient-inspiring  mb-4"} />
                 <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 text-yellow-400 fill-current"
-                    />
+                  {[...Array(testimonial.rating)].map((_, idx) => (
+                    <i
+                      key={idx}
+                      className={myIcons.star + " h-4 w-4 text-yellow-400 fill-current"} />
                   ))}
                 </div>
 
@@ -102,8 +92,8 @@ export function TestimonialsSection({
                   "{testimonial.quote}"
                 </blockquote>
 
-                <div className="flex items-center space-x-3 mt-auto">
-                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                <div className="flex items-center space-x-1.5 lg:space-x-3 mt-auto">
+                  <div className="p-2 bg-primary rounded-full flex items-center justify-center">
                     <span className="font-semibold text-primary-600 text-sm">
                       {testimonial.name
                         .split(" ")

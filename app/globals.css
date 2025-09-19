@@ -169,6 +169,7 @@
 	--secondary: hsl(217.2 32.6% 17.5%);
 	--secondary-800: hsla(206, 53%, 81%, 1);
 	--secondary-900: hsla(206, 61%, 41%, 1);
+	--secondary-950: hsla(206, 44%, 58%, 1);
 	--secondary-foreground: hsla(206, 78%, 93%, 1);
 
 	--muted: hsl(217.2 32.6% 17.5%);

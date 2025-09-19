@@ -69,31 +69,31 @@ export function PricingSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-6 max-w-6xl mx-auto">
           {pricingPlans.map((plan, index) => (
             <Card
               key={plan.name}
-              className={`cardgroup group hover:shadow-glow shadow-lg transition-all duration-300 border-0  hover:-translate-y-2 relative flex flex-col`}
+              className={`cardgroup !py-3 lg:py-6 group hover:shadow-glow shadow-lg transition-all duration-300 border-0  hover:-translate-y-2 relative flex flex-col`}
             >
               {plan.popular && (
                 <div className="absolute z-[60] -top-3 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-secondary-foreground text-white px-4 py-1 rounded-full text-xs font-semibold flex items-center">
+                  <div className="bg-secondary-950 text-primary-600 px-2 lg:px-4 py-1 rounded-full text-xs font-semibold flex items-center">
                     <Star className="h-3 w-3 mr-1" />
                     Most Popular
                   </div>
                 </div>
               )}
 
-              <CardContent className="p-6 flex flex-col h-full">
-                <div className="text-center mb-6">
+              <CardContent className="p-3 lg:p-6 flex flex-col h-full">
+                <div className="text-center mb-3 lg:mb-6">
                   <h3 className="text-xl font-bold text-secondary-900 mb-2">
                     {plan.name}
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-sm text-muted-foreground mb-2 lg:mb-4">
                     {plan.description}
                   </p>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold text-secondary-900">
+                    <span className="text-2xl lg:text-4xl font-bold text-secondary-900">
                       ${plan.price}
                     </span>
                     <span className="text-muted-foreground ml-1">
@@ -106,7 +106,7 @@ export function PricingSection() {
                   {plan.features.map((feature, featureIndex) => (
                     <li
                       key={featureIndex}
-                      className="flex items-start space-x-3"
+                      className="flex items-start space-x-1 lg:space-x-3"
                     >
                       <div className="w-5 h-5 gradient-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Check className="h-3 w-3 text-white" />

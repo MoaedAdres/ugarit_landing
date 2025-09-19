@@ -2,8 +2,8 @@
 import MyImage from "../Reusable-components/MyImage";
 import { StaticImageData } from "next/image";
 import AnimatedCounter from "../animations/AnimatedCounter";
-import LightTop from "@/public/pngs/lights/Light Top.png"
-import StatsBacنground from "@/public/jpgs/stats/statsBackground.jpg"
+import StatsBackground from "@/public/jpgs/stats/statsBackground.jpg"
+import StatsDarkBackground from "@/public/jpgs/dark-mode/stats-background.jpg"
 interface KPI {
   label: string;
   value: number;
@@ -15,13 +15,13 @@ interface StatsSectionProps {
 
 export function StatsSection({ kpis }: StatsSectionProps) {
   return (
-    <section className="py-16 bg-gradient-hero relative overflow-hidden">
-      {/* <MyImage src={LightTop} className="h-full absolute top-0" alt="light top" /> */}
+    <section className="py-5 lg:py-16 bg-gradient-hero relative overflow-hidden">
       {/* Background decoration */}
-      <MyImage className="absolute inset-0  backdrop-blur-lg" src={StatsBacنground} alt="stats background" />
+      <MyImage className="dark:hidden absolute h-full inset-0 backdrop-blur-lg" src={StatsBackground} alt="stats background" />
+      <MyImage className="hidden dark:block absolute h-full inset-0 backdrop-blur-lg" src={StatsDarkBackground} alt="stats dark background" />
       {/* <div className=" bg-tech-navy/10"></div> */}
       <div className="relative container mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 lg:mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
             Trusted by <span className="text-secondary-foreground">Industry Leaders</span>
           </h2>
@@ -31,11 +31,11 @@ export function StatsSection({ kpis }: StatsSectionProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
           {kpis.map((kpi, index) => (
             <div
               key={index}
-              className="backdrop-blur-xl backdrop-brightness-105 text-center p-6 rounded-xl border border-border/50 
+              className="backdrop-blur-xl shadow-md shadow-gray-200 backdrop-brightness-105 text-center p-3 lg:p-6 rounded-xl border border-border/50 
                           transition-all duration-300 hover:scale-105 hover:shadow-glow
                          group"
             >

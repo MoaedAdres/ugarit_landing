@@ -2,6 +2,8 @@ import { PlaceholderValue, StaticImport } from "next/dist/shared/lib/get-img-pro
 export interface IMyImage {
 	src: string | StaticImport;
 	alt: string;
+	width?: number | `${number}`;
+	height?: number | `${number}`;
 	className?: string;
 	loading?: "eager" | "lazy";
 	fill?: boolean;

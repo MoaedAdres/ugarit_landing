@@ -11,4 +11,5 @@ export interface IMyButton {
 	variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null;
 	classes?: string;
 	iconClasses?: string;
+	children?: React.ReactNode;
 }

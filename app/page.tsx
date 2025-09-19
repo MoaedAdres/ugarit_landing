@@ -11,7 +11,6 @@ import { PricingSection } from "@/components/sections/pricing-section";
 import { BlogPreviewSection } from "@/components/sections/blog-preview-section";
 import { CtaSection } from "@/components/sections/cta-section";
 import { fetchHomePage } from "@/lib/api";
-import ArticleShowcase from "@/components/sections/Articles";
 interface Article {
   id: number;
   title: string;
@@ -106,7 +105,6 @@ export default async function HomePage() {
         <PricingSection />
         <BlogPreviewSection count={homeData.blog_preview_count} />
         <CtaSection cta={homeData.cta} />
-        <ArticleShowcase articles={articles} />
       </main>
       <Footer />
     </div>

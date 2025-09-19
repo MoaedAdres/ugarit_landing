@@ -10,6 +10,7 @@ async function MyButton({
   classes,
   size = "lg",
   iconClasses = "h-5 w-5",
+  children,
   ...props
 }: IMyButton) {
   const t = await getTranslations();
@@ -23,7 +24,8 @@ async function MyButton({
         classes,
       )}
     >
-      {Icon && <Icon className={iconClasses} />}
+      {children ? children :
+        Icon && <Icon className={iconClasses} />}
       {text && t(text)}
     </Button>
   );

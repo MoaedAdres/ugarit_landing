@@ -79,7 +79,7 @@ interface ServicesHighlightsProps {
 export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
   return (
     <section className="pt-8 relative">
-      <div className="grid bg-background absolute -top-12 w-[80%] mx-28 rounded-lg dark:shadow-gray-600 shadow-md py-4 z-50 grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="grid bg-background absolute -top-12 w-[90%] md:w-[80%] mx-5 md:mx-16 lg:mx-28 rounded-lg dark:shadow-gray-600 shadow-md py-4 z-50 grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
         {[
           { title: "500+", description: "Projects Delivered" },
           { title: "98%", description: "Client Satisfaction" },
@@ -88,10 +88,10 @@ export function ServicesHighlights({ highlights }: ServicesHighlightsProps) {
         ].map((element, index) => (
           <div key={index} className="text-center flex flex-col items-center animate-fade-in-up hover:opacity-0">
             {/* <Image className="size-16" src={element.img} alt={element.description} /> */}
-            <div className="text-3xl md:text-4xl font-bold text-secondary-900 mb-2">
+            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-900 md:mb-2">
               {element.title}
             </div>
-            <div className="text-secondary-800">{element.description}</div>
+            <div className="text-sm lg:text-base text-secondary-800">{element.description}</div>
           </div>
         ))}
       </div>

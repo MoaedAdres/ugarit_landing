@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper';
@@ -14,10 +13,11 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-cards';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
 export default function MySwiper({ needEffectCards = false, needAutoPlay = true, wrapperClasses = "shadow-md h-[300px]", swiperClasses = "h-[400px] xl:h-[450px]", swiperSlideClasses = "withoutHover", children, effect, grabCursor, centeredSlides = true, slidesPerView = 3, loop, speed, autoplay = {
     delay: 0,
     disableOnInteraction: false,
-}, coverflowEffect, pagination, initialSlide = 1, spaceBetween = 70, anotherModules, activeSlideClasses = "bg-white cardgroup shadow-lg scale-130", showNextButton = true, showPreviousButton = true, showPagination = true, parentClasses = "py-8  max-w-6xl" }: IChildren & IMySwiper) {
+}, coverflowEffect, pagination, initialSlide = 1, spaceBetween = 70, anotherModules, activeSlideClasses = "md:bg-white cardgroup shadow-lg md:scale-130", showNextButton = true, showPreviousButton = true, showPagination = true, parentClasses = "py-8  max-w-6xl", xsSpaceBetween }: IChildren & IMySwiper) {
     const swiperRef = useRef<SwiperType>();
     // I used this state to start with the second slide as active
     const [activeIndex, setActiveIndex] = useState(1);
@@ -25,13 +25,30 @@ export default function MySwiper({ needEffectCards = false, needAutoPlay = true,
     needAutoPlay && modules.push(Autoplay)
     needEffectCards && modules.push(EffectCards)
     return (
-        <div className={cn("w-full mx-auto px-4 ", parentClasses)}>
+        <div className={cn("w-full mx-auto xl:text-red-500 px-4 ", parentClasses)}>
             <div className="relative">
                 <Swiper
-                    {...{ effect, grabCursor, centeredSlides, slidesPerView, loop, speed, autoplay, coverflowEffect, pagination, initialSlide, spaceBetween, modules }}
+                    {...{ effect, grabCursor, centeredSlides, slidesPerView, loop, speed, autoplay, coverflowEffect, pagination, initialSlide, modules }}
                     // Start with the second slide centered
                     onBeforeInit={(swiper) => {
                         swiperRef.current = swiper;
+                    }}
+                    breakpoints={{
+                        0: {
+                            spaceBetween: xsSpaceBetween ?? 40,
+                            slidesPerView: 1
+                        },
+                        768: {
+                            slidesPerView,
+                            spaceBetween: 40
+                        },
+                        1024: {
+                            slidesPerView: 2,
+                            spaceBetween,
+                        },
+                        1280: {
+                            slidesPerView,
+                        }
                     }}
                     onSlideChange={(swiper) => {
                         setActiveIndex(swiper.activeIndex);
@@ -42,7 +59,7 @@ export default function MySwiper({ needEffectCards = false, needAutoPlay = true,
                         <SwiperSlide className={swiperSlideClasses} key={index}>
                             <div className={cn(`mt-12 xl:mt-14 rounded-lg flex flex-col justify-between transition-all duration-300 
                 ${activeIndex === index ?
-                                    `transform ${activeSlideClasses}` :
+                                    `transform ${activeSlideClasses} ${activeSlideClasses !== "" && "cardgroup"}` :
                                     `opacity-80`} 
                 `, wrapperClasses)}
                             >

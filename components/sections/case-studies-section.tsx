@@ -79,7 +79,7 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
   return (
     <section className="py-16 bg-gradient-hero">
       <div className="container mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="text-center mb-12">
+        <div className="text-center md:mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">
             Success <span className="text-secondary-foreground">Stories</span>
           </h2>
@@ -88,7 +88,7 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
             transform their IT infrastructure
           </p>
         </div>
-        <MySwiper activeSlideClasses="" effect={'coverflow'} grabCursor={true} slidesPerView={"auto"} loop={true} speed={2000} autoplay={{
+        <MySwiper xsSpaceBetween={0} activeSlideClasses="" effect={'coverflow'} grabCursor={true} slidesPerView={"auto"} loop={true} speed={2000} autoplay={{
           delay: 0,
           disableOnInteraction: false,
           reverseDirection: false,
@@ -102,7 +102,7 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
             modifier: 1,
             slideShadows: true,
           }}
-          swiperClasses="h-[500px] !py-0 xl:h-[650px]"
+          swiperClasses="h-[600px] !py-0 xl:h-[650px]"
           wrapperClasses=""
           swiperSlideClasses="!w-fit !h-full"
         >
@@ -127,13 +127,13 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
               </div>
 
               <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-secondary-950 mb-2 group-hover:text-secondary-foreground transition-colors">
+                <h3 className="text-lg font-bold text-secondary-900 mb-2 transition-colors">
                   {study.title}
                 </h3>
-                <p className="text-xs text-secondary-900 mb-1 tracking-wide font-medium">
+                <p className="text-xs text-secondary-950 mb-1 tracking-wide font-medium">
                   {study.client}
                 </p>
-                <p className="text-sm text-secondary-900 mb-4 leading-relaxed">
+                <p className="text-sm text-secondary-800 mb-4 leading-relaxed">
                   {study.summary}
                 </p>
 
