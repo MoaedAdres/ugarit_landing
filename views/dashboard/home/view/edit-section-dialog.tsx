@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutateData } from "@/hooks/use-mutate-data";
 import { updateSectionAction } from "@/api/services/dashboard/home/actions";
 import { Section, SectionFormData } from "@/api/services/dashboard/home/interfaces";
+import { updateSectionSchema } from "@/api/services/dashboard/home/schemas";
 import { SectionForm } from "../add/section-form";
 import { SectionPreview } from "../add/section-preview";
 import RDialog from "@/RComponents/RDialog";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import RTabs from "@/RComponents/RTabs";
+import RCard from "@/RComponents/RCard";
 import { Save, X } from "lucide-react";
 
 interface EditSectionDialogProps {
@@ -19,8 +23,20 @@ interface EditSectionDialogProps {
 }
 
 export const EditSectionDialog = ({ section, formData, isOpen, onClose }: EditSectionDialogProps) => {
-	const [editData, setEditData] = useState<SectionFormData>(formData);
 	const [activeTab, setActiveTab] = useState("form");
+
+	const {
+		register,
+		handleSubmit,
+		watch,
+		setValue,
+		formState: { errors, isSubmitting },
+	} = useForm<SectionFormData>({
+		resolver: zodResolver(updateSectionSchema),
+		defaultValues: formData,
+	});
+
+	const editData = watch();
 
 	const { mutate: updateSection, isPending } = useMutateData({
 		mutationFn: updateSectionAction,
@@ -31,42 +47,65 @@ export const EditSectionDialog = ({ section, formData, isOpen, onClose }: EditSe
 		},
 	});
 
-	const handleSubmit = () => {
-		updateSection({ sectionId: section.id, data: editData });
+	const onSubmit = (data: SectionFormData) => {
+		updateSection({ sectionId: section.id, data });
 	};
 
 	const handleFormChange = (data: SectionFormData) => {
-		setEditData(data);
+		// Update form values when child component changes
+		Object.keys(data).forEach((key) => {
+			setValue(key as keyof SectionFormData, data[key as keyof SectionFormData]);
+		});
 	};
 
 	const dialogBody = (
-		<div className="space-y-6">
-			<Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-				<TabsList className="grid w-full grid-cols-2">
-					<TabsTrigger value="form">Form</TabsTrigger>
-					<TabsTrigger value="preview">Preview</TabsTrigger>
-				</TabsList>
-
-				<TabsContent value="form" className="space-y-4">
-					<SectionForm data={editData} onChange={handleFormChange} />
-				</TabsContent>
-
-				<TabsContent value="preview" className="space-y-4">
-					<SectionPreview data={editData} />
-				</TabsContent>
-			</Tabs>
-		</div>
+		<form id="edit-section-form" onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+			<RTabs
+				tabs={[
+					{ title: "Form", value: "form" },
+					{ title: "Preview", value: "preview" },
+				]}
+				activeTab={activeTab}
+				triggerClassName="w-full"
+				listClassName="w-full"
+				setActiveTab={setActiveTab}
+			/>
+			{activeTab === "form" && (
+				<RCard
+					title="Section Details"
+					contentComponent={
+						<SectionForm 
+							data={editData} 
+							onChange={handleFormChange}
+							register={register}
+							errors={errors}
+						/>
+					}
+				/>
+			)}
+			{activeTab === "preview" && (
+				<RCard
+					title="Preview"
+					contentComponent={<SectionPreview data={editData} />}
+				/>
+			)}
+		</form>
 	);
 
 	const dialogFooter = (
 		<div className="flex justify-end gap-4">
-			<Button variant="outline" onClick={onClose} disabled={isPending}>
+			<Button variant="outline" onClick={onClose} disabled={isPending || isSubmitting} type="button">
 				<X className="h-4 w-4 mr-2" />
 				Cancel
 			</Button>
-			<Button onClick={handleSubmit} disabled={isPending} className="flex items-center gap-2">
+			<Button 
+				type="submit" 
+				form="edit-section-form"
+				disabled={isPending || isSubmitting} 
+				className="flex items-center gap-2"
+			>
 				<Save className="h-4 w-4" />
-				{isPending ? "Updating..." : "Update Section"}
+				{isPending || isSubmitting ? "Updating..." : "Update Section"}
 			</Button>
 		</div>
 	);

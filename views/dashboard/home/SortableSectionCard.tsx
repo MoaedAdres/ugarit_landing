@@ -9,6 +9,7 @@ import { SectionData } from "./types";
 import RCard from "@/RComponents/RCard";
 import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
+import { useRouter } from "next/navigation";
 
 interface SortableSectionCardProps extends SectionData {
 	onToggle: (sectionId: string) => void;
@@ -25,7 +26,7 @@ export default function SortableSectionCard({
 	onToggle,
 }: SortableSectionCardProps) {
 	const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
-
+	const router = useRouter();
 	const style = {
 		transform: CSS.Transform.toString(transform),
 		transition,
@@ -42,11 +43,11 @@ export default function SortableSectionCard({
 		<RCard
 			ref={setNodeRef}
 			style={style}
-			cardClassName="relative flex flex-col justify-between"
-			contentClassName="pb-3"
+			cardClassName="relative flex flex-col h-full"
+			contentClassName="flex flex-col h-full pb-3"
 			contentComponent={
-				<>
-					<RFlex className="items-center justify-between">
+				<div className="flex flex-col h-full">
+					<RFlex className="items-center justify-between mb-4">
 						<RFlex className="items-center gap-3">
 							<div {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing p-1 hover:bg-muted rounded touch-none">
 								<i className="fas fa-grip-vertical h-4 w-4 text-muted-foreground"></i>
@@ -54,7 +55,7 @@ export default function SortableSectionCard({
 							<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
 							<RFlex className="flex-col">
 								<h3 className="text-lg font-semibold">{title}</h3>
-								<p className="text-sm text-muted-foreground">{description}</p>
+								<p className="text-sm text-muted-foreground line-clamp-2 min-h-[2.5rem]">{description}</p>
 							</RFlex>
 						</RFlex>
 						<RFlex className="items-center gap-2">
@@ -68,20 +69,28 @@ export default function SortableSectionCard({
 								className="h-8 w-8 p-0"
 								icon={isActive ? "fas fa-eye-slash" : "fas fa-eye"}
 							/>
-							<RButton variant="ghost" size="sm" onClick={() => onToggle(id)} className="h-8 w-8 p-0" icon={"fas fa-edit"} />
+							<RButton
+								variant="ghost"
+								size="sm"
+								onClick={() => router.push(`/dashboard/home/${id}?isEdit=true`)}
+								className="h-8 w-8 p-0"
+								icon={"fas fa-edit"}
+							/>
 						</RFlex>
 					</RFlex>
-					<RFlex className="flex-col space-y-3 mt-4">
-						{href ? (
-							<Button asChild className="w-full">
-								<Link href={href}>Manage Section</Link>
-							</Button>
-						) : (
-							<RButton className="w-full" disabled text="Coming Soon" />
-						)}
-						{lastUpdated && <p className="text-xs text-muted-foreground text-center">Last updated: {lastUpdated}</p>}
-					</RFlex>
-				</>
+					<div className="flex-1 flex flex-col justify-end">
+						<RFlex className="flex-col space-y-3">
+							{href ? (
+								<Button asChild className="w-full">
+									<Link href={href}>Manage Section</Link>
+								</Button>
+							) : (
+								<RButton className="w-full" disabled text="Coming Soon" />
+							)}
+							{lastUpdated && <p className="text-xs text-muted-foreground text-center">Last updated: {lastUpdated}</p>}
+						</RFlex>
+					</div>
+				</div>
 			}
 		/>
 	);

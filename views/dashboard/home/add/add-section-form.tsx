@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutateData } from "@/hooks/use-mutate-data";
 import { SectionFormData } from "@/api/services/dashboard/home/interfaces";
+import { addSectionSchema } from "@/api/services/dashboard/home/schemas";
 import { SectionForm } from "./section-form";
 import { SectionPreview } from "./section-preview";
 import { Button } from "@/components/ui/button";
@@ -20,11 +23,23 @@ const defaultFormData: SectionFormData = {
 
 export const AddSectionForm = () => {
 	const router = useRouter();
-	const [formData, setFormData] = useState<SectionFormData>(defaultFormData);
 	const [activeTab, setActiveTab] = useState("form");
 
+	const {
+		register,
+		handleSubmit,
+		watch,
+		setValue,
+		formState: { errors, isSubmitting },
+	} = useForm<SectionFormData>({
+		resolver: zodResolver(addSectionSchema),
+		defaultValues: defaultFormData,
+	});
+
+	const formData = watch();
+
 	const { mutate, isPending } = useMutateData({
-		mutationFn: () => homeRepository.addSection(formData),
+		mutationFn: (data: SectionFormData) => homeRepository.addSection(data),
 		invalidateKeys: [{ queryKey: ["sections"] }],
 		displaySuccess: true,
 		onSuccessFn: () => {
@@ -32,12 +47,15 @@ export const AddSectionForm = () => {
 		},
 	});
 
-	const handleSubmit = () => {
-		mutate(formData);
+	const onSubmit = (data: SectionFormData) => {
+		mutate(data);
 	};
 
 	const handleFormChange = (data: SectionFormData) => {
-		setFormData(data);
+		// Update form values when child component changes
+		Object.keys(data).forEach((key) => {
+			setValue(key as keyof SectionFormData, data[key as keyof SectionFormData]);
+		});
 	};
 
 	return (
@@ -62,28 +80,41 @@ export const AddSectionForm = () => {
 				listClassName="w-full"
 				setActiveTab={setActiveTab}
 			/>
-			{activeTab === "form" && (
-				<RCard
-					title="Section Details"
-					contentComponent={<SectionForm data={formData} onChange={handleFormChange} />}
-				/>
-			)}
-			{activeTab === "preview" && (
-				<RCard
-					title="Preview"
-					contentComponent={<SectionPreview data={formData} />}
-				/>
-			)}
+			<form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+				{activeTab === "form" && (
+					<RCard
+						title="Section Details"
+						contentComponent={
+							<SectionForm 
+								data={formData} 
+								onChange={handleFormChange}
+								register={register}
+								errors={errors}
+							/>
+						}
+					/>
+				)}
+				{activeTab === "preview" && (
+					<RCard
+						title="Preview"
+						contentComponent={<SectionPreview data={formData} />}
+					/>
+				)}
 
-			<div className="flex justify-end gap-4">
-				<Button variant="outline" onClick={() => router.back()}>
-					Cancel
-				</Button>
-				<Button onClick={handleSubmit} disabled={isPending} className="flex items-center gap-2">
-					<Save className="h-4 w-4" />
-					{isPending ? "Creating..." : "Create Section"}
-				</Button>
-			</div>
+				<div className="flex justify-end gap-4">
+					<Button variant="outline" onClick={() => router.back()} type="button">
+						Cancel
+					</Button>
+					<Button 
+						type="submit" 
+						disabled={isPending || isSubmitting} 
+						className="flex items-center gap-2"
+					>
+						<Save className="h-4 w-4" />
+						{isPending || isSubmitting ? "Creating..." : "Create Section"}
+					</Button>
+				</div>
+			</form>
 		</div>
 	);
 };

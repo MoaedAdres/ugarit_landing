@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useFetchData } from "@/hooks/use-fetch-data";
 import { homeRepository } from "@/api/services/dashboard/home";
 import { Section, SectionFormData } from "@/api/services/dashboard/home/interfaces";
 import { SectionActions } from "./section-actions";
-import { EditSectionDialog } from "./edit-section-dialog";
+import { EditSectionForm } from "./edit-section-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,8 @@ interface SectionDetailsProps {
 
 export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 	const router = useRouter();
-	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+	const searchParams = useSearchParams();
+	const isEditMode = searchParams.get('isEdit') === 'true';
 
 	const { data, isLoading, error } = useFetchData({
 		queryKey: ["section", sectionId],
@@ -84,6 +85,20 @@ export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 		};
 	};
 
+	const handleExitEditMode = () => {
+		router.push(`/dashboard/home/${sectionId}`);
+	};
+
+	if (isEditMode) {
+		return (
+			<EditSectionForm
+				section={section}
+				formData={convertToFormData(section)}
+				onExitEdit={handleExitEditMode}
+			/>
+		);
+	}
+
 	return (
 		<div className="space-y-6">
 			{/* Header */}
@@ -109,7 +124,7 @@ export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 				</div>
 				<SectionActions
 					section={section}
-					onEdit={() => setIsEditDialogOpen(true)}
+					onEdit={() => router.push(`/dashboard/home/${sectionId}?isEdit=true`)}
 				/>
 			</div>
 
@@ -159,14 +174,6 @@ export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 					</TabsContent>
 				))}
 			</Tabs>
-
-			{/* Edit Dialog */}
-			<EditSectionDialog
-				section={section}
-				formData={convertToFormData(section)}
-				isOpen={isEditDialogOpen}
-				onClose={() => setIsEditDialogOpen(false)}
-			/>
 		</div>
 	);
 };

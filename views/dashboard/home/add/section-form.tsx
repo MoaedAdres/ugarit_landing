@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { SectionFormData } from "@/api/services/dashboard/home/interfaces";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,9 +13,11 @@ import RCard from "@/RComponents/RCard";
 interface SectionFormProps {
 	data: SectionFormData;
 	onChange: (data: SectionFormData) => void;
+	register: UseFormRegister<SectionFormData>;
+	errors: FieldErrors<SectionFormData>;
 }
 
-export const SectionForm = ({ data, onChange }: SectionFormProps) => {
+export const SectionForm = ({ data, onChange, register, errors }: SectionFormProps) => {
 	const [formData, setFormData] = useState<SectionFormData>(data);
 	const [activeTab, setActiveTab] = useState("en");
 
@@ -44,100 +47,14 @@ export const SectionForm = ({ data, onChange }: SectionFormProps) => {
 		{
 			value: "en",
 			title: "English",
-			content: (
-				<RCard
-					title="English Content"
-					contentComponent={
-						<div className="space-y-4">
-							<div className="flex flex-col gap-2">
-								<Label htmlFor="en-title">Title</Label>
-								<Input
-									id="en-title"
-									value={formData.en.title}
-									onChange={(e) => updateTranslation("en", "title", e.target.value)}
-									placeholder="Enter section title in English"
-								/>
-							</div>
-							<div className="flex flex-col gap-2">
-								<Label htmlFor="en-description">Description</Label>
-								<Textarea
-									id="en-description"
-									value={formData.en.description}
-									onChange={(e) => updateTranslation("en", "description", e.target.value)}
-									placeholder="Enter section description in English"
-									rows={4}
-								/>
-							</div>
-						</div>
-					}
-				/>
-			),
 		},
 		{
 			value: "ar",
 			title: "Arabic",
-			content: (
-				<RCard
-					title="Arabic Content"
-					contentComponent={
-						<div className="space-y-4">
-							<div className="flex flex-col gap-2">
-								<Label htmlFor="ar-title">Title</Label>
-								<Input
-									id="ar-title"
-									value={formData.ar.title}
-									onChange={(e) => updateTranslation("ar", "title", e.target.value)}
-									placeholder="أدخل عنوان القسم باللغة العربية"
-									dir="rtl"
-								/>
-							</div>
-							<div className="flex flex-col gap-2">
-								<Label htmlFor="ar-description">Description</Label>
-								<Textarea
-									id="ar-description"
-									value={formData.ar.description}
-									onChange={(e) => updateTranslation("ar", "description", e.target.value)}
-									placeholder="أدخل وصف القسم باللغة العربية"
-									rows={4}
-									dir="rtl"
-								/>
-							</div>
-						</div>
-					}
-				/>
-			),
 		},
 		{
 			value: "fr",
 			title: "French",
-			content: (
-				<RCard
-					title="French Content"
-					contentComponent={
-						<div className="space-y-4">
-							<div className="flex flex-col gap-2">
-								<Label htmlFor="fr-title">Title</Label>
-								<Input
-									id="fr-title"
-									value={formData.fr.title}
-									onChange={(e) => updateTranslation("fr", "title", e.target.value)}
-									placeholder="Entrez le titre de la section en français"
-								/>
-							</div>
-							<div className="flex flex-col gap-2">
-								<Label htmlFor="fr-description">Description</Label>
-								<Textarea
-									id="fr-description"
-									value={formData.fr.description}
-									onChange={(e) => updateTranslation("fr", "description", e.target.value)}
-									placeholder="Entrez la description de la section en français"
-									rows={4}
-								/>
-							</div>
-						</div>
-					}
-				/>
-			),
 		},
 	];
 
@@ -145,7 +62,12 @@ export const SectionForm = ({ data, onChange }: SectionFormProps) => {
 		<div className="space-y-6">
 			{/* Visibility Toggle */}
 			<div className="flex items-center space-x-2">
-				<Switch id="is_hidden" checked={!formData.is_hidden} onCheckedChange={(checked) => updateVisibility(!checked)} />
+				<Switch
+					id="is_hidden"
+					{...register("is_hidden")}
+					checked={!formData.is_hidden}
+					onCheckedChange={(checked) => updateVisibility(!checked)}
+				/>
 				<Label htmlFor="is_hidden">Section is visible</Label>
 			</div>
 
@@ -158,6 +80,98 @@ export const SectionForm = ({ data, onChange }: SectionFormProps) => {
 				fullWidth={true}
 				listClassName="grid w-full grid-cols-3"
 			/>
+			{activeTab === "en" && (
+				<RCard
+					title="English Content"
+					contentComponent={
+						<div className="space-y-4">
+							<div className="flex flex-col gap-2">
+								<Label htmlFor="en-title">Title</Label>
+								<Input
+									id="en-title"
+									{...register("en.title")}
+									placeholder="Enter section title in English"
+									className={errors.en?.title ? "border-red-500" : ""}
+								/>
+								{errors.en?.title && <p className="text-sm text-red-500">{errors.en.title.message}</p>}
+							</div>
+							<div className="flex flex-col gap-2">
+								<Label htmlFor="en-description">Description</Label>
+								<Textarea
+									id="en-description"
+									{...register("en.description")}
+									placeholder="Enter section description in English"
+									rows={4}
+									className={errors.en?.description ? "border-red-500" : ""}
+								/>
+								{errors.en?.description && <p className="text-sm text-red-500">{errors.en.description.message}</p>}
+							</div>
+						</div>
+					}
+				/>
+			)}
+			{activeTab === "ar" && (
+				<RCard
+					title="Arabic Content"
+					contentComponent={
+						<div className="space-y-4">
+							<div className="flex flex-col gap-2">
+								<Label htmlFor="ar-title">Title</Label>
+								<Input
+									id="ar-title"
+									{...register("ar.title")}
+									placeholder="أدخل عنوان القسم باللغة العربية"
+									dir="rtl"
+									className={errors.ar?.title ? "border-red-500" : ""}
+								/>
+								{errors.ar?.title && <p className="text-sm text-red-500">{errors.ar.title.message}</p>}
+							</div>
+							<div className="flex flex-col gap-2">
+								<Label htmlFor="ar-description">Description</Label>
+								<Textarea
+									id="ar-description"
+									{...register("ar.description")}
+									placeholder="أدخل وصف القسم باللغة العربية"
+									rows={4}
+									dir="rtl"
+									className={errors.ar?.description ? "border-red-500" : ""}
+								/>
+								{errors.ar?.description && <p className="text-sm text-red-500">{errors.ar.description.message}</p>}
+							</div>
+						</div>
+					}
+				/>
+			)}
+			{activeTab === "fr" && (
+				<RCard
+					title="French Content"
+					contentComponent={
+						<div className="space-y-4">
+							<div className="flex flex-col gap-2">
+								<Label htmlFor="fr-title">Title</Label>
+								<Input
+									id="fr-title"
+									{...register("fr.title")}
+									placeholder="Entrez le titre de la section en français"
+									className={errors.fr?.title ? "border-red-500" : ""}
+								/>
+								{errors.fr?.title && <p className="text-sm text-red-500">{errors.fr.title.message}</p>}
+							</div>
+							<div className="flex flex-col gap-2">
+								<Label htmlFor="fr-description">Description</Label>
+								<Textarea
+									id="fr-description"
+									{...register("fr.description")}
+									placeholder="Entrez la description de la section en français"
+									rows={4}
+									className={errors.fr?.description ? "border-red-500" : ""}
+								/>
+								{errors.fr?.description && <p className="text-sm text-red-500">{errors.fr.description.message}</p>}
+							</div>
+						</div>
+					}
+				/>
+			)}
 		</div>
 	);
 };
