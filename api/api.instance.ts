@@ -41,7 +41,7 @@ export default async function apiFetcher<T>(
     signal: controller.signal,
     ...requestInit,
   };
-  console.log(`Fetching: ${url}`); //${JSON.stringify(init)}
+  console.log(`Fetching ${requestInit?.method ?? "GET"}: ${url}`); //${JSON.stringify(init)}
   try {
     const response = await fetch(url, init);
     console.log(

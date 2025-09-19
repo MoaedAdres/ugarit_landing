@@ -14,15 +14,15 @@ interface SortableSectionCardProps extends SectionData {
 	onToggle: (sectionId: string) => void;
 }
 
-export default function SortableSectionCard({ 
-	id, 
-	title, 
-	description, 
-	icon, 
-	href, 
-	isActive, 
-	lastUpdated, 
-	onToggle 
+export default function SortableSectionCard({
+	id,
+	title,
+	description,
+	icon,
+	href,
+	isActive,
+	lastUpdated,
+	onToggle,
 }: SortableSectionCardProps) {
 	const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 
@@ -34,12 +34,7 @@ export default function SortableSectionCard({
 	// Don't render the card content when dragging to improve performance
 	if (isDragging) {
 		return (
-			<RCard
-				ref={setNodeRef}
-				style={style}
-				cardClassName="opacity-30 border-dashed border-2"
-				contentComponent={<div className="h-48" />}
-			/>
+			<RCard ref={setNodeRef} style={style} cardClassName="opacity-30 border-dashed border-2" contentComponent={<div className="h-48" />} />
 		);
 	}
 
@@ -63,14 +58,17 @@ export default function SortableSectionCard({
 							</RFlex>
 						</RFlex>
 						<RFlex className="items-center gap-2">
-							<Badge variant={isActive ? "default" : "secondary"}>{isActive ? "Active" : "Inactive"}</Badge>
-							<RButton 
-								variant="ghost" 
-								size="sm" 
-								onClick={() => onToggle(id)} 
+							<Badge className="min-w-[60px]" variant={isActive ? "default" : "secondary"}>
+								{isActive ? "Active" : "Inactive"}
+							</Badge>
+							<RButton
+								variant="ghost"
+								size="sm"
+								onClick={() => onToggle(id)}
 								className="h-8 w-8 p-0"
 								icon={isActive ? "fas fa-eye-slash" : "fas fa-eye"}
 							/>
+							<RButton variant="ghost" size="sm" onClick={() => onToggle(id)} className="h-8 w-8 p-0" icon={"fas fa-edit"} />
 						</RFlex>
 					</RFlex>
 					<RFlex className="flex-col space-y-3 mt-4">
