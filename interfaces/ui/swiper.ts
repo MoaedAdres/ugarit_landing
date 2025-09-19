@@ -17,6 +17,7 @@ export interface IMySwiper {
 	autoplay?: boolean | AutoplayOptions;
 	coverflowEffect?: CoverflowEffectOptions;
 	spaceBetween?: string | number;
+	xsSpaceBetween?: string | number;
 	initialSlide?: number;
 	onBeforeInit?: (swiper: SwiperType) => void;
 	anotherModules?: SwiperModule[];

@@ -1,11 +1,10 @@
-import Image, { StaticImageData } from "next/image";
-// import { Check } from "lucide-react";
+import { StaticImageData } from "next/image";
 import MyImage from "../Reusable-components/MyImage";
 import Check from "@/public/gifs/features/check.gif"
 interface Feature {
   title: string;
   bullets: string[];
-  media: { url: StaticImageData };
+  media: { url: StaticImageData, darkUrl: StaticImageData };
   variant: string;
 }
 
@@ -29,8 +28,8 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
             {/* Content */}
             <div className="flex-1 space-y-6">
               <h2
-                className="text-3xl md:text-4xl font-bold text-tech-navy mb-4
-                           transition-colors duration-300 hover:text-secondary-foreground"
+                className="text-2xl md:text-4xl font-bold text-secondary-900 mb-4
+                           transition-colors duration-300"
               >
                 {feature.title}
               </h2>
@@ -54,6 +53,10 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
 
             {/* Image */}
             <div className="flex-1" >
+              <MyImage
+                placeholder="blur"
+                className="dark:hidden"
+                src={feature.media.url} alt="Features Image" />
               <MyImage
                 placeholder="blur"
                 src={feature.media.url} alt="Features Image" />

@@ -3,7 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight, User } from "lucide-react";
 import Link from "next/link";
 import SingleBlog from "./SingleBlog";
-
+import Frame1 from "@/public/pngs/blogs/light-mode/blog1.png"
+import Frame2 from "@/public/pngs/blogs/light-mode/blog2.png"
+import Frame3 from "@/public/pngs/blogs/light-mode/blog3.png"
+import MyButton from "../Reusable-components/MyButton";
 interface BlogPreviewSectionProps {
   count: number;
 }
@@ -17,8 +20,9 @@ const mockBlogPosts = [
       "Learn the essential strategies and considerations for successfully migrating enterprise applications to the cloud without disrupting business operations.",
     author: "David Kim",
     published_at: "2024-01-15",
-    cover_image: "/blog-cloud-migration.png",
+    cover_image: "https://www.bing.com/th/id/OIP.G37tgeQqSNt7v2oPfj9ltQHaE7?w=240&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2",
     categories: ["Cloud", "Migration"],
+    frame: Frame1
   },
   {
     id: "devops-security-integration",
@@ -27,8 +31,9 @@ const mockBlogPosts = [
       "Discover how to implement DevSecOps practices that enhance security without slowing down your development and deployment processes.",
     author: "Emily Zhang",
     published_at: "2024-01-10",
-    cover_image: "/blog-devsecops.png",
+    cover_image: "https://www.bing.com/th/id/OIP.G37tgeQqSNt7v2oPfj9ltQHaE7?w=240&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2",
     categories: ["DevOps", "Security"],
+    frame: Frame2
   },
   {
     id: "kubernetes-monitoring-guide",
@@ -37,36 +42,43 @@ const mockBlogPosts = [
       "Master the tools and techniques needed to effectively monitor and troubleshoot Kubernetes clusters in production environments.",
     author: "Alex Rodriguez",
     published_at: "2024-01-05",
-    cover_image: "/blog-kubernetes.png",
+    cover_image: "https://www.bing.com/th/id/OIP.G37tgeQqSNt7v2oPfj9ltQHaE7?w=240&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2",
     categories: ["Kubernetes", "Monitoring"],
+    frame: Frame3
   },
 ];
 
 export function BlogPreviewSection({ count }: BlogPreviewSectionProps) {
-  const displayPosts = mockBlogPosts.slice(0, count).map((blog, index) => ({ ...blog, index }));
+  const colors = ["#02a950", "#e9ce15", "#028df8"]
+  const displayPosts = mockBlogPosts.slice(0, count).map((blog, index) => ({ ...blog, index, color: colors[index] }));
 
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-4 text-balance">
+          <h2 className="font-heading font-bold text-3xl md:text-4xl text-secondary-foreground mb-4 text-balance">
             Latest Insights
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
+          <p className="text-xl text-secondary-800 max-w-2xl mx-auto text-pretty">
             Stay updated with the latest trends, best practices, and insights
             from our technology experts
           </p>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-10">
           {displayPosts.map((post) => (
-            <SingleBlog article={post} />
+            <SingleBlog key={post.id} article={post} />
           ))}
         </div>
 
         <div className="text-center mt-12">
-          <Button asChild size="lg">
+          <Button
+            size="lg"
+            variant={"secondary"}
+          >
             <Link href="/blog">View All Articles</Link>
+          </Button>
+          <Button asChild size="lg">
           </Button>
         </div>
       </div>

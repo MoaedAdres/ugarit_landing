@@ -39,7 +39,7 @@ export interface HomePage {
 	features: Array<{
 		title: string;
 		bullets: string[];
-		media: { url: StaticImageData };
+		media: { url: StaticImageData; darkUrl: StaticImageData };
 		variant: string;
 	}>;
 	kpis: Array<{ label: string; value: number; img?: string | StaticImageData }>;
@@ -103,6 +103,7 @@ export async function fetchHomePage(): Promise<HomePage> {
 	// Mock data for development - replace with actual API call
 	return {
 		navigations: [
+			{ name: "home", href: "/" },
 			{ name: "Services", href: "/services" },
 			{ name: "Case Studies", href: "/case-studies" },
 			{ name: "Blog", href: "/blog" },
@@ -146,7 +147,7 @@ export async function fetchHomePage(): Promise<HomePage> {
 					"24/7 support and monitoring",
 					"Proven track record with enterprise clients",
 				],
-				media: { url: FeaturesImage },
+				media: { url: FeaturesImage, darkUrl: FeaturesImage },
 				variant: "image-right",
 			},
 		],

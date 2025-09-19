@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
 import { MobileMenuToggle } from "./mobile-menu-toggle";
 import { ModeToggle } from "../theme/toggle-theme";
 import { LocaleSwitcher } from "../locale/locale-switcher";
 import Image from "next/image";
 import Logo from "@/public/pngs/Color logo - no background.png";
+import DarkLogo from "@/public/pngs/Color logo with background.png";
 interface IHeader {
   navigations: {
     name: string
@@ -21,51 +20,22 @@ export function Header({ navigations }: IHeader) {
           <Link href="/" className="flex items-center space-x-2">
             <Image className="size-16" alt="logo" src={Logo} />
           </Link>
+          {/* <Link href="/" className="flex dark:hidden items-center space-x-2">
+            <Image className="size-16" alt="logo" src={Logo} />
+          </Link>
+          <Link href="/" className="dark:flex hidden items-center space-x-2">
+            <Image className="size-16" alt="logo" src={DarkLogo} />
+          </Link> */}
           <LocaleSwitcher />
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            <Link
-              href="/"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              Home
-            </Link>
-            <div className="relative group">
-              <button className="flex items-center text-foreground hover:text-primary transition-smooth">
-                Services
-                <ChevronDown className="ml-1 h-4 w-4" />
-              </button>
-            </div>
-            <Link
-              href="/about"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              About
-            </Link>
-            <Link
-              href="/case-studies"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              Case Studies
-            </Link>
-            <Link
-              href="/blog"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/contact"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              Contact
-            </Link>
-            <Link
-              href="/dashboard/signin"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              signin
-            </Link>
+            {navigations?.map(navigation =>
+              <Link
+                href={navigation.href}
+                className="text-foreground hover:text-primary-700 transition-smooth"
+              >
+                {navigation.name}
+              </Link>)}
           </div>
 
           {/* CTA Button */}
@@ -80,45 +50,13 @@ export function Header({ navigations }: IHeader) {
         {/* Mobile Navigation */}
         <div id="mobile-menu" className="lg:hidden py-4 border-t hidden">
           <div className="flex flex-col space-y-4">
-            <Link
-              href="/"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              Home
-            </Link>
-            <Link
-              href="/services"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              Services
-            </Link>
-            <Link
-              href="/about"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              About
-            </Link>
-            <Link
-              href="/case-studies"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              Case Studies
-            </Link>
-            <Link
-              href="/blog"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/contact"
-              className="text-foreground hover:text-primary transition-smooth"
-            >
-              Contact
-            </Link>
-            <Button variant="default" className="gradient-primary w-full">
-              Get Quote
-            </Button>
+            {navigations?.map(navigation =>
+              <Link
+                href={navigation.href}
+                className="text-foreground hover:text-secondary transition-smooth"
+              >
+                {navigation.name}
+              </Link>)}
           </div>
         </div>
       </div>
