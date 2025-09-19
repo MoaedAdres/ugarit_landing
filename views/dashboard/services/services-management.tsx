@@ -131,12 +131,7 @@ function SortableServiceCard({ service, onToggle }: SortableServiceCardProps) {
 
 	if (isDragging) {
 		return (
-			<RCard
-				ref={setNodeRef}
-				style={style}
-				cardClassName="opacity-30 border-dashed border-2"
-				contentComponent={<div className="h-48" />}
-			/>
+			<RCard ref={setNodeRef} style={style} cardClassName="opacity-30 border-dashed border-2" contentComponent={<div className="h-48" />} />
 		);
 	}
 
@@ -178,7 +173,7 @@ function SortableServiceCard({ service, onToggle }: SortableServiceCardProps) {
 							</Badge>
 						</div>
 
-						<RParagraphTruncated 
+						<RParagraphTruncated
 							paragraph={service.description}
 							numOfChars={100}
 							typographyStyles="text-muted-foreground text-sm leading-relaxed"
@@ -200,7 +195,7 @@ function SortableServiceCard({ service, onToggle }: SortableServiceCardProps) {
 											size="sm"
 											className="h-6 w-6 p-0"
 											icon={<i className={`${myIcons.eye} h-3 w-3`} />}
-											onClick={() => window.location.href = `/dashboard/services/${service.id}?isEdit=false`}
+											onClick={() => (window.location.href = `/dashboard/services/${service.id}?isEdit=false`)}
 										/>
 									}
 									tooltipText="View Service"
@@ -212,7 +207,7 @@ function SortableServiceCard({ service, onToggle }: SortableServiceCardProps) {
 											size="sm"
 											className="h-6 w-6 p-0"
 											icon={<i className={`${myIcons.edit} h-3 w-3`} />}
-											onClick={() => window.location.href = `/dashboard/services/${service.id}?isEdit=true`}
+											onClick={() => (window.location.href = `/dashboard/services/${service.id}?isEdit=true`)}
 										/>
 									}
 									tooltipText="Edit Service"
@@ -255,11 +250,7 @@ function DragOverlayCard({ service }: { service: ServiceData }) {
 							</Badge>
 						</div>
 					</RFlex>
-					<RParagraphTruncated 
-						paragraph={service.description}
-						numOfChars={80}
-						typographyStyles="text-muted-foreground text-sm"
-					/>
+					<RParagraphTruncated paragraph={service.description} numOfChars={80} typographyStyles="text-muted-foreground text-sm" />
 				</div>
 			}
 		/>
@@ -326,13 +317,9 @@ export default function ServicesManagement() {
 					</p>
 				</div>
 				<RFlex className="gap-2">
+					<RButton variant="outline" onClick={handleSaveOrder} text="Save Order" />
 					<RButton
-						variant="outline"
-						onClick={handleSaveOrder}
-						text="Save Order"
-					/>
-					<RButton
-						onClick={() => window.location.href = "/dashboard/services/add"}
+						onClick={() => (window.location.href = "/dashboard/services/add")}
 						icon={<i className={`${myIcons.plus} h-4 w-4`} />}
 						text="Add Service"
 					/>

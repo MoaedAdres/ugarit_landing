@@ -34,7 +34,7 @@ export default function AddService() {
 				<RButton
 					variant="ghost"
 					size="sm"
-					onClick={() => window.location.href = "/dashboard/services"}
+					onClick={() => (window.location.href = "/dashboard/services")}
 					icon={<i className={`${myIcons.arrowLeft} h-4 w-4`} />}
 					text="Back to Services"
 				/>
@@ -53,17 +53,12 @@ export default function AddService() {
 				{/* Sidebar */}
 				<div className="space-y-6">
 					<ServicePreview serviceData={serviceData} />
-					
+
 					<RFlex className="flex-col gap-3">
-						<RButton
-							onClick={handleSave}
-							className="w-full"
-							icon={<i className={`${myIcons.save} h-4 w-4`} />}
-							text="Save Service"
-						/>
+						<RButton onClick={handleSave} className="w-full" icon={<i className={`${myIcons.save} h-4 w-4`} />} text="Save Service" />
 						<RButton
 							variant="outline"
-							onClick={() => window.location.href = "/dashboard/services"}
+							onClick={() => (window.location.href = "/dashboard/services")}
 							className="w-full bg-transparent"
 							text="Cancel"
 						/>
