@@ -8,11 +8,12 @@ function HeroSwiperImages({ images }: IHeroSwiperImages) {
     const swiperSlideClasses = "rotate-[5deg] rounded-2xl backdrop-blur-lg backdrop-brightness-150 w-full h-full"
     return (
         <MySwiper
-            swiperClasses=""
+            swiperClasses="w-full h-full"
             needAutoPlay
             needEffectCards
-            parentClasses="hidden md:block w-[200px] h-[200px] lg:w-[300px] mt-10 lg:h-[320px]"
-            wrapperClasses=""
+            lgSlidesPerView="auto"
+            parentClasses="hidden md:block w-[250px] h-[250px] md:mt-20 lg:mt-24 h-[320px]"
+            wrapperClasses="w-full h-full"
             swiperSlideClasses={swiperSlideClasses}
             autoplay={{ disableOnInteraction: false, delay: 1000 }}
             showNextButton={false} showPreviousButton={false} showPagination={false} effect="cards" grabCursor={true} slidesPerView="auto" speed={1000}>
@@ -22,3 +23,27 @@ function HeroSwiperImages({ images }: IHeroSwiperImages) {
 }
 
 export default HeroSwiperImages
+// import MySwiper from "../Reusable-components/MySwiper"
+// import MyImage from "../Reusable-components/MyImage"
+// import { StaticImageData } from "next/image";
+// interface IHeroSwiperImages {
+//     images: string[] | StaticImageData[];
+// }
+// function HeroSwiperImages({ images }: IHeroSwiperImages) {
+//     const swiperSlideClasses = "rotate-[5deg] rounded-2xl backdrop-blur-lg backdrop-brightness-150 w-full h-full"
+//     return (
+//         <MySwiper
+//             swiperClasses=""
+//             needAutoPlay
+//             needEffectCards
+//             parentClasses=" w-[300px] mt-10 h-[320px]"
+//             wrapperClasses=""
+//             swiperSlideClasses={swiperSlideClasses}
+//             autoplay={{ disableOnInteraction: false, delay: 1000 }}
+//             showNextButton={false} showPreviousButton={false} showPagination={false} effect="cards" grabCursor={true} slidesPerView="auto" speed={1000}>
+//             {images?.map((image, index) => <MyImage key={index} className="w-full h-full" src={image} alt={`hero image ${index + 1}`} />)}
+//         </MySwiper>
+//     )
+// }
+
+// export default HeroSwiperImages

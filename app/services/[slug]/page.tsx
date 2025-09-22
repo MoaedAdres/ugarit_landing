@@ -1,5 +1,3 @@
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { ServiceHero } from "@/components/services/service-hero";
 import { ServiceFeatures } from "@/components/services/service-features";
 import { ServiceProcess } from "@/components/services/service-process";
@@ -158,7 +156,6 @@ export default function ServicePage({ params }: ServicePageProps) {
 
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="pt-16">
         <ServiceHero service={service} />
         <ServiceFeatures service={service} />
@@ -167,7 +164,6 @@ export default function ServicePage({ params }: ServicePageProps) {
         <RelatedServices relatedIds={service.related_services} />
         <ServiceCta cta={service.contact_cta} />
       </main>
-      <Footer />
     </div>
   );
 }

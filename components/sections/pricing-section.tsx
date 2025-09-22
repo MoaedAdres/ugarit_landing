@@ -137,7 +137,7 @@ export function PricingSection() {
           <p className="text-sm text-muted-foreground mb-4">
             Need a custom solution? We're here to help.
           </p>
-          <AnimatedButton text="pricing.contact_us_for_custom_pricing" />
+          <AnimatedButton href="/" text="pricing.contact_us_for_custom_pricing" />
         </div>
       </div>
     </section>

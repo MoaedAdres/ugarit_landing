@@ -88,7 +88,7 @@ export function CaseStudiesSection({ caseStudyIds }: CaseStudiesSectionProps) {
             transform their IT infrastructure
           </p>
         </div>
-        <MySwiper xsSpaceBetween={0} activeSlideClasses="" effect={'coverflow'} grabCursor={true} slidesPerView={"auto"} loop={true} speed={2000} autoplay={{
+        <MySwiper lgSlidesPerView="auto" xsSpaceBetween={0} activeSlideClasses="" effect={'coverflow'} grabCursor={true} slidesPerView={"auto"} loop={true} speed={4000} autoplay={{
           delay: 0,
           disableOnInteraction: false,
           reverseDirection: false,

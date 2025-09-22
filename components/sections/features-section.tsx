@@ -19,7 +19,7 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
         {features.map((feature, index) => (
           <div
             key={index}
-            className={`flex flex-col lg:flex-row items-center gap-10 ${feature.variant === "image-right"
+            className={`flex flex-col lg:flex-row items-center ${feature.variant === "image-right"
               ? "lg:flex-row"
               : "lg:flex-row-reverse"
               } animate-in fade-in-0 slide-in-from-bottom-8 duration-1000`}
@@ -53,10 +53,6 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
 
             {/* Image */}
             <div className="flex-1" >
-              <MyImage
-                placeholder="blur"
-                className="dark:hidden"
-                src={feature.media.url} alt="Features Image" />
               <MyImage
                 placeholder="blur"
                 src={feature.media.url} alt="Features Image" />

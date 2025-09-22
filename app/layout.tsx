@@ -14,6 +14,9 @@ import { AuthProvider } from "@/providers/SessionHandler";
 import { isRTL } from "@/i18n/request";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { HeaderFooterRepository } from "@/api/services/home/header-and-footer";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 
 const montserrat = Montserrat({
 	subsets: ["latin"],
@@ -51,15 +54,16 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({
 	children,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-}>) {
+}) {
 	const organizationJsonLd = generateJsonLd("Organization", {});
 	const websiteJsonLd = generateJsonLd("WebSite", {});
 	const messages = await getMessages();
 	const locale = await getLocale();
 	const isRtl = isRTL(locale);
-
+	const headerFooter = await HeaderFooterRepository.getHeaderAndFooter()
+	console.log('headerFooter', headerFooter?.data);
 	return (
 		<html lang={locale} dir={isRtl ? "rtl" : "ltr"} suppressHydrationWarning className="scroll-smooth bg-primary-50">
 			<head>
@@ -95,7 +99,9 @@ export default async function RootLayout({
 						<AuthProvider>
 							{/* <TokenRefreshHandler /> */}
 							<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+								<Header logo={headerFooter?.data?.company?.logo} navigations={headerFooter.data.menus} />
 								{children}
+								<Footer services={headerFooter.data.services} company={headerFooter.data.company} />
 							</ThemeProvider>
 							<Toaster />
 						</AuthProvider>
