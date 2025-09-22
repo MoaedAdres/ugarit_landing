@@ -1,85 +1,71 @@
 "use client";
 
-import RCard from "@/RComponents/RCard";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Service } from "@/api/services/dashboard/services/interfaces";
+import { servicesRepository } from "@/api/services/dashboard/services";
+import { useMutateData } from "@/hooks/use-mutate-data";
+import { useToast } from "@/hooks/use-toast";
 import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
-import { Badge } from "@/components/ui/badge";
-import { myIcons } from "@/constants/icons";
+import RAlertDialog from "@/RComponents/RAlertDialog";
 
 interface ServiceActionsProps {
-	serviceData: any;
+	service: Service;
+	onEdit: () => void;
+	onDelete: () => void;
 }
 
-export function ServiceActions({ serviceData }: ServiceActionsProps) {
+export const ServiceActions = ({ service, onEdit, onDelete }: ServiceActionsProps) => {
+	const router = useRouter();
+	const { toast } = useToast();
+
+	const { mutate: deleteService, isPending } = useMutateData({
+		mutationFn: () => servicesRepository.deleteService(service.id),
+		onSuccessFn: () => {
+			toast({
+				title: "Success",
+				description: "Service deleted successfully",
+			});
+			onDelete();
+		},
+		onErrorFn: () => {
+			toast({
+				title: "Error",
+				description: "Failed to delete service",
+				variant: "destructive",
+			});
+		},
+	});
+
+	const handleDelete = () => {
+		deleteService(undefined);
+	};
+
 	return (
-		<div className="space-y-6">
-			{/* Service Status Card */}
-			<RCard
-				title="Service Status"
-				cardClassName="border-0 shadow-lg"
-				contentComponent={
-					<div className="space-y-6">
-						<div className="space-y-4">
-							<RFlex className="items-center justify-between p-3 bg-muted/50 rounded-lg">
-								<div>
-									<div className="font-medium text-sm">Active Status</div>
-									<div className="text-xs text-muted-foreground">Service availability</div>
-								</div>
-								<Badge variant={serviceData.isActive ? "default" : "secondary"} className="font-medium">
-									{serviceData.isActive ? "Active" : "Inactive"}
-								</Badge>
-							</RFlex>
-							<RFlex className="items-center justify-between p-3 bg-muted/50 rounded-lg">
-								<div>
-									<div className="font-medium text-sm">Featured</div>
-									<div className="text-xs text-muted-foreground">Homepage highlight</div>
-								</div>
-								<Badge variant={serviceData.featured ? "default" : "secondary"} className="font-medium">
-									{serviceData.featured ? "Yes" : "No"}
-								</Badge>
-							</RFlex>
-							<RFlex className="items-center justify-between p-3 bg-muted/50 rounded-lg">
-								<div>
-									<div className="font-medium text-sm">Last Updated</div>
-									<div className="text-xs text-muted-foreground">Recent changes</div>
-								</div>
-								<span className="text-sm text-muted-foreground font-medium">{serviceData.updatedAt}</span>
-							</RFlex>
-						</div>
-					</div>
-				}
+		<RFlex className="gap-2">
+			<RButton
+				variant="outline"
+				onClick={onEdit}
+				icon="fas fa-edit"
+				text="Edit"
 			/>
-
-			{/* Quick Actions Card */}
-			<RCard
-				title="Quick Actions"
-				cardClassName="border-0 shadow-lg"
-				contentComponent={
-					<RFlex className="flex-col gap-3">
-						<RButton
-							className="w-full"
-							size="lg"
-							onClick={() => window.location.href = `/dashboard/services/${serviceData.id}?isEdit=true`}
-							icon={<i className={`${myIcons.edit} h-4 w-4`} />}
-							text="Edit Service"
-						/>
-						<RButton
-							variant="outline"
-							className="w-full"
-							size="lg"
-							icon={<i className={`${myIcons.eye} h-4 w-4`} />}
-							text="Preview on Site"
-						/>
-						<RButton
-							variant="outline"
-							className="w-full text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20"
-							size="lg"
-							icon={<i className={`${myIcons.xmark} h-4 w-4`} />}
-							text="Delete Service"
-						/>
-					</RFlex>
+			<RAlertDialog
+				component={
+					<button
+						className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2"
+					>
+						<i className="fas fa-trash w-4 h-4 mr-2" />
+						Delete
+					</button>
 				}
+				title="Are you sure?"
+				description={`This action cannot be undone. This will permanently delete the service "${service.title}".`}
+				confirmText={isPending ? "Deleting..." : "Delete"}
+				confirmAction={handleDelete}
+				loading={isPending}
+				confirmClassName="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 			/>
-		</div>
+		</RFlex>
 	);
-}
+};

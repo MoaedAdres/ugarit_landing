@@ -1,11 +1,17 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { ViewService, EditService } from "@/views/dashboard/services";
+import { ServiceDetails } from "@/views/dashboard/services/view";
+import { useParams } from "next/navigation";
 
 export default function ServicePage() {
-	const searchParams = useSearchParams();
-	const isEdit = searchParams.get("isEdit") === "true";
+	const params = useParams();
+	const serviceId = parseInt(params.id as string);
 
-	return isEdit ? <EditService /> : <ViewService />;
+	return (
+		<div className="container mx-auto py-6">
+			<div className="max-w-6xl mx-auto">
+				<ServiceDetails serviceId={serviceId} />
+			</div>
+		</div>
+	);
 }

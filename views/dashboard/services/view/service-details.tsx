@@ -1,120 +1,225 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useFetchData } from "@/hooks/use-fetch-data";
+import { servicesRepository } from "@/api/services/dashboard/services";
+import { Service, ServiceFormData } from "@/api/services/dashboard/services/interfaces";
+import { ServiceActions } from "./service-actions";
+import { EditServiceForm } from "./edit-service-form";
+import { Badge } from "@/components/ui/badge";
 import RCard from "@/RComponents/RCard";
+import RTabs from "@/RComponents/RTabs";
+import { Calendar, Globe, Hash, Tag } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
-import RParagraphTruncated from "@/RComponents/RParagraphTruncated";
 
 interface ServiceDetailsProps {
-	serviceData: any;
+	serviceId: number;
 }
 
-export function ServiceDetails({ serviceData }: ServiceDetailsProps) {
+export const ServiceDetails = ({ serviceId }: ServiceDetailsProps) => {
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const isEdit = searchParams.get("isEdit") === "true";
+	const [isEditing, setIsEditing] = useState(isEdit);
+
+	const { data, isLoading, error } = useFetchData({
+		queryKey: ["service", serviceId],
+		queryFn: () => servicesRepository.getService(serviceId),
+	});
+
+	const service: Service | undefined = data?.data;
+
+	if (isLoading) {
+		return (
+			<RFlex className="flex-col space-y-6">
+				<Skeleton className="h-8 w-64" />
+				<RCard
+					title={<Skeleton className="h-6 w-32" />}
+					contentComponent={<Skeleton className="h-32 w-full" />}
+				/>
+			</RFlex>
+		);
+	}
+
+	if (error || !service) {
+		return (
+			<RFlex className="flex-col space-y-6">
+				<RButton
+					variant="ghost"
+					onClick={() => router.back()}
+					icon="fas fa-arrow-left"
+					text="Back"
+				/>
+				<RCard
+					contentComponent={
+						<p className="text-destructive">Service not found or error loading service.</p>
+					}
+				/>
+			</RFlex>
+		);
+	}
+
+	if (isEditing) {
+		return (
+			<EditServiceForm
+				service={service}
+				onCancel={() => setIsEditing(false)}
+				onSuccess={() => {
+					setIsEditing(false);
+					// Optionally refresh the data
+				}}
+			/>
+		);
+	}
+
 	return (
-		<div className="space-y-8">
-			{/* Overview Card */}
-			<RCard
-				cardClassName="border-0 shadow-lg bg-gradient-to-br from-background to-muted/20"
-				contentComponent={
-					<div className="p-8">
-						<div className="space-y-6">
-							<div>
-								<h2 className="text-xl font-semibold mb-3 text-foreground">Service Overview</h2>
-								<RParagraphTruncated
-									paragraph={serviceData.description}
-									numOfChars={200}
-									typographyStyles="text-muted-foreground leading-relaxed text-base"
-								/>
-							</div>
+		<RFlex className="flex-col space-y-6">
+			<RFlex className="items-center justify-between">
+				<RFlex className="items-center gap-4">
+					<RButton
+						variant="ghost"
+						onClick={() => router.back()}
+						icon="fas fa-arrow-left"
+						text="Back"
+					/>
+					<RFlex className="flex-col">
+						<h1 className="text-3xl font-bold">{service.title}</h1>
+						<p className="text-muted-foreground">Service Details</p>
+					</RFlex>
+				</RFlex>
+				<ServiceActions
+					service={service}
+					onEdit={() => setIsEditing(true)}
+					onDelete={() => router.push("/dashboard/services")}
+				/>
+			</RFlex>
 
-							<div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-muted/30 rounded-xl">
-								<div className="text-center">
-									<div className="text-3xl font-bold text-primary mb-1">
-										${serviceData.priceMin} - ${serviceData.priceMax}
-									</div>
-									<div className="text-sm font-medium text-muted-foreground">Price Range</div>
-								</div>
-								<div className="text-center">
-									<div className="text-3xl font-bold text-primary mb-1">{serviceData.duration}</div>
-									<div className="text-sm font-medium text-muted-foreground">Project Duration</div>
-								</div>
-							</div>
-
-							<div>
-								<h3 className="text-lg font-semibold mb-3 text-foreground">Detailed Description</h3>
-								<RParagraphTruncated
-									paragraph={serviceData.fullDescription}
-									numOfChars={300}
-									typographyStyles="text-muted-foreground leading-relaxed"
-								/>
-							</div>
-						</div>
-					</div>
-				}
-			/>
-
-			{/* Features Card */}
-			<RCard
-				title="Key Features"
-				description="What this service includes"
-				cardClassName="border-0 shadow-lg"
-				contentComponent={
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-						{serviceData.features.map((feature: string, index: number) => (
-							<RFlex key={index} className="items-center gap-3 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl border border-primary/20">
-								<div className="flex items-center justify-center w-8 h-8 bg-primary/20 rounded-full">
-									<div className="w-2 h-2 bg-primary rounded-full"></div>
-								</div>
-								<span className="font-medium text-foreground">{feature}</span>
-							</RFlex>
-						))}
-					</div>
-				}
-			/>
-
-			{/* Requirements & Deliverables Grid */}
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<div className="grid gap-6 md:grid-cols-2">
 				<RCard
 					title={
 						<RFlex className="items-center gap-2">
-							<div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-							Requirements
+							<Hash className="h-5 w-5" />
+							Basic Information
 						</RFlex>
 					}
-					description="What we need from you"
-					cardClassName="border-0 shadow-lg"
 					contentComponent={
-						<div className="space-y-3">
-							{serviceData.requirements.map((requirement: string, index: number) => (
-								<RFlex key={index} className="items-start gap-3 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
-									<div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-									<span className="text-sm text-foreground leading-relaxed">{requirement}</span>
-								</RFlex>
-							))}
-						</div>
+						<RFlex className="flex-col space-y-4">
+							<div>
+								<label className="text-sm font-medium text-muted-foreground">Title</label>
+								<p className="text-lg font-semibold">{service.title}</p>
+							</div>
+							<div>
+								<label className="text-sm font-medium text-muted-foreground">Excerpt</label>
+								<p className="text-sm">{service.excerpt}</p>
+							</div>
+							<div>
+								<label className="text-sm font-medium text-muted-foreground">Category</label>
+								<Badge variant="outline" className="mt-1">
+									{service.category.name}
+								</Badge>
+							</div>
+							<div>
+								<label className="text-sm font-medium text-muted-foreground">Status</label>
+								<Badge variant={service.status === "published" ? "default" : "secondary"} className="mt-1">
+									{service.status}
+								</Badge>
+							</div>
+							<div>
+								<label className="text-sm font-medium text-muted-foreground">Order</label>
+								<p className="text-sm">{service.order}</p>
+							</div>
+							<div className="flex items-center gap-2">
+								<Calendar className="h-4 w-4 text-muted-foreground" />
+								<span className="text-sm text-muted-foreground">
+									Created: {new Date(service.created_at).toLocaleDateString()}
+								</span>
+							</div>
+							<div className="flex items-center gap-2">
+								<Calendar className="h-4 w-4 text-muted-foreground" />
+								<span className="text-sm text-muted-foreground">
+									Updated: {new Date(service.updated_at).toLocaleDateString()}
+								</span>
+							</div>
+						</RFlex>
 					}
 				/>
 
 				<RCard
 					title={
 						<RFlex className="items-center gap-2">
-							<div className="w-2 h-2 bg-green-500 rounded-full"></div>
-							Deliverables
+							<Globe className="h-5 w-5" />
+							Translations
 						</RFlex>
 					}
-					description="What you'll receive"
-					cardClassName="border-0 shadow-lg"
 					contentComponent={
-						<div className="space-y-3">
-							{serviceData.deliverables.map((deliverable: string, index: number) => (
-								<RFlex key={index} className="items-start gap-3 p-3 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
-									<div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-									<span className="text-sm text-foreground leading-relaxed">{deliverable}</span>
-								</RFlex>
-							))}
-						</div>
+						<RTabs
+							defaultValue={service.translations?.[0]?.locale || "en"}
+							tabs={service.translations?.map((translation) => ({
+								value: translation.locale,
+								title: translation.locale.toUpperCase(),
+								content: (
+									<RFlex className="flex-col space-y-4">
+										<div>
+											<label className="text-sm font-medium text-muted-foreground">Title</label>
+											<p className="text-lg font-semibold">{translation.title}</p>
+										</div>
+										<div>
+											<label className="text-sm font-medium text-muted-foreground">Excerpt</label>
+											<p className="text-sm">{translation.excerpt}</p>
+										</div>
+										<div>
+											<label className="text-sm font-medium text-muted-foreground">Body Blocks</label>
+											<ul className="text-sm list-disc list-inside">
+												{translation.body_blocks.map((block, index) => (
+													<li key={index}>{block}</li>
+												))}
+											</ul>
+										</div>
+										<div>
+											<label className="text-sm font-medium text-muted-foreground">Features</label>
+											<ul className="text-sm list-disc list-inside">
+												{translation.features.map((feature, index) => (
+													<li key={index}>{feature}</li>
+												))}
+											</ul>
+										</div>
+										<div>
+											<label className="text-sm font-medium text-muted-foreground">Benefits</label>
+											<ul className="text-sm list-disc list-inside">
+												{translation.benefits.map((benefit, index) => (
+													<li key={index}>{benefit}</li>
+												))}
+											</ul>
+										</div>
+										<div>
+											<label className="text-sm font-medium text-muted-foreground">Process Steps</label>
+											<ul className="text-sm list-disc list-inside">
+												{translation.process_steps.map((step, index) => (
+													<li key={index}>{step}</li>
+												))}
+											</ul>
+										</div>
+										<div>
+											<label className="text-sm font-medium text-muted-foreground">FAQs</label>
+											<ul className="text-sm list-disc list-inside">
+												{translation.faqs.map((faq, index) => (
+													<li key={index}>{faq}</li>
+												))}
+											</ul>
+										</div>
+									</RFlex>
+								),
+							})) || []}
+							activeTab={service.translations?.[0]?.locale || "en"}
+							setActiveTab={() => {}}
+							innerContent={true}
+						/>
 					}
 				/>
 			</div>
-		</div>
+		</RFlex>
 	);
-}
+};
