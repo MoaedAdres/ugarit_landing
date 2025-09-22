@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 
 interface SortableSectionCardProps extends SectionData {
 	onToggle: (sectionId: string) => void;
+	isToggling?: boolean;
 }
 
 export default function SortableSectionCard({
@@ -24,6 +25,7 @@ export default function SortableSectionCard({
 	isActive,
 	lastUpdated,
 	onToggle,
+	isToggling = false,
 }: SortableSectionCardProps) {
 	const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 	const router = useRouter();
@@ -67,7 +69,8 @@ export default function SortableSectionCard({
 								size="sm"
 								onClick={() => onToggle(id)}
 								className="h-8 w-8 p-0"
-								icon={isActive ? "fas fa-eye-slash" : "fas fa-eye"}
+								icon={isToggling ? "fas fa-spinner fa-spin" : isActive ? "fas fa-eye-slash" : "fas fa-eye"}
+								disabled={isToggling}
 							/>
 							<RButton
 								variant="ghost"
@@ -82,7 +85,7 @@ export default function SortableSectionCard({
 						<RFlex className="flex-col space-y-3">
 							{href ? (
 								<Button asChild className="w-full">
-									<Link href={href}>Manage Section</Link>
+									<Link href={href}>View Section</Link>
 								</Button>
 							) : (
 								<RButton className="w-full" disabled text="Coming Soon" />

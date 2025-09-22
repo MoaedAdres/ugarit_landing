@@ -21,9 +21,10 @@ interface SectionsGridProps {
 	sections: SectionData[];
 	onSectionsChange: (sections: SectionData[] | ((prev: SectionData[]) => SectionData[])) => void;
 	onToggleSection: (sectionId: string) => void;
+	isToggling?: boolean;
 }
 
-export default function SectionsGrid({ sections, onSectionsChange, onToggleSection }: SectionsGridProps) {
+export default function SectionsGrid({ sections, onSectionsChange, onToggleSection, isToggling = false }: SectionsGridProps) {
 	const [activeId, setActiveId] = useState<string | null>(null);
 
 	const sensors = useSensors(
@@ -60,7 +61,7 @@ export default function SectionsGrid({ sections, onSectionsChange, onToggleSecti
 			<SortableContext items={sections.map((s) => s.id)} strategy={rectSortingStrategy}>
 				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{sections.map((section) => (
-						<SortableSectionCard key={section.id} {...section} onToggle={onToggleSection} />
+						<SortableSectionCard key={section.id} {...section} onToggle={onToggleSection} isToggling={isToggling} />
 					))}
 				</div>
 			</SortableContext>

@@ -6,16 +6,37 @@ import { HomeHeader, SectionsGrid, SectionOrderList, type SectionData } from "@/
 import { Section } from "@/api/services/dashboard/home/interfaces";
 import RFlex from "@/RComponents/RFlex";
 import { useFetchData } from "@/hooks/use-fetch-data";
+import { useMutateData } from "@/hooks/use-mutate-data";
 import { homeRepository } from "@/api/services/dashboard/home";
 import RButton from "@/RComponents/RButton";
+import { useToast } from "@/hooks/use-toast";
 
 export default function HomePage() {
 	const router = useRouter();
 	const [sections, setSections] = useState<SectionData[]>([]);
+	const { toast } = useToast();
 
 	const { data, isLoading, error } = useFetchData({
 		queryKey: ["sections"],
 		queryFn: () => homeRepository.getsections(),
+	});
+
+	const { mutate: toggleSectionVisibility, isPending: isToggling } = useMutateData({
+		mutationFn: ({ sectionId, isHidden }: { sectionId: number; isHidden: boolean }) =>
+			homeRepository.toggleSectionVisibility(sectionId, isHidden),
+		onSuccessFn: () => {
+			toast({
+				title: "Success",
+				description: "Section visibility updated successfully",
+			});
+		},
+		onErrorFn: (error) => {
+			toast({
+				title: "Error",
+				description: "Failed to update section visibility",
+				variant: "destructive",
+			});
+		},
 	});
 
 	// Convert API data to local format
@@ -35,9 +56,17 @@ export default function HomePage() {
 	}, [data]);
 
 	const handleToggleSection = (sectionId: string) => {
-		setSections((items) => items.map((item) => (item.id === sectionId ? { ...item, isActive: !item.isActive } : item)));
-		// In real implementation, this would update the section status via API
-		console.log(`Toggling section: ${sectionId}`);
+		const section = sections.find((s) => s.id === sectionId);
+		if (!section) return;
+
+		const newIsActive = !section.isActive;
+		const isHidden = !newIsActive; // isActive = true means is_hidden = false
+
+		// Optimistically update the UI
+		setSections((items) => items.map((item) => (item.id === sectionId ? { ...item, isActive: newIsActive } : item)));
+
+		// Call the API
+		toggleSectionVisibility({ sectionId: parseInt(sectionId), isHidden });
 	};
 
 	const handleSaveOrder = () => {
@@ -62,7 +91,7 @@ export default function HomePage() {
 					<RButton onClick={handleAddSection} icon="fas fa-plus" text="Add Section" />
 				</RFlex>
 			</div>
-			<SectionsGrid sections={sections} onSectionsChange={setSections} onToggleSection={handleToggleSection} />
+			<SectionsGrid sections={sections} onSectionsChange={setSections} onToggleSection={handleToggleSection} isToggling={isToggling} />
 			<SectionOrderList sections={sections} />
 		</RFlex>
 	);
