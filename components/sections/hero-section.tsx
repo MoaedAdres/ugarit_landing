@@ -15,6 +15,7 @@ import { EffectCards } from "swiper/modules";
 import HeroSwiperImages from "./hero-swiper-images";
 import HeroImage from "@/public/gifs/hero/hero-image.png"
 import { Swiper, SwiperSlide } from "swiper/react";
+import { LocaleSwitcher } from "../locale/locale-switcher";
 interface HeroProps {
   hero: {
     title: string;
@@ -56,7 +57,7 @@ export function HeroSection({ hero }: HeroProps) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center ">
               <div className="flex items-center">
                 <MyImage className="size-14 mb-4 scale-x-[-1] rotate-[180deg]" src={AnimationArrow} alt="animation arrow" />
-                <AnimatedButton text="hero.get_started_today" />
+                <AnimatedButton href="/" text="hero.get_started_today" />
               </div>
               <MyButton
                 Icon={Play}
@@ -68,6 +69,7 @@ export function HeroSection({ hero }: HeroProps) {
           <HeroSwiperImages images={hero.images} />
         </div>
       </div>
+
     </section>
   );
 }

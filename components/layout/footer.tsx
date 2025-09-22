@@ -4,8 +4,12 @@ import LightImage from "@/public/jpgs/lights/footer-light.jpg";
 import DarkImage from "@/public/pngs/dark-mode/lights/footer-background.png";
 import MyImage from "../Reusable-components/MyImage";
 import { myIcons } from "@/constants/icons";
+import { IFooterProps } from "@/interfaces/footer";
 
-export function Footer() {
+export function Footer({ company, services }: IFooterProps) {
+  console.log('footer', company);
+  console.log('footer contact', company?.contact);
+  console.log('footer services', services);
   return (
     <div className="relative">
       <MyImage src={LightImage} alt="light image" className="dark:hidden absolute w-full h-[725px] md:h-[425px]" />
@@ -19,11 +23,11 @@ export function Footer() {
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                   <span className="text-primary-foreground font-bold text-lg">
-                    U
+                    {company?.name?.[0]}
                   </span>
                 </div>
                 <span className="font-heading font-semibold text-[22px] text-secondary-950">
-                  Ugarit Technologies
+                  {company?.name}
                 </span>
               </div>
               <p className="text-secondary-800 md:w-[90%] text-sm leading-relaxed">
@@ -144,41 +148,41 @@ export function Footer() {
               <div className="space-y-2 md:space-y-3">
                 <div className="flex items-center space-x-2 text-sm text-secondary-800">
                   <i className={myIcons.email} />
-                  <span>info@ugarittech.com</span>
+                  <span>{company?.contact?.email}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-secondary-800">
                   <Phone className="h-4 w-4" />
-                  <span>+1 (555) 123-4567</span>
+                  <span>{company?.contact?.phone}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-secondary-800">
+                <div className=" space-x-2 text-sm text-secondary-800">
                   <MapPin className="h-4 w-4" />
-                  <span>New York, NY</span>
+                  <span>{company?.location?.[0].city}, {company?.location?.[0].country}</span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="border-t border-gray-700 mt-5 pt-5 md:mt-8 md:pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-secondary-800 text-sm">
-              © 2024 Ugarit Technologies. All rights reserved.
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link
-                href="/privacy"
-                className="text-secondary-800 hover:text-primary-700 transition-colors text-sm"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms"
-                className="text-secondary-800 hover:text-primary-700 transition-colors text-sm"
-              >
-                Terms of Service
-              </Link>
-            </div>
+        <div className="border-t border-gray-700 mt-5 pt-5 md:mt-8 md:pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-secondary-800 text-sm">
+            © 2025 Ugarit Technologies. All rights reserved.
+          </p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <Link
+              href="/privacy"
+              className="text-secondary-800 hover:text-primary-700 transition-colors text-sm"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-secondary-800 hover:text-primary-700 transition-colors text-sm"
+            >
+              Terms of Service
+            </Link>
           </div>
         </div>
-      </footer>
-    </div>
+      </footer >
+    </div >
   );
 }

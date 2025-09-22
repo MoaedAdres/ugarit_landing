@@ -2,6 +2,7 @@ import React from "react";
 
 export interface IAnimatedButtonProps {
 	text: string;
+	href: string;
 }
 
 export interface IMyButton {

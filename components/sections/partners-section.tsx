@@ -206,13 +206,13 @@ export function PartnersSection({ partnerIds }: PartnersSectionProps) {
           </p>
         </div>
 
-        <MySwiper needAutoPlay slidesPerView={4} parentClasses="" showPagination={false} pagination={false} wrapperClasses="" swiperClasses="!py-0" activeSlideClasses="" showNextButton={false} showPreviousButton={false} speed={2000} autoplay={{ disableOnInteraction: false, delay: 0 }}>
+        <MySwiper lgSlidesPerView={3} needAutoPlay slidesPerView={4} parentClasses="" showPagination={false} pagination={false} wrapperClasses="" swiperClasses="!py-0" activeSlideClasses="" showNextButton={false} showPreviousButton={false} speed={2000} autoplay={{ disableOnInteraction: false, delay: 0 }}>
           {mockPartners.slice(0, mockPartners?.length / 2).map((partner, index) =>
             <SinglePartner color={partner.color} Icon={partner.icon} key={index} name={partner.name} />
           )}
         </MySwiper>
 
-        <MySwiper needAutoPlay slidesPerView={4} parentClasses="" showPagination={false} pagination={false} wrapperClasses="" swiperClasses="!py-0" activeSlideClasses="" showNextButton={false} showPreviousButton={false} speed={2000} autoplay={{ disableOnInteraction: false, reverseDirection: true, delay: 0 }}>
+        <MySwiper lgSlidesPerView={3} needAutoPlay slidesPerView={4} parentClasses="" showPagination={false} pagination={false} wrapperClasses="" swiperClasses="!py-0" activeSlideClasses="" showNextButton={false} showPreviousButton={false} speed={2000} autoplay={{ disableOnInteraction: false, reverseDirection: true, delay: 0 }}>
           {mockPartners.slice((mockPartners?.length / 2) + 1).map((partner, index) =>
             <SinglePartner color={partner.color} Icon={partner.icon} key={index} name={partner.name} />
           )}

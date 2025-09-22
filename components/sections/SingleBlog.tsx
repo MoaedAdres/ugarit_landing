@@ -60,10 +60,10 @@ function SingleBlog({ article }: ISingleBlog) {
                     , isArticleOdd && "md:flex-row-reverse")}
                 style={{ transitionDelay: `${article.index * 100}ms` }}
             >
-                <div className="relative basis-[100%] md:basis-[50%] xl:basis-[40%] w-full h-full border bg-gray-300 rounded-l-xl">
+                <div className="relative basis-[100%] md:basis-[45%] lg:basis-[35%] xl:basis-[40%] w-full h-full border bg-gray-300 rounded-l-xl">
                     <MyImage fill className='absolute z-50 shadow-lg' src={article.cover_image} alt={article.title} />
                 </div>
-                <div className="p-3 md:p-6 flex flex-col justify-between">
+                <div className="p-3 w-full md:p-6 flex flex-col justify-between">
                     <h3 className="font-heading font-semibold text-base md:text-xl text-foreground mb-3 transition-colors text-balance">
                         {article.title}
                     </h3>
@@ -88,7 +88,7 @@ function SingleBlog({ article }: ISingleBlog) {
                             {article.categories.map((category, catIndex) => (
                                 <span
                                     key={catIndex}
-                                    className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full"
+                                    className="px-2 py-1 bg-primary-600 text-secondary-900 text-xs rounded-full"
                                 >
                                     {category}
                                 </span>

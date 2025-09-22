@@ -18,6 +18,7 @@ export interface IMySwiper {
 	coverflowEffect?: CoverflowEffectOptions;
 	spaceBetween?: string | number;
 	xsSpaceBetween?: string | number;
+	lgSlidesPerView?: number | "auto";
 	initialSlide?: number;
 	onBeforeInit?: (swiper: SwiperType) => void;
 	anotherModules?: SwiperModule[];
@@ -25,5 +26,6 @@ export interface IMySwiper {
 	swiperClasses?: string;
 	wrapperClasses?: string;
 	activeSlideClasses?: string;
+	xsActiveSlideClasses?: string;
 	parentClasses?: string;
 }
