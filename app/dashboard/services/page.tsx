@@ -6,21 +6,20 @@ import { ServicesHeader, ServicesGrid, type ServiceData } from "@/views/dashboar
 import { Service } from "@/api/services/dashboard/services/interfaces";
 import RFlex from "@/RComponents/RFlex";
 import { useFetchData } from "@/hooks/use-fetch-data";
+import { useMutateData } from "@/hooks/use-mutate-data";
 import { servicesRepository } from "@/api/services/dashboard/services";
 import RButton from "@/RComponents/RButton";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ServicesPage() {
 	const router = useRouter();
 	const [services, setServices] = useState<ServiceData[]>([]);
+	const { toast } = useToast();
 
 	const { data, isLoading, error } = useFetchData({
 		queryKey: ["services"],
 		queryFn: () => servicesRepository.getServices(),
-	});
-
-	// Convert API data to local format
-	useEffect(() => {
-		if (data?.data) {
+		onSuccessFn: (data) => {
 			const apiServices: ServiceData[] = data.data.map((service: Service) => ({
 				id: service.id.toString(),
 				title: service.title,
@@ -34,9 +33,31 @@ export default function ServicesPage() {
 				translations: service.translations,
 				media: service.media,
 			}));
-			setServices(apiServices);
-		}
-	}, [data]);
+			setServices(apiServices.sort((a, b) => a.order - b.order));
+		},
+	});
+
+	const { mutate: reorderServices, isPending: isReordering } = useMutateData({
+		mutationFn: (orderedIds: number[]) => servicesRepository.reorderServices(orderedIds),
+		onSuccessFn: () => {
+			toast({
+				title: "Success",
+				description: "Service order saved successfully",
+			});
+		},
+		onErrorFn: (error) => {
+			toast({
+				title: "Error",
+				description: "Failed to save service order",
+				variant: "destructive",
+			});
+		},
+	});
+
+	const handleSaveOrder = () => {
+		const orderedIds = services.map((service) => parseInt(service.id));
+		reorderServices(orderedIds);
+	};
 
 	const handleAddService = () => {
 		router.push("/dashboard/services/add");
@@ -47,6 +68,13 @@ export default function ServicesPage() {
 			<div className="flex items-center justify-between">
 				<ServicesHeader />
 				<RFlex className="gap-2">
+					<RButton
+						variant="outline"
+						onClick={handleSaveOrder}
+						icon={isReordering ? "fas fa-spinner fa-spin" : "fas fa-save"}
+						text="Save Order"
+						disabled={isReordering}
+					/>
 					<RButton onClick={handleAddService} icon="fas fa-plus" text="Add Service" />
 				</RFlex>
 			</div>

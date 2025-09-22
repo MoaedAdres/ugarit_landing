@@ -15,6 +15,8 @@ export const servicesRepository = {
     },
     updateService: async (serviceId: number, data: ServiceFormData): Promise<SingleServiceResponse> =>
         put(`/api/services/${serviceId}`, data),
+    reorderServices: async (orderedIds: number[]): Promise<{ success: boolean; message: string }> =>
+        post(`/api/change-order`, { ordered: orderedIds, type: "Service" }),
     deleteService: async (serviceId: number): Promise<{ success: boolean; message: string }> =>
         destroy(`/api/services/${serviceId}`),
 };
