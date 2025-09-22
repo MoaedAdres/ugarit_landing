@@ -9,6 +9,7 @@ import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
 import RAlertDialog from "@/RComponents/RAlertDialog";
 import { useRouter } from "next/navigation";
+import { getIconUrl } from "@/utils/helperFunctions";
 
 interface ServiceCardProps extends ServiceData {
 	onDelete?: (serviceId: string) => void;
@@ -25,6 +26,7 @@ export default function ServiceCard({
 	href,
 	lastUpdated,
 	translations,
+	media,
 	onDelete,
 }: ServiceCardProps) {
 	const router = useRouter();
@@ -47,7 +49,11 @@ export default function ServiceCard({
 				<div className="flex flex-col h-full">
 					<RFlex className="items-center justify-between mb-4">
 						<RFlex className="items-center gap-3">
-							<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
+							{icon.startsWith('http') || icon.startsWith('/') ? (
+								<img src={getIconUrl(icon)} alt={`${title} icon`} className="h-5 w-5 object-contain" />
+							) : (
+								<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
+							)}
 							<RFlex className="flex-col">
 								<h3 className="text-lg font-semibold">{title}</h3>
 								<p className="text-sm text-muted-foreground line-clamp-2 min-h-[2.5rem]">{excerpt}</p>

@@ -1,3 +1,5 @@
+import { BASE_URL, online } from "@/api/config";
+
 export function handleAddSearchParam(key: string, value: string) {
   const currentUrl = new URL(window.location.href);
   const searchParams = new URLSearchParams(currentUrl.search);
@@ -87,4 +89,28 @@ export const readFile: any = (file: File) => {
 
     reader.readAsDataURL(file);
   });
+};
+
+/**
+ * Constructs the full URL for an icon by combining the backend service URL with the icon path
+ * @param iconPath - The icon path returned from the backend (e.g., "/storage/3/cart.svg")
+ * @returns The full URL for the icon or the original path if it's already a full URL
+ */
+export const getIconUrl = (iconPath: string): string => {
+  // If it's already a full URL (starts with http/https), return as is
+  if (iconPath.startsWith('http://') || iconPath.startsWith('https://')) {
+    return iconPath;
+  }
+
+  // If it's a FontAwesome icon class, return as is
+  if (iconPath.startsWith('fas fa-') || iconPath.startsWith('far fa-') || iconPath.startsWith('fab fa-')) {
+    return iconPath;
+  }
+
+  const url = "http://192.168.0.72:8020";
+  // Remove trailing slash from backend URL and leading slash from icon path to avoid double slashes
+  const cleanBackendUrl = url?.replace(/\/$/, '');
+  const cleanIconPath = iconPath.startsWith('/') ? iconPath : `/${iconPath}`;
+
+  return `${cleanBackendUrl}${cleanIconPath}`;
 };

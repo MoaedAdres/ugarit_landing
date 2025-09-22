@@ -9,12 +9,13 @@ import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
 import RAlertDialog from "@/RComponents/RAlertDialog";
 import { useRouter } from "next/navigation";
+import { getIconUrl } from "@/utils/helperFunctions";
 
 interface CategoryCardProps extends CategoryData {
 	onDelete?: (categoryId: string) => void;
 }
 
-export default function CategoryCard({ id, name, summary, slug, icon, href, lastUpdated, translations, onDelete }: CategoryCardProps) {
+export default function CategoryCard({ id, name, summary, slug, icon, href, lastUpdated, translations, media, onDelete }: CategoryCardProps) {
 	const router = useRouter();
 
 	const handleEdit = () => {
@@ -35,7 +36,11 @@ export default function CategoryCard({ id, name, summary, slug, icon, href, last
 				<div className="flex flex-col h-full">
 					<RFlex className="items-center justify-between mb-4">
 						<RFlex className="items-center gap-3">
-							<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
+							{icon.startsWith('http') || icon.startsWith('/') ? (
+								<img src={getIconUrl(icon)} alt={`${name} icon`} className="h-5 w-5 object-contain" />
+							) : (
+								<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
+							)}
 							<RFlex className="flex-col">
 								<h3 className="text-lg font-semibold">{name}</h3>
 								<p className="text-sm text-muted-foreground line-clamp-2 min-h-[2.5rem]">{summary}</p>

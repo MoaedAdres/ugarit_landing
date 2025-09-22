@@ -10,6 +10,7 @@ import { useMutateData } from "@/hooks/use-mutate-data";
 import { servicesRepository } from "@/api/services/dashboard/services";
 import RButton from "@/RComponents/RButton";
 import { useToast } from "@/hooks/use-toast";
+import { getIconUrl } from "@/utils/helperFunctions";
 
 export default function ServicesPage() {
 	const router = useRouter();
@@ -27,7 +28,7 @@ export default function ServicesPage() {
 				category: service.category.name,
 				status: service.status,
 				order: service.order,
-				icon: "fas fa-cogs", // Default icon
+				icon: service.media && service.media.length > 0 ? getIconUrl(service.media[0].original_url) : "fas fa-cogs", // Use uploaded icon or default
 				href: `/dashboard/services/${service.id}`,
 				lastUpdated: new Date(service.updated_at).toLocaleDateString(),
 				translations: service.translations,

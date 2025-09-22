@@ -11,6 +11,7 @@ import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
 import RAlertDialog from "@/RComponents/RAlertDialog";
 import { useRouter } from "next/navigation";
+import { getIconUrl } from "@/utils/helperFunctions";
 
 interface SortableServiceCardProps extends ServiceData {
 	onDelete?: (serviceId: string) => void;
@@ -27,6 +28,7 @@ export default function SortableServiceCard({
 	href,
 	lastUpdated,
 	translations,
+	media,
 	onDelete,
 }: SortableServiceCardProps) {
 	const router = useRouter();
@@ -71,7 +73,11 @@ export default function SortableServiceCard({
 								>
 									<i className="fas fa-grip-vertical h-4 w-4 text-muted-foreground"></i>
 								</div>
-								<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
+								{icon.startsWith('http') || icon.startsWith('/') ? (
+									<img src={getIconUrl(icon)} alt={`${title} icon`} className="h-5 w-5 object-contain" />
+								) : (
+									<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
+								)}
 							</div>
 							<RFlex className="flex-col">
 								<h3 className="text-lg font-semibold">{title}</h3>

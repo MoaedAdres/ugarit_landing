@@ -8,6 +8,7 @@ import RFlex from "@/RComponents/RFlex";
 import { useFetchData } from "@/hooks/use-fetch-data";
 import { categoriesRepository } from "@/api/services/dashboard/categories";
 import RButton from "@/RComponents/RButton";
+import { getIconUrl } from "@/utils/helperFunctions";
 
 export default function CategoriesPage() {
 	const router = useRouter();
@@ -26,10 +27,11 @@ export default function CategoriesPage() {
 				name: category.name,
 				summary: category.summary,
 				slug: category.slug,
-				icon: "fas fa-folder", // Default icon
+				icon: category.media && category.media.length > 0 ? getIconUrl(category.media[0].original_url) : "fas fa-folder", // Use uploaded icon or default
 				href: `/dashboard/categories/${category.id}`,
 				lastUpdated: new Date(category.updated_at).toLocaleDateString(),
 				translations: category.translations,
+				media: category.media,
 			}));
 			setCategories(apiCategories);
 		}

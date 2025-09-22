@@ -1,4 +1,4 @@
-const online = false;
+export const online = false;
 
 export const BASE_URL = online
   ? process.env.ONLINE_BASE_URL
