@@ -11,6 +11,7 @@ export interface SectionTranslation {
 export interface Section {
     id: number;
     is_hidden: number;
+    order: number;
     created_at: string;
     updated_at: string;
     title: string;
@@ -44,4 +45,5 @@ export interface SectionFormData {
         description: string;
     };
     is_hidden: boolean;
+    order: number;
 }

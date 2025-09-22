@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Save, X } from "lucide-react";
 import RTabs from "@/RComponents/RTabs";
 import RCard from "@/RComponents/RCard";
+import { useRouter } from "next/navigation";
+import { homeRepository } from "@/api/services/dashboard/home";
 
 interface EditSectionFormProps {
 	section: Section;
@@ -22,7 +24,7 @@ interface EditSectionFormProps {
 
 export const EditSectionForm = ({ section, formData, onExitEdit }: EditSectionFormProps) => {
 	const [activeTab, setActiveTab] = useState("form");
-
+	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
@@ -36,17 +38,16 @@ export const EditSectionForm = ({ section, formData, onExitEdit }: EditSectionFo
 
 	const editData = watch();
 
-	const { mutate: updateSection, isPending } = useMutateData({
-		mutationFn: updateSectionAction,
+	const { mutate: updateSectionMutation, isPending } = useMutateData({
+		mutationFn: (data: SectionFormData) => homeRepository.updateSection(section.id, data),
 		invalidateKeys: [{ queryKey: ["sections"] }, { queryKey: ["section", section.id] }],
-		displaySuccess: true,
 		onSuccessFn: () => {
 			onExitEdit();
 		},
 	});
 
 	const onSubmit = (data: SectionFormData) => {
-		updateSection({ sectionId: section.id, data });
+		updateSectionMutation(data);
 	};
 
 	const handleFormChange = (data: SectionFormData) => {
@@ -60,20 +61,13 @@ export const EditSectionForm = ({ section, formData, onExitEdit }: EditSectionFo
 		<div className="space-y-6">
 			{/* Header */}
 			<div className="flex items-center gap-4">
-				<Button
-					variant="outline"
-					size="sm"
-					onClick={onExitEdit}
-					className="flex items-center gap-2"
-				>
+				<Button variant="outline" size="sm" onClick={() => router.push("/dashboard/home")} className="flex items-center gap-2">
 					<ArrowLeft className="h-4 w-4" />
 					Back
 				</Button>
 				<div>
 					<h2 className="text-2xl font-semibold">Edit Section: {section.title}</h2>
-					<p className="text-sm text-muted-foreground">
-						Update the section details and translations
-					</p>
+					<p className="text-sm text-muted-foreground">Update the section details and translations</p>
 				</div>
 			</div>
 
@@ -91,33 +85,17 @@ export const EditSectionForm = ({ section, formData, onExitEdit }: EditSectionFo
 				{activeTab === "form" && (
 					<RCard
 						title="Section Details"
-						contentComponent={
-							<SectionForm 
-								data={editData} 
-								onChange={handleFormChange}
-								register={register}
-								errors={errors}
-							/>
-						}
+						contentComponent={<SectionForm data={editData} onChange={handleFormChange} register={register} errors={errors} />}
 					/>
 				)}
-				{activeTab === "preview" && (
-					<RCard
-						title="Preview"
-						contentComponent={<SectionPreview data={editData} />}
-					/>
-				)}
+				{activeTab === "preview" && <RCard title="Preview" contentComponent={<SectionPreview data={editData} />} />}
 
 				<div className="flex justify-end gap-4">
 					<Button variant="outline" onClick={onExitEdit} type="button" disabled={isPending || isSubmitting}>
 						<X className="h-4 w-4 mr-2" />
 						Cancel
 					</Button>
-					<Button 
-						type="submit" 
-						disabled={isPending || isSubmitting} 
-						className="flex items-center gap-2"
-					>
+					<Button type="submit" disabled={isPending || isSubmitting} className="flex items-center gap-2">
 						<Save className="h-4 w-4" />
 						{isPending || isSubmitting ? "Updating..." : "Update Section"}
 					</Button>
@@ -126,4 +104,3 @@ export const EditSectionForm = ({ section, formData, onExitEdit }: EditSectionFo
 		</div>
 	);
 };
-

@@ -1,82 +1,85 @@
 "use client";
 
 import { SectionFormData } from "@/api/services/dashboard/home/interfaces";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Eye, EyeOff } from "lucide-react";
+import RCard from "@/RComponents/RCard";
+import RTabs from "@/RComponents/RTabs";
+import RFlex from "@/RComponents/RFlex";
+import { useState } from "react";
 
 interface SectionPreviewProps {
 	data: SectionFormData;
 }
 
 export const SectionPreview = ({ data }: SectionPreviewProps) => {
+	const [activeTab, setActiveTab] = useState("en");
+	const tabs = [
+		{
+			value: "en",
+			title: "English",
+		},
+		{
+			value: "ar",
+			title: "Arabic",
+		},
+		{
+			value: "fr",
+			title: "French",
+		},
+	];
+
+	const renderTabContent = (locale: string) => {
+		const localeData = data[locale as keyof Pick<SectionFormData, "en" | "ar" | "fr">];
+		const isArabic = locale === "ar";
+
+		return (
+			<RCard
+				title={localeData.title || (isArabic ? "لم يتم تعيين عنوان" : locale === "fr" ? "Aucun titre défini" : "No title set")}
+				contentComponent={
+					<p className="text-muted-foreground whitespace-pre-wrap" dir={isArabic ? "rtl" : undefined}>
+						{localeData.description ||
+							(isArabic ? "لم يتم تعيين وصف" : locale === "fr" ? "Aucune description définie" : "No description set")}
+					</p>
+				}
+				dir={isArabic ? "rtl" : "ltr"}
+			/>
+		);
+	};
+
 	return (
-		<div className="space-y-4">
-			{/* Status Badge */}
-			<div className="flex items-center gap-2">
+		<RFlex className="flex-col space-y-4">
+			{/* Status and Order Badges */}
+			<RFlex className="items-center gap-2">
 				{data.is_hidden ? (
-					<Badge variant="secondary" className="flex items-center gap-1">
-						<EyeOff className="h-3 w-3" />
+					<span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-secondary text-secondary-foreground rounded-md">
+						<i className="fas fa-eye-slash h-3 w-3"></i>
 						Hidden
-					</Badge>
+					</span>
 				) : (
-					<Badge variant="default" className="flex items-center gap-1">
-						<Eye className="h-3 w-3" />
+					<span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-md">
+						<i className="fas fa-eye h-3 w-3"></i>
 						Visible
-					</Badge>
+					</span>
 				)}
-			</div>
+				<span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-outline text-foreground border rounded-md">
+					<i className="fas fa-hashtag h-3 w-3"></i>
+					Order: {data.order}
+				</span>
+			</RFlex>
 
 			{/* Language Preview Tabs */}
-			<Tabs defaultValue="en" className="w-full">
-				<TabsList className="grid w-full grid-cols-3">
-					<TabsTrigger value="en">English</TabsTrigger>
-					<TabsTrigger value="ar">Arabic</TabsTrigger>
-					<TabsTrigger value="fr">French</TabsTrigger>
-				</TabsList>
-
-				<TabsContent value="en" className="space-y-4">
-					<Card>
-						<CardHeader>
-							<CardTitle className="text-lg">{data.en.title || "No title set"}</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p className="text-muted-foreground whitespace-pre-wrap">
-								{data.en.description || "No description set"}
-							</p>
-						</CardContent>
-					</Card>
-				</TabsContent>
-
-				<TabsContent value="ar" className="space-y-4">
-					<Card>
-						<CardHeader>
-							<CardTitle className="text-lg" dir="rtl">
-								{data.ar.title || "لم يتم تعيين عنوان"}
-							</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p className="text-muted-foreground whitespace-pre-wrap" dir="rtl">
-								{data.ar.description || "لم يتم تعيين وصف"}
-							</p>
-						</CardContent>
-					</Card>
-				</TabsContent>
-
-				<TabsContent value="fr" className="space-y-4">
-					<Card>
-						<CardHeader>
-							<CardTitle className="text-lg">{data.fr.title || "Aucun titre défini"}</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p className="text-muted-foreground whitespace-pre-wrap">
-								{data.fr.description || "Aucune description définie"}
-							</p>
-						</CardContent>
-					</Card>
-				</TabsContent>
-			</Tabs>
-		</div>
+			<RTabs
+				tabs={tabs}
+				activeTab={activeTab}
+				setActiveTab={setActiveTab}
+				innerContent={true}
+				fullWidth={true}
+				listClassName="grid w-full grid-cols-3"
+			/>
+			<RFlex className="flex-col space-y-4">
+				{activeTab === "en" && renderTabContent("en")}
+				{activeTab === "ar" && renderTabContent("ar")}
+				{activeTab === "fr" && renderTabContent("fr")}
+			</RFlex>
+		</RFlex>
 	);
 };

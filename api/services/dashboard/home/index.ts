@@ -14,9 +14,11 @@ export const homeRepository = {
     return data?.data
   },
   updateSection: async (sectionId: number, data: SectionFormData): Promise<SingleSectionResponse> =>
-    put(`/api/sections/${sectionId}`, data),
+    post(`/api/sections/${sectionId}`, { ...data, _method: "PUT" }),
   toggleSectionVisibility: async (sectionId: number, isHidden: boolean): Promise<SingleSectionResponse> =>
     post(`/api/sections/${sectionId}`, { is_hidden: isHidden, _method: "PUT" }),
+  reorderSections: async (orderedIds: number[]): Promise<{ success: boolean; message: string }> =>
+    post(`/api/change-order`, { ordered: orderedIds, type: "Section" }),
   deleteSection: async (sectionId: number): Promise<{ success: boolean; message: string }> =>
     destroy(`/api/sections/${sectionId}`),
 };

@@ -19,6 +19,7 @@ const defaultFormData: SectionFormData = {
 	ar: { title: "", description: "" },
 	fr: { title: "", description: "" },
 	is_hidden: false,
+	order: 1,
 };
 
 export const AddSectionForm = () => {

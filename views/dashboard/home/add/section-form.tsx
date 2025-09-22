@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import RTabs from "@/RComponents/RTabs";
 import RCard from "@/RComponents/RCard";
+import { cn } from "@/lib/utils";
 
 interface SectionFormProps {
 	data: SectionFormData;
@@ -24,18 +25,6 @@ export const SectionForm = ({ data, onChange, register, errors }: SectionFormPro
 	useEffect(() => {
 		setFormData(data);
 	}, [data]);
-
-	const updateTranslation = (locale: keyof Omit<SectionFormData, "is_hidden">, field: "title" | "description", value: string) => {
-		const newData = {
-			...formData,
-			[locale]: {
-				...formData[locale],
-				[field]: value,
-			},
-		};
-		setFormData(newData);
-		onChange(newData);
-	};
 
 	const updateVisibility = (is_hidden: boolean) => {
 		const newData = { ...formData, is_hidden };
@@ -60,6 +49,20 @@ export const SectionForm = ({ data, onChange, register, errors }: SectionFormPro
 
 	return (
 		<div className="space-y-6">
+			{/* Order Field */}
+			<div className="flex flex-col gap-2">
+				<Label htmlFor="order">Order</Label>
+				<Input
+					id="order"
+					type="number"
+					min="1"
+					{...register("order", { valueAsNumber: true })}
+					placeholder="Enter section order (1, 2, 3...)"
+					className={cn(errors.order ? "border-red-500" : "", "w-1/12")}
+				/>
+				{errors.order && <p className="text-sm text-red-500">{errors.order.message}</p>}
+			</div>
+
 			{/* Visibility Toggle */}
 			<div className="flex items-center space-x-2">
 				<Switch
@@ -113,6 +116,7 @@ export const SectionForm = ({ data, onChange, register, errors }: SectionFormPro
 			{activeTab === "ar" && (
 				<RCard
 					title="Arabic Content"
+					dir="rtl"
 					contentComponent={
 						<div className="space-y-4">
 							<div className="flex flex-col gap-2">

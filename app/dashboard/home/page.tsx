@@ -19,6 +19,19 @@ export default function HomePage() {
 	const { data, isLoading, error } = useFetchData({
 		queryKey: ["sections"],
 		queryFn: () => homeRepository.getsections(),
+		onSuccessFn: (data) => {
+			const apiSections: SectionData[] = data.data.map((section: Section) => ({
+				id: section.id.toString(),
+				title: section.title,
+				description: section.description,
+				icon: "fas fa-file-alt", // Default icon
+				href: `/dashboard/home/${section.id}`,
+				isActive: section.is_hidden === 0,
+				lastUpdated: new Date(section.updated_at).toLocaleDateString(),
+				order: section.order,
+			}));
+			setSections(apiSections.sort((a, b) => a.order - b.order));
+		},
 	});
 
 	const { mutate: toggleSectionVisibility, isPending: isToggling } = useMutateData({
@@ -39,21 +52,22 @@ export default function HomePage() {
 		},
 	});
 
-	// Convert API data to local format
-	useEffect(() => {
-		if (data?.data) {
-			const apiSections: SectionData[] = data.data.map((section: Section) => ({
-				id: section.id.toString(),
-				title: section.title,
-				description: section.description,
-				icon: "fas fa-file-alt", // Default icon
-				href: `/dashboard/home/${section.id}`,
-				isActive: section.is_hidden === 0,
-				lastUpdated: new Date(section.updated_at).toLocaleDateString(),
-			}));
-			setSections(apiSections);
-		}
-	}, [data]);
+	const { mutate: reorderSections, isPending: isReordering } = useMutateData({
+		mutationFn: (orderedIds: number[]) => homeRepository.reorderSections(orderedIds),
+		onSuccessFn: () => {
+			toast({
+				title: "Success",
+				description: "Section order saved successfully",
+			});
+		},
+		onErrorFn: (error) => {
+			toast({
+				title: "Error",
+				description: "Failed to save section order",
+				variant: "destructive",
+			});
+		},
+	});
 
 	const handleToggleSection = (sectionId: string) => {
 		const section = sections.find((s) => s.id === sectionId);
@@ -70,12 +84,8 @@ export default function HomePage() {
 	};
 
 	const handleSaveOrder = () => {
-		// In real implementation, this would save the new order to your API
-		console.log(
-			"New section order:",
-			sections.map((s) => ({ id: s.id, title: s.title }))
-		);
-		// You could show a toast notification here
+		const orderedIds = sections.map((section) => parseInt(section.id));
+		reorderSections(orderedIds);
 	};
 
 	const handleAddSection = () => {
@@ -87,7 +97,13 @@ export default function HomePage() {
 			<div className="flex items-center justify-between">
 				<HomeHeader />
 				<RFlex className="gap-2">
-					<RButton variant="outline" onClick={handleSaveOrder} icon="fas fa-save" text="Save Order" />
+					<RButton
+						variant="outline"
+						onClick={handleSaveOrder}
+						icon={isReordering ? "fas fa-spinner fa-spin" : "fas fa-save"}
+						text="Save Order"
+						disabled={isReordering}
+					/>
 					<RButton onClick={handleAddSection} icon="fas fa-plus" text="Add Section" />
 				</RFlex>
 			</div>

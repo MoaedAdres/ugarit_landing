@@ -21,7 +21,7 @@ interface SectionDetailsProps {
 export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const isEditMode = searchParams.get('isEdit') === 'true';
+	const isEditMode = searchParams.get("isEdit") === "true";
 
 	const { data, isLoading, error } = useFetchData({
 		queryKey: ["section", sectionId],
@@ -54,12 +54,8 @@ export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 	if (error || !data?.data) {
 		return (
 			<div className="text-center py-12">
-				<h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
-					Section Not Found
-				</h2>
-				<p className="text-gray-600 dark:text-gray-400 mb-4">
-					The section you're looking for doesn't exist or has been removed.
-				</p>
+				<h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Section Not Found</h2>
+				<p className="text-gray-600 dark:text-gray-400 mb-4">The section you're looking for doesn't exist or has been removed.</p>
 				<Button onClick={() => router.push("/dashboard/home")}>
 					<ArrowLeft className="h-4 w-4 mr-2" />
 					Back to Sections
@@ -72,16 +68,17 @@ export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 
 	const convertToFormData = (section: Section): SectionFormData => {
 		const translations = section.translations.reduce((acc, translation) => {
-			acc[translation.locale as keyof Omit<SectionFormData, "is_hidden">] = {
+			acc[translation.locale as keyof Omit<SectionFormData, "is_hidden" | "order">] = {
 				title: translation.title,
 				description: translation.description,
 			};
 			return acc;
-		}, {} as Omit<SectionFormData, "is_hidden">);
+		}, {} as Omit<SectionFormData, "is_hidden" | "order">);
 
 		return {
 			...translations,
 			is_hidden: section.is_hidden === 1,
+			order: section.order,
 		};
 	};
 
@@ -90,13 +87,7 @@ export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 	};
 
 	if (isEditMode) {
-		return (
-			<EditSectionForm
-				section={section}
-				formData={convertToFormData(section)}
-				onExitEdit={handleExitEditMode}
-			/>
-		);
+		return <EditSectionForm section={section} formData={convertToFormData(section)} onExitEdit={handleExitEditMode} />;
 	}
 
 	return (
@@ -104,28 +95,16 @@ export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 			{/* Header */}
 			<div className="flex items-center justify-between">
 				<div className="flex items-center gap-4">
-					<Button
-						variant="outline"
-						size="sm"
-						onClick={() => router.back()}
-						className="flex items-center gap-2"
-					>
+					<Button variant="outline" size="sm" onClick={() => router.push("/dashboard/home")} className="flex items-center gap-2">
 						<ArrowLeft className="h-4 w-4" />
 						Back
 					</Button>
 					<div>
-						<h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-							{section.title}
-						</h1>
-						<p className="text-gray-600 dark:text-gray-400 mt-1">
-							Section ID: {section.id}
-						</p>
+						<h1 className="text-3xl font-bold text-gray-900 dark:text-white">{section.title}</h1>
+						<p className="text-gray-600 dark:text-gray-400 mt-1">Section ID: {section.id}</p>
 					</div>
 				</div>
-				<SectionActions
-					section={section}
-					onEdit={() => router.push(`/dashboard/home/${sectionId}?isEdit=true`)}
-				/>
+				<SectionActions section={section} onEdit={() => router.push(`/dashboard/home/${sectionId}?isEdit=true`)} />
 			</div>
 
 			{/* Status and Metadata */}
@@ -141,6 +120,10 @@ export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 						Visible
 					</Badge>
 				)}
+				<Badge variant="outline" className="flex items-center gap-1">
+					<span className="h-3 w-3">#</span>
+					Order: {section.order}
+				</Badge>
 				<Badge variant="outline" className="flex items-center gap-1">
 					<Calendar className="h-3 w-3" />
 					Created: {new Date(section.created_at).toLocaleDateString()}
@@ -166,9 +149,7 @@ export const SectionDetails = ({ sectionId }: SectionDetailsProps) => {
 								<CardTitle className="text-xl">{translation.title}</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<p className="text-muted-foreground whitespace-pre-wrap">
-									{translation.description}
-								</p>
+								<p className="text-muted-foreground whitespace-pre-wrap">{translation.description}</p>
 							</CardContent>
 						</Card>
 					</TabsContent>

@@ -6,6 +6,7 @@ export interface SectionData {
 	href?: string;
 	isActive: boolean;
 	lastUpdated: string;
+	order: number;
 }
 
 export const defaultSections: SectionData[] = [
@@ -17,6 +18,7 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/hero",
 		isActive: true,
 		lastUpdated: "2 hours ago",
+		order: 1,
 	},
 	{
 		id: "services",
@@ -26,6 +28,7 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/home/manage-highlights",
 		isActive: true,
 		lastUpdated: "1 day ago",
+		order: 2,
 	},
 	{
 		id: "features",
@@ -35,6 +38,7 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/home/manage-features",
 		isActive: true,
 		lastUpdated: "3 days ago",
+		order: 3,
 	},
 	{
 		id: "stats",
@@ -44,6 +48,7 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/home/manage-stats",
 		isActive: true,
 		lastUpdated: "1 week ago",
+		order: 4,
 	},
 	{
 		id: "case-studies",
@@ -53,6 +58,7 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/case-studies",
 		isActive: true,
 		lastUpdated: "2 days ago",
+		order: 5,
 	},
 	{
 		id: "testimonials",
@@ -62,6 +68,7 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/testimonials",
 		isActive: true,
 		lastUpdated: "5 days ago",
+		order: 6,
 	},
 	{
 		id: "partners",
@@ -71,6 +78,7 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/partners",
 		isActive: true,
 		lastUpdated: "1 week ago",
+		order: 7,
 	},
 	{
 		id: "pricing",
@@ -80,6 +88,7 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/home/manage-pricing",
 		isActive: false,
 		lastUpdated: "2 weeks ago",
+		order: 8,
 	},
 	{
 		id: "blog",
@@ -89,6 +98,7 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/blog",
 		isActive: true,
 		lastUpdated: "1 day ago",
+		order: 9,
 	},
 	{
 		id: "cta",
@@ -98,5 +108,6 @@ export const defaultSections: SectionData[] = [
 		href: "/dashboard/home/manage-cta",
 		isActive: true,
 		lastUpdated: "3 days ago",
+		order: 10,
 	},
 ];

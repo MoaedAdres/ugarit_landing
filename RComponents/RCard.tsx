@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import React, { ReactNode } from "react";
 
 export type RCardProps = {
@@ -14,6 +15,7 @@ export type RCardProps = {
 	footerComponent?: ReactNode;
 	style?: React.CSSProperties;
 	ref?: React.Ref<HTMLDivElement>;
+	dir?: "ltr" | "rtl";
 };
 
 const RCard = ({
@@ -29,10 +31,11 @@ const RCard = ({
 	footerClassName,
 	style,
 	ref,
+	dir,
 }: RCardProps) => {
 	console.log("rendering: RCard rerendered");
 	return (
-		<Card id="card" className={cardClassName} style={style} ref={ref}>
+		<Card dir={dir ?? "lt"} id="card" className={cn("px-6", cardClassName)} style={style} ref={ref}>
 			{title ||
 				(description && (
 					<CardHeader id="card header" className={headerClassName}>

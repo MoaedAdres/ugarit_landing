@@ -46,7 +46,7 @@ export default function SortableSectionCard({
 			ref={setNodeRef}
 			style={style}
 			cardClassName="relative flex flex-col h-full"
-			contentClassName="flex flex-col h-full pb-3"
+			contentClassName="flex flex-col h-full"
 			contentComponent={
 				<div className="flex flex-col h-full">
 					<RFlex className="items-center justify-between mb-4">
@@ -69,7 +69,7 @@ export default function SortableSectionCard({
 								size="sm"
 								onClick={() => onToggle(id)}
 								className="h-8 w-8 p-0"
-								icon={isToggling ? "fas fa-spinner fa-spin" : isActive ? "fas fa-eye-slash" : "fas fa-eye"}
+								icon={isToggling ? "fas fa-spinner fa-spin" : isActive ? "fas fa-eye" : "fas fa-eye-slash"}
 								disabled={isToggling}
 							/>
 							<RButton
