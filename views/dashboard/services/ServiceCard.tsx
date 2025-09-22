@@ -65,21 +65,9 @@ export default function ServiceCard({
 							</RFlex>
 						</RFlex>
 						<RFlex className="items-center gap-2">
-							<RButton
-								variant="ghost"
-								size="sm"
-								onClick={handleEdit}
-								className="h-8 w-8 p-0"
-								icon="fas fa-edit"
-							/>
+							<RButton variant="ghost" size="sm" onClick={handleEdit} className="h-8 w-8 p-0" icon="fas fa-edit" />
 							<RAlertDialog
-								component={
-									<span
-										className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent h-8 w-8 p-0 text-destructive hover:text-destructive"
-									>
-										<i className="fas fa-trash w-4 h-4" />
-									</span>
-								}
+								component={<RButton variant="ghost" size="sm" className="h-8 w-8 p-0" icon="fas fa-trash" />}
 								title="Delete Service"
 								description={`Are you sure you want to delete "${title}"? This action cannot be undone.`}
 								confirmText="Delete"

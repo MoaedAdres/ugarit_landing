@@ -76,80 +76,140 @@ export default function AddServiceForm() {
 	});
 
 	// English field arrays
-	const { fields: enBodyBlocks, append: appendEnBodyBlock, remove: removeEnBodyBlock } = useFieldArray({
-		control,
+	const {
+		fields: enBodyBlocks,
+		append: appendEnBodyBlock,
+		remove: removeEnBodyBlock,
+	} = useFieldArray({
+		control: control as any,
 		name: "en.body_blocks",
 	});
 
-	const { fields: enFeatures, append: appendEnFeature, remove: removeEnFeature } = useFieldArray({
-		control,
+	const {
+		fields: enFeatures,
+		append: appendEnFeature,
+		remove: removeEnFeature,
+	} = useFieldArray({
+		control: control as any,
 		name: "en.features",
 	});
 
-	const { fields: enBenefits, append: appendEnBenefit, remove: removeEnBenefit } = useFieldArray({
-		control,
+	const {
+		fields: enBenefits,
+		append: appendEnBenefit,
+		remove: removeEnBenefit,
+	} = useFieldArray({
+		control: control as any,
 		name: "en.benefits",
 	});
 
-	const { fields: enProcessSteps, append: appendEnProcessStep, remove: removeEnProcessStep } = useFieldArray({
-		control,
+	const {
+		fields: enProcessSteps,
+		append: appendEnProcessStep,
+		remove: removeEnProcessStep,
+	} = useFieldArray({
+		control: control as any,
 		name: "en.process_steps",
 	});
 
-	const { fields: enFaqs, append: appendEnFaq, remove: removeEnFaq } = useFieldArray({
-		control,
+	const {
+		fields: enFaqs,
+		append: appendEnFaq,
+		remove: removeEnFaq,
+	} = useFieldArray({
+		control: control as any,
 		name: "en.faqs",
 	});
 
 	// Arabic field arrays
-	const { fields: arBodyBlocks, append: appendArBodyBlock, remove: removeArBodyBlock } = useFieldArray({
-		control,
+	const {
+		fields: arBodyBlocks,
+		append: appendArBodyBlock,
+		remove: removeArBodyBlock,
+	} = useFieldArray({
+		control: control as any,
 		name: "ar.body_blocks",
 	});
 
-	const { fields: arFeatures, append: appendArFeature, remove: removeArFeature } = useFieldArray({
-		control,
+	const {
+		fields: arFeatures,
+		append: appendArFeature,
+		remove: removeArFeature,
+	} = useFieldArray({
+		control: control as any,
 		name: "ar.features",
 	});
 
-	const { fields: arBenefits, append: appendArBenefit, remove: removeArBenefit } = useFieldArray({
-		control,
+	const {
+		fields: arBenefits,
+		append: appendArBenefit,
+		remove: removeArBenefit,
+	} = useFieldArray({
+		control: control as any,
 		name: "ar.benefits",
 	});
 
-	const { fields: arProcessSteps, append: appendArProcessStep, remove: removeArProcessStep } = useFieldArray({
-		control,
+	const {
+		fields: arProcessSteps,
+		append: appendArProcessStep,
+		remove: removeArProcessStep,
+	} = useFieldArray({
+		control: control as any,
 		name: "ar.process_steps",
 	});
 
-	const { fields: arFaqs, append: appendArFaq, remove: removeArFaq } = useFieldArray({
-		control,
+	const {
+		fields: arFaqs,
+		append: appendArFaq,
+		remove: removeArFaq,
+	} = useFieldArray({
+		control: control as any,
 		name: "ar.faqs",
 	});
 
 	// French field arrays
-	const { fields: frBodyBlocks, append: appendFrBodyBlock, remove: removeFrBodyBlock } = useFieldArray({
-		control,
+	const {
+		fields: frBodyBlocks,
+		append: appendFrBodyBlock,
+		remove: removeFrBodyBlock,
+	} = useFieldArray({
+		control: control as any,
 		name: "fr.body_blocks",
 	});
 
-	const { fields: frFeatures, append: appendFrFeature, remove: removeFrFeature } = useFieldArray({
-		control,
+	const {
+		fields: frFeatures,
+		append: appendFrFeature,
+		remove: removeFrFeature,
+	} = useFieldArray({
+		control: control as any,
 		name: "fr.features",
 	});
 
-	const { fields: frBenefits, append: appendFrBenefit, remove: removeFrBenefit } = useFieldArray({
-		control,
+	const {
+		fields: frBenefits,
+		append: appendFrBenefit,
+		remove: removeFrBenefit,
+	} = useFieldArray({
+		control: control as any,
 		name: "fr.benefits",
 	});
 
-	const { fields: frProcessSteps, append: appendFrProcessStep, remove: removeFrProcessStep } = useFieldArray({
-		control,
+	const {
+		fields: frProcessSteps,
+		append: appendFrProcessStep,
+		remove: removeFrProcessStep,
+	} = useFieldArray({
+		control: control as any,
 		name: "fr.process_steps",
 	});
 
-	const { fields: frFaqs, append: appendFrFaq, remove: removeFrFaq } = useFieldArray({
-		control,
+	const {
+		fields: frFaqs,
+		append: appendFrFaq,
+		remove: removeFrFaq,
+	} = useFieldArray({
+		control: control as any,
 		name: "fr.faqs",
 	});
 
@@ -176,7 +236,7 @@ export default function AddServiceForm() {
 		formData.append("category_id", data.category_id.toString());
 		formData.append("status", data.status);
 		formData.append("order", data.order.toString());
-		
+
 		// English
 		formData.append("en[title]", data.en.title);
 		formData.append("en[excerpt]", data.en.excerpt);
@@ -233,7 +293,7 @@ export default function AddServiceForm() {
 		data.fr.faqs.forEach((faq, index) => {
 			formData.append(`fr[faqs][${index}]`, faq);
 		});
-		
+
 		if (selectedFile) {
 			formData.append("icon", selectedFile);
 		}
@@ -351,25 +411,31 @@ export default function AddServiceForm() {
 					<Label htmlFor={`${locale}-title`}>Title ({locale.toUpperCase()})</Label>
 					<Input
 						id={`${locale}-title`}
+						dir={locale === "ar" ? "rtl" : "ltr"}
 						{...register(`${locale}.title` as any)}
 						placeholder={`Service title in ${locale === "en" ? "English" : locale === "ar" ? "Arabic" : "French"}`}
 					/>
-					{errors[locale as keyof typeof errors]?.title && (
-						<p className="text-sm text-destructive">{errors[locale as keyof typeof errors]?.title?.message}</p>
-					)}
+					{errors[locale as keyof typeof errors] &&
+						typeof errors[locale as keyof typeof errors] === "object" &&
+						"title" in (errors[locale as keyof typeof errors] || {}) && (
+							<p className="text-sm text-destructive">{(errors[locale as keyof typeof errors] as any)?.title?.message}</p>
+						)}
 				</div>
 
 				<div className="space-y-2">
 					<Label htmlFor={`${locale}-excerpt`}>Excerpt ({locale.toUpperCase()})</Label>
 					<Textarea
 						id={`${locale}-excerpt`}
+						dir={locale === "ar" ? "rtl" : "ltr"}
 						{...register(`${locale}.excerpt` as any)}
 						placeholder={`Service excerpt in ${locale === "en" ? "English" : locale === "ar" ? "Arabic" : "French"}`}
 						rows={3}
 					/>
-					{errors[locale as keyof typeof errors]?.excerpt && (
-						<p className="text-sm text-destructive">{errors[locale as keyof typeof errors]?.excerpt?.message}</p>
-					)}
+					{errors[locale as keyof typeof errors] &&
+						typeof errors[locale as keyof typeof errors] === "object" &&
+						"excerpt" in (errors[locale as keyof typeof errors] || {}) && (
+							<p className="text-sm text-destructive">{(errors[locale as keyof typeof errors] as any)?.excerpt?.message}</p>
+						)}
 				</div>
 
 				{/* Body Blocks */}
@@ -378,27 +444,15 @@ export default function AddServiceForm() {
 					{bodyBlocks.map((field, index) => (
 						<div key={field.id} className="flex gap-2">
 							<Textarea
+								dir={locale === "ar" ? "rtl" : "ltr"}
 								{...register(`${locale}.body_blocks.${index}` as any)}
 								placeholder={`Body block ${index + 1}`}
 								rows={2}
 							/>
-							<RButton
-								type="button"
-								variant="destructive"
-								size="sm"
-								onClick={() => removeBodyBlock(index)}
-								icon="fas fa-trash"
-							/>
+							<RButton type="button" variant="destructive" size="sm" onClick={() => removeBodyBlock(index)} icon="fas fa-trash" />
 						</div>
 					))}
-					<RButton
-						type="button"
-						variant="outline"
-						size="sm"
-						onClick={() => appendBodyBlock("")}
-						icon="fas fa-plus"
-						text="Add Body Block"
-					/>
+					<RButton type="button" variant="outline" size="sm" onClick={() => appendBodyBlock("")} icon="fas fa-plus" text="Add Body Block" />
 				</div>
 
 				{/* Features */}
@@ -407,26 +461,14 @@ export default function AddServiceForm() {
 					{features.map((field, index) => (
 						<div key={field.id} className="flex gap-2">
 							<Input
+								dir={locale === "ar" ? "rtl" : "ltr"}
 								{...register(`${locale}.features.${index}` as any)}
 								placeholder={`Feature ${index + 1}`}
 							/>
-							<RButton
-								type="button"
-								variant="destructive"
-								size="sm"
-								onClick={() => removeFeature(index)}
-								icon="fas fa-trash"
-							/>
+							<RButton type="button" variant="destructive" size="sm" onClick={() => removeFeature(index)} icon="fas fa-trash" />
 						</div>
 					))}
-					<RButton
-						type="button"
-						variant="outline"
-						size="sm"
-						onClick={() => appendFeature("")}
-						icon="fas fa-plus"
-						text="Add Feature"
-					/>
+					<RButton type="button" variant="outline" size="sm" onClick={() => appendFeature("")} icon="fas fa-plus" text="Add Feature" />
 				</div>
 
 				{/* Benefits */}
@@ -435,26 +477,14 @@ export default function AddServiceForm() {
 					{benefits.map((field, index) => (
 						<div key={field.id} className="flex gap-2">
 							<Input
+								dir={locale === "ar" ? "rtl" : "ltr"}
 								{...register(`${locale}.benefits.${index}` as any)}
 								placeholder={`Benefit ${index + 1}`}
 							/>
-							<RButton
-								type="button"
-								variant="destructive"
-								size="sm"
-								onClick={() => removeBenefit(index)}
-								icon="fas fa-trash"
-							/>
+							<RButton type="button" variant="destructive" size="sm" onClick={() => removeBenefit(index)} icon="fas fa-trash" />
 						</div>
 					))}
-					<RButton
-						type="button"
-						variant="outline"
-						size="sm"
-						onClick={() => appendBenefit("")}
-						icon="fas fa-plus"
-						text="Add Benefit"
-					/>
+					<RButton type="button" variant="outline" size="sm" onClick={() => appendBenefit("")} icon="fas fa-plus" text="Add Benefit" />
 				</div>
 
 				{/* Process Steps */}
@@ -463,16 +493,11 @@ export default function AddServiceForm() {
 					{processSteps.map((field, index) => (
 						<div key={field.id} className="flex gap-2">
 							<Input
+								dir={locale === "ar" ? "rtl" : "ltr"}
 								{...register(`${locale}.process_steps.${index}` as any)}
 								placeholder={`Process step ${index + 1}`}
 							/>
-							<RButton
-								type="button"
-								variant="destructive"
-								size="sm"
-								onClick={() => removeProcessStep(index)}
-								icon="fas fa-trash"
-							/>
+							<RButton type="button" variant="destructive" size="sm" onClick={() => removeProcessStep(index)} icon="fas fa-trash" />
 						</div>
 					))}
 					<RButton
@@ -491,27 +516,15 @@ export default function AddServiceForm() {
 					{faqs.map((field, index) => (
 						<div key={field.id} className="flex gap-2">
 							<Textarea
+								dir={locale === "ar" ? "rtl" : "ltr"}
 								{...register(`${locale}.faqs.${index}` as any)}
 								placeholder={`FAQ ${index + 1}`}
 								rows={2}
 							/>
-							<RButton
-								type="button"
-								variant="destructive"
-								size="sm"
-								onClick={() => removeFaq(index)}
-								icon="fas fa-trash"
-							/>
+							<RButton type="button" variant="destructive" size="sm" onClick={() => removeFaq(index)} icon="fas fa-trash" />
 						</div>
 					))}
-					<RButton
-						type="button"
-						variant="outline"
-						size="sm"
-						onClick={() => appendFaq("")}
-						icon="fas fa-plus"
-						text="Add FAQ"
-					/>
+					<RButton type="button" variant="outline" size="sm" onClick={() => appendFaq("")} icon="fas fa-plus" text="Add FAQ" />
 				</div>
 			</RFlex>
 		);
@@ -521,29 +534,21 @@ export default function AddServiceForm() {
 		{
 			value: "en",
 			title: "English",
-			content: renderTranslationForm("en", watch("en")),
 		},
 		{
 			value: "ar",
 			title: "Arabic",
-			content: renderTranslationForm("ar", watch("ar")),
 		},
 		{
 			value: "fr",
 			title: "French",
-			content: renderTranslationForm("fr", watch("fr")),
 		},
 	];
 
 	return (
 		<RFlex className="flex-col space-y-6">
 			<RFlex className="items-center gap-4">
-				<RButton
-					variant="ghost"
-					onClick={() => router.back()}
-					icon="fas fa-arrow-left"
-					text="Back"
-				/>
+				<RButton variant="ghost" onClick={() => router.back()} icon="fas fa-arrow-left" text="Back" />
 				<h1 className="text-3xl font-bold">Add New Service</h1>
 			</RFlex>
 
@@ -586,24 +591,14 @@ export default function AddServiceForm() {
 
 								<div className="space-y-2">
 									<Label htmlFor="order">Order</Label>
-									<Input
-										id="order"
-										type="number"
-										{...register("order", { valueAsNumber: true })}
-										placeholder="Order number"
-									/>
+									<Input id="order" type="number" {...register("order", { valueAsNumber: true })} placeholder="Order number" />
 									{errors.order && <p className="text-sm text-destructive">{errors.order.message}</p>}
 								</div>
 							</div>
 
 							<div className="space-y-2">
 								<Label htmlFor="icon">Icon</Label>
-								<Input
-									id="icon"
-									type="file"
-									accept="image/*"
-									onChange={handleFileChange}
-								/>
+								<Input id="icon" type="file" accept="image/*" onChange={handleFileChange} />
 							</div>
 						</RFlex>
 					}
@@ -611,30 +606,29 @@ export default function AddServiceForm() {
 
 				<RCard
 					title="Translations"
+					dir={activeTab === "ar" ? "rtl" : "ltr"}
 					contentComponent={
-						<RTabs
-							defaultValue="en"
-							tabs={tabs}
-							activeTab={activeTab}
-							setActiveTab={setActiveTab}
-							innerContent={true}
-							variant="default"
-						/>
+						<>
+							<RTabs
+								tabs={tabs}
+								activeTab={activeTab}
+								setActiveTab={setActiveTab}
+								innerContent={true}
+								fullWidth={true}
+								listClassName="grid w-full grid-cols-3"
+							/>
+							<RFlex className="flex-col space-y-4">
+								{activeTab === "en" && renderTranslationForm("en", watch("en"))}
+								{activeTab === "ar" && renderTranslationForm("ar", watch("ar"))}
+								{activeTab === "fr" && renderTranslationForm("fr", watch("fr"))}
+							</RFlex>
+						</>
 					}
 				/>
 
 				<RFlex className="justify-end gap-4">
-					<RButton
-						type="button"
-						variant="outline"
-						onClick={() => router.back()}
-						text="Cancel"
-					/>
-					<RButton
-						type="submit"
-						loading={isPending}
-						text={isPending ? "Creating..." : "Create Service"}
-					/>
+					<RButton type="button" variant="outline" onClick={() => router.back()} text="Cancel" />
+					<RButton type="submit" loading={isPending} text={isPending ? "Creating..." : "Create Service"} />
 				</RFlex>
 			</form>
 		</RFlex>
