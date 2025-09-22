@@ -5,6 +5,7 @@ const apiClient = axios.create({
   baseURL: "http://192.168.0.72:8020",
   headers: {
     "Accept-Language": localStorage.getItem("lang") ?? "en",
+    "is_paginate": false
   },
 });
 

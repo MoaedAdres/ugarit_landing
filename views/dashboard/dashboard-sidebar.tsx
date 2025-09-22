@@ -19,7 +19,7 @@ import {
 	SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronRight, Home, Settings, BarChart3, ImageIcon, Search, Edit } from "lucide-react";
+import { ChevronRight, Home, Settings, BarChart3, ImageIcon, Search, Edit, FolderOpen } from "lucide-react";
 
 interface SidebarItem {
 	id: string;
@@ -37,6 +37,12 @@ const sidebarItems: SidebarItem[] = [
 		children: [
 			{ id: "home", label: "Home Page", icon: Home, href: "/dashboard/home" },
 			{ id: "hero", label: "Hero Page", icon: Home, href: "/dashboard/hero" },
+			{
+				id: "categories",
+				label: "Categories",
+				icon: FolderOpen,
+				href: "/dashboard/categories",
+			},
 			{
 				id: "services",
 				label: "Services",

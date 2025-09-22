@@ -2,18 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { HomeHeader, SectionsGrid, SectionOrderList, type SectionData, defaultSections } from "@/views/dashboard/home";
+import { HomeHeader, SectionsGrid, SectionOrderList, type SectionData } from "@/views/dashboard/home";
 import { Section } from "@/api/services/dashboard/home/interfaces";
 import RFlex from "@/RComponents/RFlex";
 import { useFetchData } from "@/hooks/use-fetch-data";
 import { homeRepository } from "@/api/services/dashboard/home";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import RButton from "@/RComponents/RButton";
 
 export default function HomePage() {
 	const router = useRouter();
-	const [sections, setSections] = useState<SectionData[]>(defaultSections);
+	const [sections, setSections] = useState<SectionData[]>([]);
 
 	const { data, isLoading, error } = useFetchData({
 		queryKey: ["sections"],
