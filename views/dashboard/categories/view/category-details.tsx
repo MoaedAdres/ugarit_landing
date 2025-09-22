@@ -7,10 +7,9 @@ import { categoriesRepository } from "@/api/services/dashboard/categories";
 import { Category, CategoryFormData } from "@/api/services/dashboard/categories/interfaces";
 import { CategoryActions } from "./category-actions";
 import { EditCategoryForm } from "./edit-category-form";
-import { Badge } from "@/components/ui/badge";
 import RCard from "@/RComponents/RCard";
 import RTabs from "@/RComponents/RTabs";
-import { ArrowLeft, Calendar, Globe, Hash } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
@@ -24,6 +23,7 @@ export const CategoryDetails = ({ categoryId }: CategoryDetailsProps) => {
 	const searchParams = useSearchParams();
 	const isEdit = searchParams.get("isEdit") === "true";
 	const [isEditing, setIsEditing] = useState(isEdit);
+	const [activeTab, setActiveTab] = useState("en");
 
 	const { data, isLoading, error } = useFetchData({
 		queryKey: ["category", categoryId],
@@ -36,10 +36,7 @@ export const CategoryDetails = ({ categoryId }: CategoryDetailsProps) => {
 		return (
 			<RFlex className="flex-col space-y-6">
 				<Skeleton className="h-8 w-64" />
-				<RCard
-					title={<Skeleton className="h-6 w-32" />}
-					contentComponent={<Skeleton className="h-32 w-full" />}
-				/>
+				<RCard title={<Skeleton className="h-6 w-32" />} contentComponent={<Skeleton className="h-32 w-full" />} />
 			</RFlex>
 		);
 	}
@@ -47,17 +44,8 @@ export const CategoryDetails = ({ categoryId }: CategoryDetailsProps) => {
 	if (error || !category) {
 		return (
 			<RFlex className="flex-col space-y-6">
-				<RButton
-					variant="ghost"
-					onClick={() => router.back()}
-					icon="fas fa-arrow-left"
-					text="Back"
-				/>
-				<RCard
-					contentComponent={
-						<p className="text-destructive">Category not found or error loading category.</p>
-					}
-				/>
+				<RButton variant="ghost" onClick={() => router.push("/dashboard/categories")} icon="fas fa-arrow-left" text="Back" />
+				<RCard contentComponent={<p className="text-destructive">Category not found or error loading category.</p>} />
 			</RFlex>
 		);
 	}
@@ -66,7 +54,6 @@ export const CategoryDetails = ({ categoryId }: CategoryDetailsProps) => {
 		return (
 			<EditCategoryForm
 				category={category}
-				onCancel={() => setIsEditing(false)}
 				onSuccess={() => {
 					setIsEditing(false);
 					// Optionally refresh the data
@@ -79,97 +66,141 @@ export const CategoryDetails = ({ categoryId }: CategoryDetailsProps) => {
 		<RFlex className="flex-col space-y-6">
 			<RFlex className="items-center justify-between">
 				<RFlex className="items-center gap-4">
-					<RButton
-						variant="ghost"
-						onClick={() => router.back()}
-						icon="fas fa-arrow-left"
-						text="Back"
-					/>
-					<RFlex className="flex-col">
-						<h1 className="text-3xl font-bold">{category.name}</h1>
-						<p className="text-muted-foreground">Category Details</p>
-					</RFlex>
+					<RButton variant="ghost" onClick={() => router.push("/dashboard/categories")} icon="fas fa-arrow-left" text="Back" />
+					<h1 className="text-3xl font-bold">View Category</h1>
 				</RFlex>
-				<CategoryActions
-					category={category}
-					onEdit={() => setIsEditing(true)}
-					onDelete={() => router.push("/dashboard/categories")}
-				/>
+				<CategoryActions category={category} onEdit={() => setIsEditing(true)} onDelete={() => router.push("/dashboard/categories")} />
 			</RFlex>
 
-			<div className="grid gap-6 md:grid-cols-2">
-				<RCard
-					title={
-						<RFlex className="items-center gap-2">
-							<Hash className="h-5 w-5" />
-							Basic Information
-						</RFlex>
-					}
-					contentComponent={
-						<RFlex className="flex-col space-y-4">
-							<div>
-								<label className="text-sm font-medium text-muted-foreground">Name</label>
-								<p className="text-lg font-semibold">{category.name}</p>
+			<RCard
+				title="Category Information"
+				contentComponent={
+					<RFlex className="flex-col space-y-4">
+						<div className="space-y-2">
+							<label className="text-sm font-medium text-muted-foreground">Name</label>
+							<div className="p-3 bg-muted rounded-md">
+								<span className="font-mono text-sm">{category.slug}</span>
 							</div>
-							<div>
-								<label className="text-sm font-medium text-muted-foreground">Slug</label>
-								<Badge variant="outline" className="mt-1">
-									{category.slug}
-								</Badge>
-							</div>
-							<div>
-								<label className="text-sm font-medium text-muted-foreground">Summary</label>
-								<p className="text-sm">{category.summary}</p>
-							</div>
-							<div className="flex items-center gap-2">
-								<Calendar className="h-4 w-4 text-muted-foreground" />
-								<span className="text-sm text-muted-foreground">
-									Created: {new Date(category.created_at).toLocaleDateString()}
-								</span>
-							</div>
-							<div className="flex items-center gap-2">
-								<Calendar className="h-4 w-4 text-muted-foreground" />
-								<span className="text-sm text-muted-foreground">
-									Updated: {new Date(category.updated_at).toLocaleDateString()}
-								</span>
-							</div>
-						</RFlex>
-					}
-				/>
+						</div>
 
-				<RCard
-					title={
-						<RFlex className="items-center gap-2">
-							<Globe className="h-5 w-5" />
-							Translations
-						</RFlex>
-					}
-					contentComponent={
+						<div className="space-y-2">
+							<label className="text-sm font-medium text-muted-foreground">Icon</label>
+							<div className="p-3 bg-muted rounded-md">
+								{category.media?.[0] ? (
+									<div className="flex items-center gap-2">
+										<img src={category.media[0].original_url} alt="Category icon" className="w-8 h-8 object-contain" />
+										<span className="text-sm text-muted-foreground">{category.media[0].name}</span>
+									</div>
+								) : (
+									<span className="text-sm text-muted-foreground">No icon uploaded</span>
+								)}
+							</div>
+						</div>
+
+						<div className="flex items-center gap-4 text-sm text-muted-foreground">
+							<div className="flex items-center gap-2">
+								<Calendar className="h-4 w-4" />
+								<span>Created: {new Date(category.created_at).toLocaleDateString()}</span>
+							</div>
+							<div className="flex items-center gap-2">
+								<Calendar className="h-4 w-4" />
+								<span>Updated: {new Date(category.updated_at).toLocaleDateString()}</span>
+							</div>
+						</div>
+					</RFlex>
+				}
+			/>
+
+			<RCard
+				title="Translations"
+				contentComponent={
+					<>
 						<RTabs
-							defaultValue={category.translations?.[0]?.locale || "en"}
-							tabs={category.translations?.map((translation) => ({
-								value: translation.locale,
-								title: translation.locale.toUpperCase(),
-								content: (
-									<RFlex className="flex-col space-y-4">
-										<div>
-											<label className="text-sm font-medium text-muted-foreground">Name</label>
-											<p className="text-lg font-semibold">{translation.name}</p>
-										</div>
-										<div>
-											<label className="text-sm font-medium text-muted-foreground">Summary</label>
-											<p className="text-sm">{translation.summary}</p>
-										</div>
-									</RFlex>
-								),
-							})) || []}
-							activeTab={category.translations?.[0]?.locale || "en"}
-							setActiveTab={() => {}}
+							tabs={[
+								{
+									value: "en",
+									title: "English",
+								},
+								{
+									value: "ar",
+									title: "Arabic",
+								},
+								{
+									value: "fr",
+									title: "French",
+								},
+							]}
+							activeTab={activeTab}
+							setActiveTab={setActiveTab}
 							innerContent={true}
+							fullWidth={true}
+							listClassName="grid w-full grid-cols-3"
 						/>
-					}
-				/>
-			</div>
+						<RFlex className="flex-col space-y-4">
+							{activeTab === "en" && (
+								<RFlex className="flex-col space-y-4">
+									<div className="space-y-2">
+										<label className="text-sm font-medium text-muted-foreground">Name (English)</label>
+										<div className="p-3 bg-muted rounded-md">
+											<span className="text-lg font-semibold">
+												{category.translations?.find((t) => t.locale === "en")?.name || "No name set"}
+											</span>
+										</div>
+									</div>
+									<div className="space-y-2">
+										<label className="text-sm font-medium text-muted-foreground">Summary (English)</label>
+										<div className="p-3 bg-muted rounded-md">
+											<span className="text-sm">{category.translations?.find((t) => t.locale === "en")?.summary || "No summary set"}</span>
+										</div>
+									</div>
+								</RFlex>
+							)}
+
+							{activeTab === "ar" && (
+								<RFlex className="flex-col space-y-4">
+									<div className="space-y-2">
+										<label className="text-sm font-medium text-muted-foreground">Name (Arabic)</label>
+										<div className="p-3 bg-muted rounded-md" dir="rtl">
+											<span className="text-lg font-semibold">
+												{category.translations?.find((t) => t.locale === "ar")?.name || "لم يتم تعيين اسم"}
+											</span>
+										</div>
+									</div>
+									<div className="space-y-2">
+										<label className="text-sm font-medium text-muted-foreground">Summary (Arabic)</label>
+										<div className="p-3 bg-muted rounded-md" dir="rtl">
+											<span className="text-sm">
+												{category.translations?.find((t) => t.locale === "ar")?.summary || "لم يتم تعيين ملخص"}
+											</span>
+										</div>
+									</div>
+								</RFlex>
+							)}
+
+							{activeTab === "fr" && (
+								<RFlex className="flex-col space-y-4">
+									<div className="space-y-2">
+										<label className="text-sm font-medium text-muted-foreground">Name (French)</label>
+										<div className="p-3 bg-muted rounded-md">
+											<span className="text-lg font-semibold">
+												{category.translations?.find((t) => t.locale === "fr")?.name || "Aucun nom défini"}
+											</span>
+										</div>
+									</div>
+									<div className="space-y-2">
+										<label className="text-sm font-medium text-muted-foreground">Summary (French)</label>
+										<div className="p-3 bg-muted rounded-md">
+											<span className="text-sm">
+												{category.translations?.find((t) => t.locale === "fr")?.summary || "Aucun résumé défini"}
+											</span>
+										</div>
+									</div>
+								</RFlex>
+							)}
+						</RFlex>
+					</>
+				}
+			/>
 		</RFlex>
 	);
 };

@@ -64,7 +64,7 @@ export default function AddCategoryForm() {
 		formData.append("ar[summary]", data.ar.summary);
 		formData.append("fr[name]", data.fr.name);
 		formData.append("fr[summary]", data.fr.summary);
-		
+
 		if (selectedFile) {
 			formData.append("icon", selectedFile);
 		}
@@ -83,95 +83,21 @@ export default function AddCategoryForm() {
 		{
 			value: "en",
 			title: "English",
-			content: (
-				<RFlex className="flex-col space-y-4">
-					<div className="space-y-2">
-						<Label htmlFor="en-name">Name (English)</Label>
-						<Input
-							id="en-name"
-							{...register("en.name")}
-							placeholder="Category name in English"
-						/>
-						{errors.en?.name && <p className="text-sm text-destructive">{errors.en.name.message}</p>}
-					</div>
-					<div className="space-y-2">
-						<Label htmlFor="en-summary">Summary (English)</Label>
-						<Textarea
-							id="en-summary"
-							{...register("en.summary")}
-							placeholder="Category summary in English"
-							rows={3}
-						/>
-						{errors.en?.summary && <p className="text-sm text-destructive">{errors.en.summary.message}</p>}
-					</div>
-				</RFlex>
-			),
 		},
 		{
 			value: "ar",
 			title: "Arabic",
-			content: (
-				<RFlex className="flex-col space-y-4">
-					<div className="space-y-2">
-						<Label htmlFor="ar-name">Name (Arabic)</Label>
-						<Input
-							id="ar-name"
-							{...register("ar.name")}
-							placeholder="اسم الفئة بالعربية"
-						/>
-						{errors.ar?.name && <p className="text-sm text-destructive">{errors.ar.name.message}</p>}
-					</div>
-					<div className="space-y-2">
-						<Label htmlFor="ar-summary">Summary (Arabic)</Label>
-						<Textarea
-							id="ar-summary"
-							{...register("ar.summary")}
-							placeholder="ملخص الفئة بالعربية"
-							rows={3}
-						/>
-						{errors.ar?.summary && <p className="text-sm text-destructive">{errors.ar.summary.message}</p>}
-					</div>
-				</RFlex>
-			),
 		},
 		{
 			value: "fr",
 			title: "French",
-			content: (
-				<RFlex className="flex-col space-y-4">
-					<div className="space-y-2">
-						<Label htmlFor="fr-name">Name (French)</Label>
-						<Input
-							id="fr-name"
-							{...register("fr.name")}
-							placeholder="Nom de la catégorie en français"
-						/>
-						{errors.fr?.name && <p className="text-sm text-destructive">{errors.fr.name.message}</p>}
-					</div>
-					<div className="space-y-2">
-						<Label htmlFor="fr-summary">Summary (French)</Label>
-						<Textarea
-							id="fr-summary"
-							{...register("fr.summary")}
-							placeholder="Résumé de la catégorie en français"
-							rows={3}
-						/>
-						{errors.fr?.summary && <p className="text-sm text-destructive">{errors.fr.summary.message}</p>}
-					</div>
-				</RFlex>
-			),
 		},
 	];
 
 	return (
 		<RFlex className="flex-col space-y-6">
 			<RFlex className="items-center gap-4">
-				<RButton
-					variant="ghost"
-					onClick={() => router.back()}
-					icon="fas fa-arrow-left"
-					text="Back"
-				/>
+				<RButton variant="ghost" onClick={() => router.back()} icon="fas fa-arrow-left" text="Back" />
 				<h1 className="text-3xl font-bold">Add New Category</h1>
 			</RFlex>
 
@@ -181,23 +107,14 @@ export default function AddCategoryForm() {
 					contentComponent={
 						<RFlex className="flex-col space-y-4">
 							<div className="space-y-2">
-								<Label htmlFor="slug">Slug</Label>
-								<Input
-									id="slug"
-									{...register("slug")}
-									placeholder="e.g., tech-innovation"
-								/>
+								<Label htmlFor="slug">Name</Label>
+								<Input id="slug" {...register("slug")} placeholder="e.g., tech-innovation" />
 								{errors.slug && <p className="text-sm text-destructive">{errors.slug.message}</p>}
 							</div>
 
 							<div className="space-y-2">
 								<Label htmlFor="icon">Icon</Label>
-								<Input
-									id="icon"
-									type="file"
-									accept="image/*"
-									onChange={handleFileChange}
-								/>
+								<Input id="icon" type="file" accept="image/*" onChange={handleFileChange} />
 							</div>
 						</RFlex>
 					}
@@ -205,30 +122,70 @@ export default function AddCategoryForm() {
 
 				<RCard
 					title="Translations"
+					dir={activeTab === "ar" ? "rtl" : "ltr"}
 					contentComponent={
-						<RTabs
-							defaultValue="en"
-							tabs={tabs}
-							activeTab={activeTab}
-							setActiveTab={setActiveTab}
-							innerContent={true}
-							variant="default"
-						/>
+						<>
+							<RTabs
+								tabs={tabs}
+								activeTab={activeTab}
+								setActiveTab={setActiveTab}
+								innerContent={true}
+								fullWidth={true}
+								listClassName="grid w-full grid-cols-3"
+							/>
+							<RFlex className="flex-col space-y-4">
+								{activeTab === "en" && (
+									<RFlex className="flex-col space-y-4">
+										<div className="space-y-2">
+											<Label htmlFor="en-name">Name (English)</Label>
+											<Input id="en-name" {...register("en.name")} placeholder="Category name in English" />
+											{errors.en?.name && <p className="text-sm text-destructive">{errors.en.name.message}</p>}
+										</div>
+										<div className="space-y-2">
+											<Label htmlFor="en-summary">Summary (English)</Label>
+											<Textarea id="en-summary" {...register("en.summary")} placeholder="Category summary in English" rows={3} />
+											{errors.en?.summary && <p className="text-sm text-destructive">{errors.en.summary.message}</p>}
+										</div>
+									</RFlex>
+								)}
+
+								{activeTab === "ar" && (
+									<RFlex className="flex-col space-y-4">
+										<div className="space-y-2">
+											<Label htmlFor="ar-name">Name (Arabic)</Label>
+											<Input dir="rtl" id="ar-name" {...register("ar.name")} placeholder="اسم الفئة بالعربية" />
+											{errors.ar?.name && <p className="text-sm text-destructive">{errors.ar.name.message}</p>}
+										</div>
+										<div className="space-y-2">
+											<Label htmlFor="ar-summary">Summary (Arabic)</Label>
+											<Textarea dir="rtl" id="ar-summary" {...register("ar.summary")} placeholder="ملخص الفئة بالعربية" rows={3} />
+											{errors.ar?.summary && <p className="text-sm text-destructive">{errors.ar.summary.message}</p>}
+										</div>
+									</RFlex>
+								)}
+
+								{activeTab === "fr" && (
+									<RFlex className="flex-col space-y-4">
+										<div className="space-y-2">
+											<Label htmlFor="fr-name">Name (French)</Label>
+											<Input id="fr-name" {...register("fr.name")} placeholder="Nom de la catégorie en français" />
+											{errors.fr?.name && <p className="text-sm text-destructive">{errors.fr.name.message}</p>}
+										</div>
+										<div className="space-y-2">
+											<Label htmlFor="fr-summary">Summary (French)</Label>
+											<Textarea id="fr-summary" {...register("fr.summary")} placeholder="Résumé de la catégorie en français" rows={3} />
+											{errors.fr?.summary && <p className="text-sm text-destructive">{errors.fr.summary.message}</p>}
+										</div>
+									</RFlex>
+								)}
+							</RFlex>
+						</>
 					}
 				/>
 
 				<RFlex className="justify-end gap-4">
-					<RButton
-						type="button"
-						variant="outline"
-						onClick={() => router.back()}
-						text="Cancel"
-					/>
-					<RButton
-						type="submit"
-						loading={isPending}
-						text={isPending ? "Creating..." : "Create Category"}
-					/>
+					<RButton type="button" variant="outline" onClick={() => router.back()} text="Cancel" />
+					<RButton type="submit" disabled={isPending} loading={isPending} text={isPending ? "Creating..." : "Create Category"} />
 				</RFlex>
 			</form>
 		</RFlex>
