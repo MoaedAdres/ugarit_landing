@@ -14,7 +14,7 @@ import { AuthProvider } from "@/providers/SessionHandler";
 import { isRTL } from "@/i18n/request";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import { HeaderFooterRepository } from "@/api/services/landing/header-and-footer";
+import { HeaderFooterRepository } from "@/api/services/landing/home/header-and-footer";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
@@ -99,9 +99,9 @@ export default async function RootLayout({
 						<AuthProvider>
 							{/* <TokenRefreshHandler /> */}
 							<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-								<Header logo={headerFooter?.data?.company?.logo} navigations={headerFooter.data.menus} />
+								<Header logo={headerFooter?.data?.company?.logo} navigations={headerFooter?.data?.menus} />
 								{children}
-								<Footer services={headerFooter.data.services} company={headerFooter.data.company} />
+								<Footer navigations={headerFooter?.data?.menus} services={headerFooter?.data?.services} company={headerFooter?.data?.company} />
 							</ThemeProvider>
 							<Toaster />
 						</AuthProvider>

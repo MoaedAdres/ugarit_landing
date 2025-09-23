@@ -5,7 +5,7 @@ import { LocaleSwitcher } from "../locale/locale-switcher";
 import Image from "next/image";
 import Logo from "@/public/pngs/Color logo - no background.png";
 import DarkLogo from "@/public/pngs/Color logo with background.png";
-import { IMenu } from "@/api/services/landing/header-and-footer/interfaces";
+import { IMenu } from "@/api/services/landing/home/header-and-footer/interfaces";
 
 export function Header({ logo, navigations }: { navigations: IMenu[]; logo: string }) {
   console.log('navigations', navigations);

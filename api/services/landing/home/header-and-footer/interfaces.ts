@@ -24,7 +24,8 @@ interface IContact {
 export interface ICompany {
 	logo: string;
 	name: string;
-	press_kit: IPressKit;
+	about: string;
+	press_kit: Record<string, string>;
 	location: ILocation[];
 	contact: IContact;
 }
