@@ -98,40 +98,38 @@ export async function ServicesHighlights({ highlights, showStats = true, showMor
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <Link href={service.title}>
-                <Card
-                  key={index}
-                  className="cardgroup group backdrop-contrast-150 backdrop-blur-lg shadow-xl hover:shadow-glow transition-all duration-300 border-0 hover:-translate-y-2 hover:scale-110 !pb-0"
-                >
-                  <CardContent className="p-5">
-                    <div className="flex items-center mx-auto justify-center w-16 h-16 group-hover:bg-primary ease-in-out duration-300 delay-200 rounded-xl mb-6 group-hover:scale-110 transition-all">
-                      <Icon className="h-10 w-10 text-secondary-800" />
-                    </div>
+              <Card
+                key={index}
+                className="cardgroup group backdrop-contrast-150 backdrop-blur-lg shadow-xl hover:shadow-glow transition-all duration-300 border-0 hover:-translate-y-2 hover:scale-110 !pb-0"
+              >
+                <CardContent className="p-5">
+                  <div className="flex items-center mx-auto justify-center w-16 h-16 group-hover:bg-primary ease-in-out duration-300 delay-200 rounded-xl mb-6 group-hover:scale-110 transition-all">
+                    <Icon className="h-10 w-10 text-secondary-800" />
+                  </div>
 
-                    <h3 className="text-2xl text-center font-bold text-secondary-800 mb-4 transition-colors">{service.title}</h3>
+                  <h3 className="text-2xl text-center font-bold text-secondary-800 mb-4 transition-colors">{service.title}</h3>
 
-                    <p className="text-secondary-800 text-sm mb-6 leading-relaxed">{service.description}</p>
+                  <p className="text-secondary-800 text-sm mb-6 leading-relaxed">{service.description}</p>
 
-                    <ul className="space-y-2 mb-6">
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-sm text-muted-foreground">
-                          <div className="w-2 h-2 hero-section rounded-full mr-3"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="w-full flex justify-end">
-                      <Link
-                        href={"/services/" + service.title}
-                        className="group/btn z-50 flex justify-end text-transparent items-center gap-1 group-hover:text-secondary-foreground hover:text-secondary-foreground hover:bg-primary/10 p-0 h-auto font-semibold"
-                      >
-                        Learn More
-                        <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                  <ul className="space-y-2 mb-6">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-sm text-muted-foreground">
+                        <div className="w-2 h-2 hero-section rounded-full mr-3"></div>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="w-full flex justify-end">
+                    <Link
+                      href={"/services/" + service.title}
+                      className="group/btn z-50 flex justify-end text-transparent items-center gap-1 group-hover:text-secondary-foreground hover:text-secondary-foreground hover:bg-primary/10 p-0 h-auto font-semibold"
+                    >
+                      Learn More
+                      <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
             );
           })}
         </div>
