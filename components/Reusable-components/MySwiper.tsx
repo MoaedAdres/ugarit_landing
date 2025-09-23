@@ -49,6 +49,7 @@ export default function MySwiper({ needEffectCards = false, needAutoPlay = true,
                         },
                         1280: {
                             slidesPerView,
+                            spaceBetween
                         }
                     }}
                     onSlideChange={(swiper) => {
