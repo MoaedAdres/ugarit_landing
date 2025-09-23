@@ -47,7 +47,6 @@ export default function AboutPage() {
           __html: JSON.stringify(breadcrumbJsonLd),
         }}
       />
-      <Header />
       <main className="pt-16">
         <AboutHero />
         <AboutMission />
@@ -57,7 +56,6 @@ export default function AboutPage() {
         <AboutCertifications />
         <AboutCta />
       </main>
-      <Footer />
     </div>
   );
 }

@@ -92,7 +92,6 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
 
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="pt-16">
         <CaseStudyHero caseStudy={caseStudy} />
         <CaseStudyOverview caseStudy={caseStudy} />
@@ -102,7 +101,6 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
         <RelatedCaseStudies currentSlug={caseStudy.slug} />
         <CaseStudyCta />
       </main>
-      <Footer />
     </div>
   );
 }

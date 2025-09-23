@@ -6,7 +6,6 @@ import { CaseStudiesFilters } from "@/components/case-studies/case-studies-filte
 export default function CaseStudiesPage() {
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="pt-16">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-r from-primary/5 to-secondary/5">
@@ -25,7 +24,6 @@ export default function CaseStudiesPage() {
         <CaseStudiesFilters />
         <CaseStudiesGrid />
       </main>
-      <Footer />
     </div>
   );
 }

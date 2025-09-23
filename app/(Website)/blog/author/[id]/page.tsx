@@ -42,12 +42,10 @@ export default function AuthorPage({ params }: AuthorPageProps) {
 
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="pt-16">
         <AuthorProfile author={author} />
         <AuthorPosts authorId={author.id} />
       </main>
-      <Footer />
     </div>
   );
 }

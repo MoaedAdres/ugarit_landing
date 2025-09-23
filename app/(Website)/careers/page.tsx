@@ -8,14 +8,12 @@ import { CareersApplication } from "@/components/careers/careers-application";
 export default function CareersPage() {
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="pt-16">
         <CareersHero />
         <CareersPerks />
         <JobListings />
         <CareersApplication />
       </main>
-      <Footer />
     </div>
   );
 }

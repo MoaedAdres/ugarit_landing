@@ -7,7 +7,6 @@ import { BlogFeatured } from "@/components/blog/blog-featured";
 export default function BlogPage() {
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="pt-16">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-r from-primary/5 to-secondary/5">
@@ -26,7 +25,6 @@ export default function BlogPage() {
         <BlogFilters />
         <BlogGrid />
       </main>
-      <Footer />
     </div>
   );
 }

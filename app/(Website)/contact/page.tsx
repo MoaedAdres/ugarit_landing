@@ -8,7 +8,6 @@ import { ContactMap } from "@/components/contact/contact-map";
 export default function ContactPage() {
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="pt-16">
         <ContactHero />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -19,7 +18,6 @@ export default function ContactPage() {
         </div>
         <ContactMap />
       </main>
-      <Footer />
     </div>
   );
 }

@@ -147,7 +147,7 @@ export default function ServicesPage() {
       />
       <main className="pt-16">
         {/* Hero Section */}
-        <ServicesHighlights showMoreButton={false} showStats={false} highlights={services} />
+        <ServicesHighlights showMoreButton={false} showStats={false} services={services} />
         {/* <section className="py-20 bg-gradient-hero">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1
