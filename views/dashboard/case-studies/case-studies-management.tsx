@@ -2,70 +2,97 @@
 import RCard from "@/RComponents/RCard";
 import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
-import RParagraphTruncated from "@/RComponents/RParagraphTruncated";
-import RTooltip from "@/RComponents/RTooltip";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { myIcons } from "@/constants/icons";
 import { useState } from "react";
-
-// Mock case studies data
-const caseStudies = [
-	{
-		id: 1,
-		title: "E-commerce Platform Redesign",
-		client: "TechCorp Inc.",
-		industry: "Technology",
-		challenge: "Outdated user interface leading to poor conversion rates",
-		solution: "Complete UX/UI redesign with modern React architecture",
-		results: "150% increase in conversion rate, 40% reduction in bounce rate",
-		duration: "3 months",
-		teamSize: "5 people",
-		technologies: ["React", "Node.js", "PostgreSQL", "AWS"],
-		status: "published",
-		publishDate: "2024-01-20",
-		featured: true,
-		views: 2340,
-	},
-	{
-		id: 2,
-		title: "Mobile App Development for Healthcare",
-		client: "HealthFirst Medical",
-		industry: "Healthcare",
-		challenge: "Need for patient management system on mobile devices",
-		solution: "Cross-platform mobile app with secure data handling",
-		results: "90% user adoption rate, 60% reduction in administrative time",
-		duration: "4 months",
-		teamSize: "6 people",
-		technologies: ["React Native", "Firebase", "HIPAA Compliance"],
-		status: "draft",
-		publishDate: "",
-		featured: false,
-		views: 0,
-	},
-	{
-		id: 3,
-		title: "AI-Powered Analytics Dashboard",
-		client: "DataViz Solutions",
-		industry: "Analytics",
-		challenge: "Complex data visualization and real-time processing",
-		solution: "Custom dashboard with machine learning insights",
-		results: "200% faster data processing, 85% user satisfaction",
-		duration: "6 months",
-		teamSize: "8 people",
-		technologies: ["Python", "TensorFlow", "D3.js", "Docker"],
-		status: "published",
-		publishDate: "2024-01-15",
-		featured: false,
-		views: 1890,
-	},
-];
-
-const industries = ["Technology", "Healthcare", "Finance", "E-commerce", "Analytics", "Education"];
+import { caseStudiesRepository } from "@/api/services/dashboard/case-studies";
+import { CaseStudy } from "@/api/services/dashboard/case-studies/interfaces";
+import { CaseStudyData } from "./types";
+import CaseStudiesGrid from "./CaseStudiesGrid";
+import { useRouter } from "next/navigation";
+import { useFetchData } from "@/hooks/use-fetch-data";
+import { useMutateData } from "@/hooks/use-mutate-data";
 
 export default function CaseStudiesManagement() {
 	const [selectedFilter, setSelectedFilter] = useState("all");
 	const [searchQuery, setSearchQuery] = useState("");
+	const [caseStudies, setCaseStudies] = useState<CaseStudyData[]>([]);
+	const router = useRouter();
+
+	// Transform API data to component data
+	const transformCaseStudyData = (apiData: CaseStudy): CaseStudyData => {
+		const englishTranslation = apiData.translations.find(t => t.locale === 'en') || apiData.translations[0];
+		const testimonial = apiData.testimonial;
+		
+		return {
+			id: apiData.id.toString(),
+			client_name: apiData.client_name,
+			sector: englishTranslation?.sector || apiData.sector,
+			problem: englishTranslation?.problem || apiData.problem,
+			solution: englishTranslation?.solution || apiData.solution,
+			status: apiData.status,
+			order: apiData.order,
+			logo: apiData.logo?.[0]?.url,
+			images: apiData.images?.map(img => img.url),
+			results_kpis: englishTranslation?.results_kpis || apiData.results_kpis,
+			testimonial: testimonial ? {
+				name: testimonial.name,
+				role: testimonial.role,
+				company: testimonial.company,
+				quote: testimonial.quote
+			} : undefined,
+			translations: apiData.translations,
+			lastUpdated: new Date(apiData.updated_at).toLocaleDateString(),
+			href: `/dashboard/case-studies/${apiData.id}`
+		};
+	};
+
+	// Fetch case studies using hook
+	const { data: caseStudiesData, isLoading: loading, refetch } = useFetchData({
+		queryKey: ["case-studies"],
+		queryFn: caseStudiesRepository.getCaseStudies,
+		onSuccessFn: (data) => {
+			const transformedData = data.data.map(transformCaseStudyData);
+			setCaseStudies(transformedData);
+		}
+	});
+
+	// Reorder mutation
+	const reorderMutation = useMutateData({
+		mutationFn: caseStudiesRepository.reorderCaseStudies,
+		onSuccessFn: () => {
+			// Success handled by optimistic update
+		},
+		onErrorFn: () => {
+			// Revert on error
+			refetch();
+		}
+	});
+
+	// Delete mutation
+	const deleteMutation = useMutateData({
+		mutationFn: caseStudiesRepository.deleteCaseStudy,
+		onSuccessFn: () => {
+			refetch();
+		},
+		displaySuccess: true
+	});
+
+	// Handle reordering
+	const handleCaseStudiesChange = (newCaseStudies: CaseStudyData[] | ((prev: CaseStudyData[]) => CaseStudyData[])) => {
+		const updatedCaseStudies = typeof newCaseStudies === 'function' ? newCaseStudies(caseStudies) : newCaseStudies;
+		setCaseStudies(updatedCaseStudies);
+		
+		// Send reorder request to API
+		const orderedIds = updatedCaseStudies.map(cs => parseInt(cs.id));
+		reorderMutation.mutate(orderedIds);
+	};
+
+	// Handle delete
+	const handleDeleteCaseStudy = (caseStudyId: string) => {
+		deleteMutation.mutate(parseInt(caseStudyId));
+	};
 
 	return (
 		<div className="space-y-8">
@@ -87,11 +114,11 @@ export default function CaseStudiesManagement() {
 							<RFlex className="items-center gap-6 text-sm">
 								<RFlex className="items-center gap-2">
 									<div className="w-2 h-2 bg-green-400 rounded-full"></div>
-									<span>{caseStudies.filter((cs: any) => cs.status === "published").length} Published</span>
+									<span>{caseStudies.filter((cs) => cs.status === "published").length} Published</span>
 								</RFlex>
 								<RFlex className="items-center gap-2">
 									<div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-									<span>{caseStudies.filter((cs: any) => cs.featured).length} Featured</span>
+									<span>{caseStudies.filter((cs) => cs.testimonial).length} With Testimonials</span>
 								</RFlex>
 								<RFlex className="items-center gap-2">
 									<div className="w-2 h-2 bg-blue-400 rounded-full"></div>
@@ -102,7 +129,7 @@ export default function CaseStudiesManagement() {
 						<RButton
 							size="lg"
 							className="bg-white text-indigo-600 hover:bg-indigo-50 shadow-lg"
-							onClick={() => window.location.href = "/dashboard/case-studies/add"}
+							onClick={() => router.push("/dashboard/case-studies/add")}
 							icon={<i className={`${myIcons.plus} h-4 w-4`} />}
 							text="Create Case Study"
 						/>
@@ -151,136 +178,20 @@ export default function CaseStudiesManagement() {
 			</RFlex>
 
 			{/* Case Studies Grid */}
-			<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-				{caseStudies.map((study: any) => (
-					<RCard
-						key={study.id}
-						cardClassName="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg overflow-hidden"
-						contentComponent={
-							<div className="p-0">
-								{/* Card Header with Gradient */}
-								<div className="relative p-6 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
-									<RFlex className="items-start justify-between mb-4">
-										<div className="flex-1">
-											<RFlex className="items-center gap-2 mb-2">
-												<Badge variant={study.status === "published" ? "default" : "secondary"} className="text-xs">
-													{study.status}
-												</Badge>
-												{study.featured && (
-													<Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs">
-														<i className={`${myIcons.star} h-3 w-3 mr-1`} />
-														Featured
-													</Badge>
-												)}
-											</RFlex>
-											<h3 className="font-bold text-lg mb-1 line-clamp-2 group-hover:text-primary transition-colors">{study.title}</h3>
-											<p className="text-sm font-medium text-primary/80">{study.client}</p>
-										</div>
-										<RFlex className="items-center gap-1">
-											<RTooltip
-												triggerComponent={
-													<RButton
-														variant="ghost"
-														size="sm"
-														className="h-8 w-8 p-0"
-														icon={<i className={`${myIcons.eye} h-4 w-4`} />}
-														onClick={() => window.location.href = `/dashboard/case-studies/${study.id}?isEdit=false`}
-													/>
-												}
-												tooltipText="View Case Study"
-											/>
-											<RTooltip
-												triggerComponent={
-													<RButton
-														variant="ghost"
-														size="sm"
-														className="h-8 w-8 p-0"
-														icon={<i className={`${myIcons.edit} h-4 w-4`} />}
-														onClick={() => window.location.href = `/dashboard/case-studies/${study.id}?isEdit=true`}
-													/>
-												}
-												tooltipText="Edit Case Study"
-											/>
-										</RFlex>
-									</RFlex>
-
-									{/* Industry Badge */}
-									<Badge variant="outline" className="text-xs">
-										{study.industry}
-									</Badge>
-								</div>
-
-								{/* Card Body */}
-								<div className="p-6 space-y-4">
-									{/* Key Metrics */}
-									<div className="grid grid-cols-2 gap-4">
-										<RFlex className="items-center gap-2">
-											<i className={`${myIcons.clock} h-4 w-4 text-muted-foreground`} />
-											<div>
-												<div className="text-sm font-medium">{study.duration}</div>
-												<div className="text-xs text-muted-foreground">Duration</div>
-											</div>
-										</RFlex>
-										<RFlex className="items-center gap-2">
-											<i className={`${myIcons.users} h-4 w-4 text-muted-foreground`} />
-											<div>
-												<div className="text-sm font-medium">{study.teamSize}</div>
-												<div className="text-xs text-muted-foreground">Team</div>
-											</div>
-										</RFlex>
-									</div>
-
-									{/* Results Highlight */}
-									<div className="p-3 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
-										<RFlex className="items-center gap-2 mb-1">
-											<i className={`${myIcons.zap} h-4 w-4 text-green-600`} />
-											<span className="text-sm font-medium text-green-800 dark:text-green-200">Key Results</span>
-										</RFlex>
-										<RParagraphTruncated
-											paragraph={study.results}
-											numOfChars={100}
-											typographyStyles="text-sm text-green-700 dark:text-green-300"
-										/>
-									</div>
-
-									{/* Technologies */}
-									<div>
-										<div className="text-xs font-medium text-muted-foreground mb-2">Technologies</div>
-										<RFlex className="flex-wrap gap-1">
-											{study.technologies.slice(0, 3).map((tech: string) => (
-												<Badge key={tech} variant="secondary" className="text-xs px-2 py-1">
-													{tech}
-												</Badge>
-											))}
-											{study.technologies.length > 3 && (
-												<Badge variant="outline" className="text-xs px-2 py-1">
-													+{study.technologies.length - 3} more
-												</Badge>
-											)}
-										</RFlex>
-									</div>
-
-									{/* Footer Actions */}
-									<RFlex className="items-center justify-between pt-4 border-t">
-										<RFlex className="items-center gap-2 text-xs text-muted-foreground">
-											<i className={`${myIcons.chart} h-3 w-3`} />
-											<span>{study.views.toLocaleString()} views</span>
-										</RFlex>
-										<RButton
-											variant="ghost"
-											size="sm"
-											className="text-xs"
-											onClick={() => window.location.href = `/dashboard/case-studies/${study.id}?isEdit=false`}
-											icon={<i className={`${myIcons.arrowRight} h-3 w-3`} />}
-											text="View Details"
-										/>
-									</RFlex>
+			{loading ? (
+				<div className="flex items-center justify-center py-12">
+					<div className="text-center">
+						<i className="fas fa-spinner fa-spin h-8 w-8 text-muted-foreground mb-4"></i>
+						<p className="text-muted-foreground">Loading case studies...</p>
 								</div>
 							</div>
-						}
-					/>
-				))}
-			</div>
+			) : (
+				<CaseStudiesGrid
+					caseStudies={caseStudies}
+					onCaseStudiesChange={handleCaseStudiesChange}
+					onDeleteCaseStudy={handleDeleteCaseStudy}
+				/>
+			)}
 
 			{/* Performance Analytics Section */}
 			<div className="space-y-6">
@@ -322,7 +233,7 @@ export default function CaseStudiesManagement() {
 								<RFlex className="items-center justify-between">
 									<div>
 										<div className="text-3xl font-bold text-green-600 dark:text-green-400">
-											{caseStudies.filter((cs: any) => cs.status === "published").length}
+											{caseStudies.filter((cs) => cs.status === "published").length}
 										</div>
 										<p className="text-sm font-medium text-green-800 dark:text-green-200">Published</p>
 										<p className="text-xs text-green-600/70 dark:text-green-400/70">Live on website</p>
@@ -343,10 +254,10 @@ export default function CaseStudiesManagement() {
 								<RFlex className="items-center justify-between">
 									<div>
 										<div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">
-											{caseStudies.filter((cs: any) => cs.featured).length}
+											{caseStudies.filter((cs) => cs.testimonial).length}
 										</div>
-										<p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">Featured</p>
-										<p className="text-xs text-yellow-600/70 dark:text-yellow-400/70">Homepage highlights</p>
+										<p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">With Testimonials</p>
+										<p className="text-xs text-yellow-600/70 dark:text-yellow-400/70">Client testimonials</p>
 									</div>
 									<div className="flex items-center justify-center w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl">
 										<i className={`${myIcons.star} h-6 w-6 text-yellow-600 dark:text-yellow-400`} />
@@ -364,10 +275,10 @@ export default function CaseStudiesManagement() {
 								<RFlex className="items-center justify-between">
 									<div>
 										<div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
-											{caseStudies.reduce((sum: number, cs: any) => sum + cs.views, 0).toLocaleString()}
+											{caseStudies.filter((cs) => cs.status === "published").length}
 										</div>
-										<p className="text-sm font-medium text-purple-800 dark:text-purple-200">Total Views</p>
-										<p className="text-xs text-purple-600/70 dark:text-purple-400/70">All time views</p>
+										<p className="text-sm font-medium text-purple-800 dark:text-purple-200">Published</p>
+										<p className="text-xs text-purple-600/70 dark:text-purple-400/70">Live case studies</p>
 									</div>
 									<div className="flex items-center justify-center w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
 										<i className={`${myIcons.trendingUp} h-6 w-6 text-purple-600 dark:text-purple-400`} />

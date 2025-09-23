@@ -45,3 +45,20 @@ export default withAuth(
 export const config = {
   matcher: [],
 };
+
+
+
+
+
+const f1 = (x: number[]) => {
+  x.push(1);
+}
+
+
+const y = [1, 2, 3];
+
+
+f1(y);
+
+
+console.log(y);

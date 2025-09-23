@@ -95,18 +95,18 @@ async function handleResponse<T>(response: Response): Promise<T> {
  */
 function handleFetchError(error: unknown, timeout: number): never {
 	// Handle abort errors specifically
-	if (error instanceof DOMException && error.name === "AbortError") {
-		console.error("Request timed out after", timeout, "ms");
-		throw new FetchError("Request timed out. Please try again later.", null, 408);
-	}
+	// if (error instanceof DOMException && error.name === "AbortError") {
+	// 	console.error("Request timed out after", timeout, "ms");
+	// 	throw new FetchError("Request timed out. Please try again later.", null, 408);
+	// }
 
-	// Preserve FetchError instances
-	if (error instanceof FetchError) {
-		console.error(`API Error (${error.status}):`, error.message);
-		throw error;
-	}
+	// // Preserve FetchError instances
+	// if (error instanceof FetchError) {
+	// 	console.error(`API Error (${error.status}):`, error.message);
+	// 	throw error;
+	// }
 
-	// Log and wrap other errors
-	console.error("Fetch Error:", error);
-	throw new FetchError(ErrorMessages.Default, error instanceof Error ? error.message : error);
+	// // Log and wrap other errors
+	// console.error("Fetch Error:", error);
+	// throw new FetchError(ErrorMessages.Default, error instanceof Error ? error.message : error);
 }

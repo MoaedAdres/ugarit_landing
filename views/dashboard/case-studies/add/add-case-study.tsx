@@ -4,33 +4,54 @@ import { useState } from "react";
 import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
 import { myIcons } from "@/constants/icons";
-import { CaseStudyForm } from "./case-study-form";
+import { CaseStudyForm } from "../CaseStudyForm";
 import { CaseStudyPreview } from "./case-study-preview";
+import { caseStudiesRepository } from "@/api/services/dashboard/case-studies";
+import { useRouter } from "next/navigation";
+import { useMutateData } from "@/hooks/use-mutate-data";
+import { CaseStudyFormData } from "../CaseStudyForm";
 
 export default function AddCaseStudy() {
-	const [studyData, setStudyData] = useState({
-		title: "",
-		client: "",
-		industry: "",
-		challenge: "",
-		solution: "",
-		results: "",
-		duration: "",
-		teamSize: "",
-		technologies: [] as string[],
-		images: [] as string[],
-		testimonial: "",
-		testimonialAuthor: "",
-		testimonialRole: "",
+	const router = useRouter();
+	const [formData, setFormData] = useState<CaseStudyFormData>({
+		client_name: "",
+		testimonial_id: 1,
 		status: "draft",
-		featured: false,
-		publishDate: "",
+		order: 1,
+		en: {
+			sector: "",
+			problem: "",
+			solution: "",
+			body_blocks: [],
+			results_kpis: {}
+		},
+		ar: {
+			sector: "",
+			problem: "",
+			solution: "",
+			body_blocks: [],
+			results_kpis: {}
+		},
+		fr: {
+			sector: "",
+			problem: "",
+			solution: "",
+			body_blocks: [],
+			results_kpis: {}
+		}
 	});
 
-	const handleSave = (status = "draft") => {
-		const dataToSave = { ...studyData, status };
-		console.log("Saving case study:", dataToSave);
-		// Save logic would go here
+	// Add mutation using hook
+	const addMutation = useMutateData({
+		mutationFn: caseStudiesRepository.addCaseStudy,
+		onSuccessFn: () => {
+			router.push("/dashboard/case-studies");
+		},
+		displaySuccess: true
+	});
+
+	const handleSubmit = (apiFormData: FormData) => {
+		addMutation.mutate(apiFormData);
 	};
 
 	return (
@@ -39,7 +60,7 @@ export default function AddCaseStudy() {
 				<RButton
 					variant="ghost"
 					size="sm"
-					onClick={() => window.location.href = "/dashboard/case-studies"}
+					onClick={() => router.push("/dashboard/case-studies")}
 					icon={<i className={`${myIcons.arrowLeft} h-4 w-4`} />}
 					text="Back to Case Studies"
 				/>
@@ -49,37 +70,49 @@ export default function AddCaseStudy() {
 				</div>
 			</RFlex>
 
-			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-				{/* Main Content */}
+			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+				{/* Main Form */}
 				<div className="lg:col-span-2">
-					<CaseStudyForm studyData={studyData} setStudyData={setStudyData} />
+					<CaseStudyForm
+						formData={formData}
+						setFormData={setFormData}
+						onSubmit={handleSubmit}
+						isLoading={addMutation.isPending}
+						isEdit={false}
+					/>
 				</div>
 
 				{/* Sidebar */}
 				<div className="space-y-6">
-					<CaseStudyPreview studyData={studyData} />
-					
-					<RFlex className="flex-col gap-3">
+					<CaseStudyPreview formData={formData} />
+
+					<div className="space-y-3">
 						<RButton
-							onClick={() => handleSave("published")}
+							onClick={() => {
+								setFormData({ ...formData, status: "published" });
+							}}
+							disabled={addMutation.isPending}
 							className="w-full"
 							icon={<i className={`${myIcons.calendar} h-4 w-4`} />}
-							text="Publish Case Study"
+							text="Set as Published"
 						/>
 						<RButton
-							onClick={() => handleSave("draft")}
+							onClick={() => {
+								setFormData({ ...formData, status: "draft" });
+							}}
+							disabled={addMutation.isPending}
 							variant="outline"
 							className="w-full"
 							icon={<i className={`${myIcons.save} h-4 w-4`} />}
-							text="Save Draft"
+							text="Set as Draft"
 						/>
 						<RButton
 							variant="outline"
-							onClick={() => window.location.href = "/dashboard/case-studies"}
+							onClick={() => router.push("/dashboard/case-studies")}
 							className="w-full bg-transparent"
 							text="Cancel"
 						/>
-					</RFlex>
+					</div>
 				</div>
 			</div>
 		</div>

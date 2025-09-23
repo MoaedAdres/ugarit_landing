@@ -99,9 +99,9 @@ export default async function RootLayout({
 						<AuthProvider>
 							{/* <TokenRefreshHandler /> */}
 							<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-								<Header logo={headerFooter?.data?.company?.logo} navigations={headerFooter.data.menus} />
+								<Header logo={headerFooter?.data?.company?.logo} navigations={headerFooter?.data?.menus} />
 								{children}
-								<Footer services={headerFooter.data.services} company={headerFooter.data.company} />
+								<Footer services={headerFooter?.data?.services} company={headerFooter?.data?.company} />
 							</ThemeProvider>
 							<Toaster />
 						</AuthProvider>
