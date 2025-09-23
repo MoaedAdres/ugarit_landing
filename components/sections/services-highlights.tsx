@@ -46,7 +46,6 @@ const services = [
     features: ["Process Automation", "Digital Strategy", "Change Management"],
   },
 ];
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 interface ServicesHighlightsProps {
@@ -124,7 +123,6 @@ export async function ServicesHighlights({ highlights, showStats = true, showMor
                     <div className="w-full flex justify-end">
                       <Link
                         href={"/services/" + service.title}
-                        // variant="ghost"
                         className="group/btn z-50 flex justify-end text-transparent items-center gap-1 group-hover:text-secondary-foreground hover:text-secondary-foreground hover:bg-primary/10 p-0 h-auto font-semibold"
                       >
                         Learn More

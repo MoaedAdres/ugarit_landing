@@ -14,7 +14,7 @@ import { AuthProvider } from "@/providers/SessionHandler";
 import { isRTL } from "@/i18n/request";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import { HeaderFooterRepository } from "@/api/services/home/header-and-footer";
+import { HeaderFooterRepository } from "@/api/services/landing/header-and-footer";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
