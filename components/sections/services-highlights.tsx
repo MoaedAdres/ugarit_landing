@@ -1,61 +1,65 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Cloud, Settings, Shield, Code, Database, Smartphone, ArrowRight } from "lucide-react";
+import { Cloud, Settings, Shield, Code, Database, Smartphone } from "lucide-react";
 import AnimatedButton from "../animations/AnimatedButton";
 import MyImage from "../Reusable-components/MyImage";
 import LightImage from "@/public/jpgs/lights/Light.png";
 import DarkImage from "@/public/pngs/dark-mode/lights/DarkBackground.png";
 import TypewriterDescription from "../Reusable-components/TypeWriterDescription";
 // Static services data with the new styling
-const services = [
-  {
-    icon: Cloud,
-    title: "Cloud Solutions",
-    description:
-      "Migrate and optimize your infrastructure with AWS, Azure, and Google Cloud platforms for maximum scalability and cost-efficiency.",
-    features: ["Cloud Migration", "Infrastructure Optimization", "Multi-cloud Strategy"],
-  },
-  {
-    icon: Settings,
-    title: "DevOps & CI/CD",
-    description: "Streamline your development pipeline with automated testing, deployment, and monitoring solutions for faster delivery.",
-    features: ["Automated Deployment", "Container Orchestration", "Monitoring & Logging"],
-  },
-  {
-    icon: Shield,
-    title: "Cybersecurity",
-    description: "Protect your digital assets with comprehensive security solutions, compliance frameworks, and threat monitoring.",
-    features: ["Security Audits", "Compliance Management", "Threat Detection"],
-  },
-  {
-    icon: Code,
-    title: "Custom Development",
-    description: "Build scalable applications with modern technologies including microservices, APIs, and cloud-native architectures.",
-    features: ["Full-stack Development", "API Integration", "Legacy Modernization"],
-  },
-  {
-    icon: Database,
-    title: "Data Analytics",
-    description:
-      "Transform your data into actionable insights with advanced analytics, machine learning, and business intelligence solutions.",
-    features: ["Data Warehousing", "ML/AI Solutions", "Business Intelligence"],
-  },
-  {
-    icon: Smartphone,
-    title: "Digital Transformation",
-    description: "Modernize your business processes with digital solutions that improve efficiency and customer experience.",
-    features: ["Process Automation", "Digital Strategy", "Change Management"],
-  },
-];
+// const services = [
+//   {
+//     icon: Cloud,
+//     title: "Cloud Solutions",
+//     description:
+//       "Migrate and optimize your infrastructure with AWS, Azure, and Google Cloud platforms for maximum scalability and cost-efficiency.",
+//     features: ["Cloud Migration", "Infrastructure Optimization", "Multi-cloud Strategy"],
+//   },
+//   {
+//     icon: Settings,
+//     title: "DevOps & CI/CD",
+//     description: "Streamline your development pipeline with automated testing, deployment, and monitoring solutions for faster delivery.",
+//     features: ["Automated Deployment", "Container Orchestration", "Monitoring & Logging"],
+//   },
+//   {
+//     icon: Shield,
+//     title: "Cybersecurity",
+//     description: "Protect your digital assets with comprehensive security solutions, compliance frameworks, and threat monitoring.",
+//     features: ["Security Audits", "Compliance Management", "Threat Detection"],
+//   },
+//   {
+//     icon: Code,
+//     title: "Custom Development",
+//     description: "Build scalable applications with modern technologies including microservices, APIs, and cloud-native architectures.",
+//     features: ["Full-stack Development", "API Integration", "Legacy Modernization"],
+//   },
+//   {
+//     icon: Database,
+//     title: "Data Analytics",
+//     description:
+//       "Transform your data into actionable insights with advanced analytics, machine learning, and business intelligence solutions.",
+//     features: ["Data Warehousing", "ML/AI Solutions", "Business Intelligence"],
+//   },
+//   {
+//     icon: Smartphone,
+//     title: "Digital Transformation",
+//     description: "Modernize your business processes with digital solutions that improve efficiency and customer experience.",
+//     features: ["Process Automation", "Digital Strategy", "Change Management"],
+//   },
+// ];
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { IService } from "@/api/services/website/home/interfaces";
+import { myIcons } from "@/constants/icons";
+import { cn } from "@/lib/utils";
 interface ServicesHighlightsProps {
-  highlights?: any[]; // Keep for API compatibility but use static data
+  services?: IService[];
   showStats?: boolean;
   showMoreButton?: boolean;
 }
 
-export async function ServicesHighlights({ highlights, showStats = true, showMoreButton = true }: ServicesHighlightsProps) {
+export async function ServicesHighlights({ services, showStats = true, showMoreButton = true }: ServicesHighlightsProps) {
   const t = await getTranslations();
+  console.log('services', services);
   return (
     <section className="pt-8 relative">
       {showStats && (
@@ -67,7 +71,6 @@ export async function ServicesHighlights({ highlights, showStats = true, showMor
             { title: "15+", description: "Years Experience" },
           ].map((element, index) => (
             <div key={index} className="text-center flex flex-col items-center animate-fade-in-up hover:opacity-0">
-              {/* <Image className="size-16" src={element.img} alt={element.description} /> */}
               <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-900 md:mb-2">{element.title}</div>
               <div className="text-sm lg:text-base text-secondary-800">{element.description}</div>
             </div>
@@ -95,16 +98,17 @@ export async function ServicesHighlights({ highlights, showStats = true, showMor
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {services.map((service, index) => {
+          {services?.map((service, index) => {
             const Icon = service.icon;
             return (
               <Card
-                key={index}
+                key={service?.id}
                 className="cardgroup group backdrop-contrast-150 backdrop-blur-lg shadow-xl hover:shadow-glow transition-all duration-300 border-0 hover:-translate-y-2 hover:scale-110 !pb-0"
               >
                 <CardContent className="p-5">
                   <div className="flex items-center mx-auto justify-center w-16 h-16 group-hover:bg-primary ease-in-out duration-300 delay-200 rounded-xl mb-6 group-hover:scale-110 transition-all">
-                    <Icon className="h-10 w-10 text-secondary-800" />
+                    {service.icon && <MyImage fill alt={service.title} className="size-10" src={service.icon} />}
+                    {/* <Icon className="h-10 w-10 text-secondary-800" /> */}
                   </div>
 
                   <h3 className="text-2xl text-center font-bold text-secondary-800 mb-4 transition-colors">{service.title}</h3>
@@ -125,7 +129,7 @@ export async function ServicesHighlights({ highlights, showStats = true, showMor
                       className="group/btn z-50 flex justify-end text-transparent items-center gap-1 group-hover:text-secondary-foreground hover:text-secondary-foreground hover:bg-primary/10 p-0 h-auto font-semibold"
                     >
                       Learn More
-                      <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                      <i className={cn("h-4 w-4 group-hover/btn:translate-x-1 transition-transform", myIcons.arrowRight)} />
                     </Link>
                   </div>
                 </CardContent>

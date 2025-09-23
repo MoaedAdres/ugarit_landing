@@ -13,9 +13,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  experimental: {
-    serverComponentsExternalPackages: ["next-auth"],
-  },
+  serverExternalPackages: ["next-auth"],
 };
 
 export default withNextIntl(nextConfig);
