@@ -8,11 +8,7 @@ export interface CaseStudyData {
     order: number;
     logo?: string;
     images?: string[];
-    results_kpis: {
-        student_engagement: string;
-        course_completion_rate: string;
-        support_tickets_reduction: string;
-    };
+    results_kpis: Record<string, string>;
     testimonial?: {
         name: string;
         role: string;
@@ -26,11 +22,7 @@ export interface CaseStudyData {
         problem: string;
         solution: string;
         body_blocks: string[];
-        results_kpis: {
-            student_engagement: string;
-            course_completion_rate: string;
-            support_tickets_reduction: string;
-        };
+        results_kpis: Record<string, string>;
     }>;
     lastUpdated?: string;
     href?: string;

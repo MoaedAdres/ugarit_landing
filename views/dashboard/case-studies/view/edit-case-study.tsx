@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import RButton from "@/RComponents/RButton";
 import RFlex from "@/RComponents/RFlex";
 import { myIcons } from "@/constants/icons";
-import { CaseStudyForm } from "../CaseStudyForm";
+import { CaseStudyForm, CaseStudyFormData } from "../CaseStudyForm";
 import { CaseStudyPreview } from "../add/case-study-preview";
 import { caseStudiesRepository } from "@/api/services/dashboard/case-studies";
 import { useFetchData } from "@/hooks/use-fetch-data";
@@ -16,7 +16,7 @@ export default function EditCaseStudy() {
 	const router = useRouter();
 	const caseStudyId = parseInt(params.id as string);
 
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<CaseStudyFormData>({
 		client_name: "",
 		testimonial_id: 1,
 		status: "draft",
@@ -58,7 +58,7 @@ export default function EditCaseStudy() {
 			setFormData({
 				client_name: apiData.client_name,
 				testimonial_id: apiData.testimonial_id,
-				status: apiData.status,
+				status: apiData.status as "draft" | "published",
 				order: apiData.order,
 				en: {
 					sector: enTranslation?.sector || "",

@@ -6,6 +6,7 @@ import RParagraphTruncated from "@/RComponents/RParagraphTruncated";
 import { Badge } from "@/components/ui/badge";
 import { myIcons } from "@/constants/icons";
 import { CaseStudy } from "@/api/services/dashboard/case-studies/interfaces";
+import { getIconUrl } from "@/utils/helperFunctions";
 
 interface CaseStudyDetailsProps {
 	caseStudyData: CaseStudy;
@@ -125,24 +126,23 @@ export function CaseStudyDetails({ caseStudyData }: CaseStudyDetailsProps) {
 				/>
 			</div>
 
-			{/* Media Gallery */}
-			{caseStudyData.media && caseStudyData.media.length > 0 && (
+			{/* Images Gallery */}
+			{caseStudyData.images && caseStudyData.images.length > 0 && (
 				<RCard
-					title="Project Media"
+					title="Project Images"
 					cardClassName="border-0 shadow-lg"
 					contentComponent={
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-							{caseStudyData.media.map((media, index) => (
+							{caseStudyData.images.map((image, index) => (
 								<div key={index} className="relative group overflow-hidden rounded-lg border border-border">
 									<img
-										src={media.original_url}
-										alt={media.name}
+										src={getIconUrl(image.url)}
+										alt={image.name}
 										className="w-full h-48 object-cover transition-transform group-hover:scale-105"
 									/>
 									<div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
 										<div className="text-white text-center">
-											<div className="text-sm font-medium">{media.name}</div>
-											<div className="text-xs text-white/80">{media.collection_name}</div>
+											<div className="text-sm font-medium">{image.name}</div>
 										</div>
 									</div>
 								</div>
