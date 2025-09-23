@@ -11,7 +11,7 @@ import { PricingSection } from "@/components/sections/pricing-section";
 import { BlogPreviewSection } from "@/components/sections/blog-preview-section";
 import { CtaSection } from "@/components/sections/cta-section";
 import { fetchHomePage } from "@/lib/api";
-import { getCookie } from "@/api/cookie";
+import { HomeRepository } from "@/api/services/website/home";
 interface Article {
   id: number;
   title: string;
@@ -92,11 +92,15 @@ export default async function HomePage() {
       emoji: "📊"
     }
   ];
+  const getHomeData = await HomeRepository.getHomeData("1")
+  console.log('getHomeData', getHomeData.data);
   return (
     <div className="min-h-screen">
       <main>
+        {/* <HeroSection hero={homeData.hero} /> */}
         <HeroSection hero={homeData.hero} />
-        <ServicesHighlights highlights={homeData.highlights} />
+        {/* <ServicesHighlights services={homeData.highlights} /> */}
+        <ServicesHighlights services={getHomeData?.data?.services} />
         <FeaturesSection features={homeData.features} />
         <StatsSection kpis={homeData.kpis} />
         <CaseStudiesSection caseStudyIds={homeData.case_studies} />

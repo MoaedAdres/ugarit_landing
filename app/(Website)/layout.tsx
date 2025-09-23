@@ -1,22 +1,10 @@
-// import type React from "react";
-// import type { Metadata, Viewport } from "next";
-// import { Montserrat } from "next/font/google";
-// import { Open_Sans } from "next/font/google";
-// import { GeistMono } from "geist/font/mono";
-// import { Analytics } from "@vercel/analytics/next";
-// import { Suspense } from "react";
-// import { NextIntlClientProvider } from "next-intl";
+import type React from "react";
+import type { Metadata, Viewport } from "next";
 
-// import { generateMetadata as generateSEOMetadata, generateJsonLd, DEFAULT_SEO } from "@/lib/seo";
-// import "./globals.css";
-// import { Toaster } from "@/components/ui/sonner";
-// import { AuthProvider } from "@/providers/SessionHandler";
-// import { isRTL } from "@/i18n/request";
-// import { getLocale, getMessages } from "next-intl/server";
-// import { ThemeProvider } from "@/components/theme/theme-provider";
-// import { HeaderFooterRepository } from "@/api/services/landing/home/header-and-footer";
-// import { Header } from "@/components/layout/header";
-// import { Footer } from "@/components/layout/footer";
+import { generateMetadata as generateSEOMetadata, DEFAULT_SEO } from "@/lib/seo";
+import { HeaderFooterRepository } from "@/api/services/website/home/header-and-footer";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 
 // const montserrat = Montserrat({
 //     subsets: ["latin"],
@@ -32,83 +20,43 @@
 //     display: "swap",
 // });
 
-// export const metadata: Metadata = generateSEOMetadata({
-//     title: DEFAULT_SEO.defaultTitle,
-//     description: DEFAULT_SEO.defaultDescription,
-//     keywords: DEFAULT_SEO.defaultKeywords,
-//     canonicalUrl: DEFAULT_SEO.siteUrl,
-//     ogImage: DEFAULT_SEO.defaultOgImage,
-//     ogType: "website",
-// });
+export const metadata: Metadata = generateSEOMetadata({
+    title: DEFAULT_SEO.defaultTitle,
+    description: DEFAULT_SEO.defaultDescription,
+    keywords: DEFAULT_SEO.defaultKeywords,
+    canonicalUrl: DEFAULT_SEO.siteUrl,
+    ogImage: DEFAULT_SEO.defaultOgImage,
+    ogType: "website",
+});
 
-// export const viewport: Viewport = {
-//     width: "device-width",
-//     initialScale: 1,
-//     maximumScale: 5,
-//     userScalable: true,
-//     themeColor: [
-//         { media: "(prefers-color-scheme: light)", color: "hsl(255, 255%, 98%)" },
-//         { media: "(prefers-color-scheme: dark)", color: "hsl(222.2, 84%, 4.9%)" },
-//     ],
-// };
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+    themeColor: [
+        { media: "(prefers-color-scheme: light)", color: "hsl(255, 255%, 98%)" },
+        { media: "(prefers-color-scheme: dark)", color: "hsl(222.2, 84%, 4.9%)" },
+    ],
+};
 
-// export default async function WebsiteLayout({
-//     children,
-// }: {
-//     children: React.ReactNode;
-// }) {
-//     const organizationJsonLd = generateJsonLd("Organization", {});
-//     const websiteJsonLd = generateJsonLd("WebSite", {});
-//     const messages = await getMessages();
-//     const locale = await getLocale();
-//     const isRtl = isRTL(locale);
-//     const headerFooter = await HeaderFooterRepository.getHeaderAndFooter()
-//     console.log('headerFooter', headerFooter?.data);
-//     return (
-//         <html lang={locale} dir={isRtl ? "rtl" : "ltr"} suppressHydrationWarning className="scroll-smooth bg-primary-50">
-//             <head>
-//                 <link rel="preconnect" href="https://fonts.googleapis.com" />
-//                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-//                 <link
-//                     rel="stylesheet"
-//                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-//                     crossOrigin="anonymous"
-//                 />
-//                 <link rel="icon" href="/favicon.ico" sizes="any" />
-//                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-//                 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-//                 <link rel="manifest" href="/manifest.json" />
-
-//                 {/* JSON-LD Structured Data */}
-//                 <script
-//                     type="application/ld+json"
-//                     dangerouslySetInnerHTML={{
-//                         __html: JSON.stringify(organizationJsonLd),
-//                     }}
-//                 />
-//                 <script
-//                     type="application/ld+json"
-//                     dangerouslySetInnerHTML={{
-//                         __html: JSON.stringify(websiteJsonLd),
-//                     }}
-//                 />
-//             </head>
-//             <body className={`font-sans bg-background antialiased ${montserrat.variable} ${openSans.variable} ${GeistMono.variable}`}>
-//                 <NextIntlClientProvider messages={messages}>
-//                     <Suspense fallback={<div>Loading...</div>}>
-//                         <AuthProvider>
-//                             {/* <TokenRefreshHandler /> */}
-//                             <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-//                                 <Header logo={headerFooter?.data?.company?.logo} navigations={headerFooter.data.menus} />
-//                                 {children}
-//                                 <Footer navigations={headerFooter.data.menus} services={headerFooter.data.services} company={headerFooter.data.company} />
-//                             </ThemeProvider>
-//                             <Toaster />
-//                         </AuthProvider>
-//                     </Suspense>
-//                 </NextIntlClientProvider>
-//                 {/* <Analytics /> */}
-//             </body>
-//         </html>
-//     );
-// }
+export default async function WebsiteLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    // const organizationJsonLd = generateJsonLd("Organization", {});
+    // const websiteJsonLd = generateJsonLd("WebSite", {});
+    // const messages = await getMessages();
+    // const locale = await getLocale();
+    // const isRtl = isRTL(locale);
+    const headerFooter = await HeaderFooterRepository.getHeaderAndFooter()
+    // console.log('header', headerFooter?.data);
+    return (
+        <>
+            <Header logo={headerFooter?.data?.company?.logo} navigations={headerFooter?.data?.menus} />
+            {children}
+            <Footer navigations={headerFooter?.data?.menus} services={headerFooter?.data?.services} company={headerFooter?.data?.company} />
+        </>
+    );
+}

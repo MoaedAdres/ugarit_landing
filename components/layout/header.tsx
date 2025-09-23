@@ -5,10 +5,10 @@ import { LocaleSwitcher } from "../locale/locale-switcher";
 import Image from "next/image";
 import Logo from "@/public/pngs/Color logo - no background.png";
 import DarkLogo from "@/public/pngs/Color logo with background.png";
-import { IMenu } from "@/api/services/landing/home/header-and-footer/interfaces";
+import { IMenu } from "@/api/services/website/home/header-and-footer/interfaces";
 
 export function Header({ logo, navigations }: { navigations: IMenu[]; logo: string }) {
-  console.log('navigations', navigations);
+  console.log("navigations", navigations);
   return (
     <header className="fixed top-0 left-0 right-0 z-[99] backdrop-blur-lg bg-transparent transition-smooth">
       <div className="container mx-auto px-4">
@@ -26,14 +26,18 @@ export function Header({ logo, navigations }: { navigations: IMenu[]; logo: stri
           <LocaleSwitcher />
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigations?.map(navigation =>
-              <Link
-                key={navigation.id}
-                href={navigation.route}
-                className="text-foreground hover:text-primary-700 transition-smooth"
-              >
-                {navigation.name}
-              </Link>)}
+            {navigations?.map((navigation) => {
+              return (
+                <div key={navigation.id} className="relative z-10">
+                  <Link
+                    href={navigation.route}
+                    className="text-foreground hover:text-primary-700 transition-smooth inline-block"
+                  >
+                    {navigation.name}
+                  </Link>
+                </div>
+              );
+            })}
           </div>
 
           {/* CTA Button */}
@@ -48,14 +52,11 @@ export function Header({ logo, navigations }: { navigations: IMenu[]; logo: stri
         {/* Mobile Navigation */}
         <div id="mobile-menu" className="lg:hidden py-4 border-t hidden">
           <div className="flex flex-col space-y-4">
-            {navigations?.map(navigation =>
-              <Link
-                key={navigation.id}
-                href={navigation.route}
-                className="text-foreground hover:text-secondary transition-smooth"
-              >
+            {navigations?.map((navigation) => (
+              <Link key={navigation.id} href={navigation.route} className="text-foreground hover:text-secondary transition-smooth">
                 {navigation.name}
-              </Link>)}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ const MainRoute = `/home`;
 // header & footer path
 const headerFooterPath = `/header-and-footer`;
 // home path
-const homePath = "";
+const homePath = "/page";
 
 // header & footer route
 const headerFooterRoute = normalizeUrl(MainRoute, headerFooterPath);

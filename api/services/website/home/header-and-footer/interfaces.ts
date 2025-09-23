@@ -3,15 +3,10 @@ export interface IMenu {
 	name: string;
 	route: string;
 	order: number;
+	content: string;
 	menus: ISubMenu[];
 }
 interface ISubMenu extends IMenu {}
-
-interface IPressKit {
-	logo: string;
-	brochure: string;
-	media_contact: string;
-}
 interface ILocation {
 	city: string;
 	country: string;

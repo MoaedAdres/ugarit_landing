@@ -1,4 +1,4 @@
-interface IService {
+export interface IService {
 	id: number;
 	title: string;
 	description: string;
@@ -65,7 +65,7 @@ interface ITestimonial {
 	quote: string;
 }
 
-export interface IHome {
+export interface IBlogs {
 	sections: ISection[];
 	services: IService[];
 	features: IFeature[];
