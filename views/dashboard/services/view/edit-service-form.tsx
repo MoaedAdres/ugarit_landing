@@ -210,6 +210,7 @@ export const EditServiceForm = ({ service, onSuccess }: EditServiceFormProps) =>
 
 	const { mutate: updateService, isPending } = useMutateData({
 		mutationFn: (data: ServiceFormData) => servicesRepository.updateService(service.id, data),
+		invalidateKeys: [{ queryKey: ["services"] }, { queryKey: ["service", service.id] }],
 		onSuccessFn: () => {
 			toast({
 				title: "Success",
@@ -228,6 +229,7 @@ export const EditServiceForm = ({ service, onSuccess }: EditServiceFormProps) =>
 
 	const onSubmit = async (data: ServiceFormData) => {
 		const formData = new FormData();
+		formData.append("_method", "PUT");
 		formData.append("category_id", data.category_id.toString());
 		formData.append("status", data.status);
 		formData.append("order", data.order.toString());

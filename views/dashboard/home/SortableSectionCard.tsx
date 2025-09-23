@@ -54,7 +54,6 @@ export default function SortableSectionCard({
 							<div {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing p-1 hover:bg-muted rounded touch-none">
 								<i className="fas fa-grip-vertical h-4 w-4 text-muted-foreground"></i>
 							</div>
-							<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
 							<RFlex className="flex-col">
 								<h3 className="text-lg font-semibold">{title}</h3>
 								<p className="text-sm text-muted-foreground line-clamp-2 min-h-[2.5rem]">{description}</p>

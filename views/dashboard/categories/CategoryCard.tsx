@@ -37,9 +37,9 @@ export default function CategoryCard({ id, name, summary, slug, icon, href, last
 					<RFlex className="items-center justify-between mb-4">
 						<RFlex className="items-center gap-3">
 							{icon.startsWith('http') || icon.startsWith('/') ? (
-								<img src={getIconUrl(icon)} alt={`${name} icon`} className="h-5 w-5 object-contain" />
+								<img src={getIconUrl(icon)} alt={`${name} icon`} className="h-10 w-10 object-contain" />
 							) : (
-								<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
+								<i className={`${icon} h-8 w-8 text-muted-foreground`}></i>
 							)}
 							<RFlex className="flex-col">
 								<h3 className="text-lg font-semibold">{name}</h3>

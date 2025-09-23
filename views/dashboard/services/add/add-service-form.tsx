@@ -215,6 +215,7 @@ export default function AddServiceForm() {
 
 	const { mutate: addService, isPending } = useMutateData({
 		mutationFn: (data: ServiceFormData) => servicesRepository.addService(data),
+		invalidateKeys: [{ queryKey: ["services"] }],
 		onSuccessFn: () => {
 			toast({
 				title: "Success",

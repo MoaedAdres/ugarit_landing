@@ -45,5 +45,5 @@ export interface SectionFormData {
         description: string;
     };
     is_hidden: boolean;
-    order: number;
+    order: number | string;
 }

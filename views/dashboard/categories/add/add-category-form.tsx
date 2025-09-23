@@ -39,6 +39,7 @@ export default function AddCategoryForm() {
 
 	const { mutate: addCategory, isPending } = useMutateData({
 		mutationFn: (data: CategoryFormData) => categoriesRepository.addCategory(data),
+		invalidateKeys: [{ queryKey: ["categories"] }],
 		onSuccessFn: () => {
 			toast({
 				title: "Success",

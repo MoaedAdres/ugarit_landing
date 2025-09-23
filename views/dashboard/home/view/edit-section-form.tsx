@@ -47,7 +47,7 @@ export const EditSectionForm = ({ section, formData, onExitEdit }: EditSectionFo
 	});
 
 	const onSubmit = (data: SectionFormData) => {
-		updateSectionMutation(data);
+		updateSectionMutation({ ...data, order: section.order.toString() });
 	};
 
 	const handleFormChange = (data: SectionFormData) => {

@@ -48,6 +48,7 @@ export const EditCategoryForm = ({ category, onSuccess }: EditCategoryFormProps)
 
 	const { mutate: updateCategory, isPending } = useMutateData({
 		mutationFn: (data: CategoryFormData) => categoriesRepository.updateCategory(category.id, data),
+		invalidateKeys: [{ queryKey: ["categories"] }, { queryKey: ["category", category.id] }],
 		onSuccessFn: () => {
 			toast({
 				title: "Success",
@@ -66,6 +67,7 @@ export const EditCategoryForm = ({ category, onSuccess }: EditCategoryFormProps)
 
 	const onSubmit = async (data: CategoryFormData) => {
 		const formData = new FormData();
+		formData.append("_method", "PUT");
 		formData.append("slug", data.slug);
 		formData.append("en[name]", data.en.name);
 		formData.append("en[summary]", data.en.summary);

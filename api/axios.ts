@@ -1,8 +1,9 @@
+import { BASE_URL } from "@/api/config";
 import axios from "axios";
 export const online = true;
 
 const apiClient = axios.create({
-  baseURL: "http://192.168.0.72:8020",
+  baseURL: BASE_URL,
   headers: {
     "Accept-Language": localStorage.getItem("lang") ?? "en",
     "is_paginate": false

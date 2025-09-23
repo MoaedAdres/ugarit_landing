@@ -32,14 +32,7 @@ export default function SortableServiceCard({
 	onDelete,
 }: SortableServiceCardProps) {
 	const router = useRouter();
-	const {
-		attributes,
-		listeners,
-		setNodeRef,
-		transform,
-		transition,
-		isDragging,
-	} = useSortable({ id });
+	const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 
 	const style = {
 		transform: CSS.Transform.toString(transform),
@@ -62,36 +55,37 @@ export default function SortableServiceCard({
 			cardClassName="relative flex flex-col h-full"
 			contentClassName="flex flex-col h-full pb-3"
 			contentComponent={
-				<div className="flex flex-col h-full" ref={setNodeRef} style={style} {...attributes}>
+				<div className="flex flex-col h-full" ref={setNodeRef} style={style}>
 					<RFlex className="items-center justify-between mb-4">
-						<RFlex className="items-center gap-3">
-							<div className="flex items-center gap-2">
-								<div
-									{...listeners}
-									className="cursor-grab active:cursor-grabbing p-1 hover:bg-muted rounded"
-									title="Drag to reorder"
-								>
-									<i className="fas fa-grip-vertical h-4 w-4 text-muted-foreground"></i>
-								</div>
-								{icon.startsWith('http') || icon.startsWith('/') ? (
-									<img src={getIconUrl(icon)} alt={`${title} icon`} className="h-5 w-5 object-contain" />
-								) : (
-									<i className={`${icon} h-5 w-5 text-muted-foreground`}></i>
-								)}
+						<RFlex className="items-center gap-1">
+							<div
+								{...listeners}
+								{...attributes}
+								className="cursor-grab active:cursor-grabbing p-0 hover:bg-muted rounded"
+								title="Drag to reorder"
+							>
+								<i className="fas fa-grip-vertical h-4 w-4 text-muted-foreground"></i>
 							</div>
-							<RFlex className="flex-col">
-								<h3 className="text-lg font-semibold">{title}</h3>
-								<p className="text-sm text-muted-foreground line-clamp-2 min-h-[2.5rem]">{excerpt}</p>
-								<RFlex className="items-center gap-2 mt-1">
-									<Badge variant="outline" className="text-xs">
-										{category}
-									</Badge>
-									<Badge variant={status === "published" ? "default" : "secondary"} className="text-xs">
-										{status}
-									</Badge>
-									<Badge variant="outline" className="text-xs">
-										Order: {order}
-									</Badge>
+							<RFlex className="items-center gap-3">
+								{icon.startsWith("http") || icon.startsWith("/") ? (
+									<img src={getIconUrl(icon)} alt={`${title} icon`} className="h-10 w-10 object-contain" />
+								) : (
+									<i className={`${icon} h-10 w-10 text-muted-foreground`}></i>
+								)}
+								<RFlex className="flex-col">
+									<h3 className="text-lg font-semibold">{title}</h3>
+									<p className="text-sm text-muted-foreground line-clamp-2 min-h-[2.5rem]">{excerpt}</p>
+									<RFlex className="items-center gap-2 mt-1">
+										<Badge variant="outline" className="text-xs">
+											{category}
+										</Badge>
+										<Badge variant={status === "published" ? "default" : "secondary"} className="text-xs">
+											{status}
+										</Badge>
+										<Badge variant="outline" className="text-xs">
+											Order: {order}
+										</Badge>
+									</RFlex>
 								</RFlex>
 							</RFlex>
 						</RFlex>

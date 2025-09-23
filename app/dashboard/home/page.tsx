@@ -36,7 +36,8 @@ export default function HomePage() {
 
 	const { mutate: toggleSectionVisibility, isPending: isToggling } = useMutateData({
 		mutationFn: ({ sectionId, isHidden }: { sectionId: number; isHidden: boolean }) =>
-			homeRepository.toggleSectionVisibility(sectionId, isHidden),
+			homeRepository.toggleSectionVisibility(sectionId, { is_hidden: isHidden }),
+		invalidateKeys: [{ queryKey: ["sections"] }],
 		onSuccessFn: () => {
 			toast({
 				title: "Success",
